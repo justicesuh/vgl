@@ -318,10 +318,6 @@ pub fn glfw_create_window(width int, height int, title string, monitor i64, shar
 	return C.glfwCreateWindow(width, height, title.str, monitor, share)
 }
 
-//pub fn glfw_create_window(width int, height int, title voidptr, monitor i64, share i64) i64 {
-//	return C.glfwCreateWindow(width, height, title, monitor, share)
-//}
-
 pub fn glfw_default_window_hints() {
 	C.glfwDefaultWindowHints()
 }
@@ -342,8 +338,9 @@ pub fn glfw_focus_window(window i64) {
 	C.glfwFocusWindow(window)
 }
 
-pub fn glfw_get_clipboard_string(window i64) byteptr {
-	return C.glfwGetClipboardString(window)
+pub fn glfw_get_clipboard_string(window i64) string {
+	ret := C.glfwGetClipboardString(window)
+	return tos(ret, strlen(ret))
 }
 
 pub fn glfw_get_current_context() i64 {
@@ -370,8 +367,9 @@ pub fn glfw_get_framebuffer_size(window i64, width voidptr, height voidptr) {
 	C.glfwGetFramebufferSize(window, width, height)
 }
 
-pub fn glfw_get_gamepad_name(jid int) byteptr {
-	return C.glfwGetGamepadName(jid)
+pub fn glfw_get_gamepad_name(jid int) string {
+	ret := C.glfwGetGamepadName(jid)
+	return tos(ret, strlen(ret))
 }
 
 pub fn glfw_get_gamepad_state(jid int, state voidptr) bool {
@@ -398,8 +396,9 @@ pub fn glfw_get_joystick_buttons(jid int) voidptr {
 	return C.glfwGetJoystickButtons(jid, &count)
 }
 
-pub fn glfw_get_joystick_guid(jid int) byteptr {
-	return C.glfwGetJoystickGUID(jid)
+pub fn glfw_get_joystick_guid(jid int) string {
+	ret := C.glfwGetJoystickGUID(jid)
+	return tos(ret, strlen(ret))
 }
 
 pub fn glfw_get_joystick_hats(jid int) voidptr {
@@ -408,8 +407,9 @@ pub fn glfw_get_joystick_hats(jid int) voidptr {
 	return C.glfwGetJoystickHats(jid, &count)
 }
 
-pub fn glfw_get_joystick_name(jid int) byteptr {
-	return C.glfwGetJoystickName(jid)
+pub fn glfw_get_joystick_name(jid int) string {
+	ret := C.glfwGetJoystickName(jid)
+	return tos(ret, strlen(ret))
 }
 
 pub fn glfw_get_joystick_user_pointer(jid int) i64 {
@@ -420,8 +420,9 @@ pub fn glfw_get_key(window i64, key int) int {
 	return C.glfwGetKey(window, key)
 }
 
-pub fn glfw_get_key_name(key int, scancode int) byteptr {
-	return C.glfwGetKeyName(key, scancode)
+pub fn glfw_get_key_name(key int, scancode int) string {
+	ret := C.glfwGetKeyName(key, scancode)
+	return tos(ret, strlen(ret))
 }
 
 pub fn glfw_get_key_scancode(key int) int {
@@ -436,8 +437,9 @@ pub fn glfw_get_monitor_content_scale(monitor i64, xscale voidptr, yscale voidpt
 	C.glfwGetMonitorContentScale(monitor, xscale, yscale)
 }
 
-pub fn glfw_get_monitor_name(monitor i64) byteptr {
-	return C.glfwGetMonitorName(monitor)
+pub fn glfw_get_monitor_name(monitor i64) string {
+	ret := C.glfwGetMonitorName(monitor)
+	return tos(ret, strlen(ret))
 }
 
 //pub fn glfw_get_monitor_physical_size(monitor i64, width_mm []int, height_mm []int) {
@@ -498,8 +500,9 @@ pub fn glfw_get_version(major voidptr, minor voidptr, rev voidptr) {
 	C.glfwGetVersion(major, minor, rev)
 }
 
-pub fn glfw_get_version_string() byteptr {
-	return C.glfwGetVersionString()
+pub fn glfw_get_version_string() string {
+	ret := C.glfwGetVersionString()
+	return tos(ret, strlen(ret))
 }
 
 pub fn glfw_get_video_mode(monitor i64) voidptr {
@@ -616,8 +619,8 @@ pub fn glfw_set_char_mods_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetCharModsCallback(window, cbfun)
 }
 
-pub fn glfw_set_clipboard_string(window i64, string voidptr) {
-	C.glfwSetClipboardString(window, string)
+pub fn glfw_set_clipboard_string(window i64, str string) {
+	C.glfwSetClipboardString(window, str.str)
 }
 
 pub fn glfw_set_cursor(window i64, cursor i64) {
