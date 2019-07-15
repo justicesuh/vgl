@@ -4,11 +4,18 @@ import requests
 from bs4 import BeautifulSoup
 
 
+def exists(path):
+    return os.path.exists(path)
+
+
+def mkdir(path):
+    os.makedirs(path)
+
 def download_doc():
-    if os.path.exists('doc'):
+    if exists('doc'):
         return
     else:
-        os.mkdir('doc')
+        mkdir('doc')
 
     url = 'https://javadoc.lwjgl.org/org/lwjgl/opengl/'
     opengl = requests.get('{}package-summary.html'.format(url))
@@ -26,7 +33,7 @@ def download_doc():
 
 def parse_doc(c):
     path = 'json/{}.json'.format(c)
-    if os.path.exists(path):
+    if exists(path):
         with open(path, 'r') as f:
             data = json.load(f)
             return data
@@ -59,11 +66,26 @@ def parse_doc(c):
                 'return': codes[0].text.replace('static', '').strip()
             })
 
-    if not os.path.exists('json'):
-        os.mkdir('json')
+    if not exists('json'):
+        mkdir('json')
     with open(path, 'w') as f:
         json.dump(data, f, indent=4)
     return data
+
+
+def generate(c, data):
+    path = 'vgl/{}'.format(c)
+    if not exists(path):
+        mkdir(path)
+
+    with open('{}/{}.v'.format(path, c), 'w') as f:
+        f.write('module {}\n\n'.format(c))
+
+        f.write('import const (\n')
+        for field in data['fields']:
+            f.write('\t{}\n'.format(field['name']))
+        f.write(')\n')
+
 
 if __name__ == '__main__':
     classes = [
@@ -71,7 +93,6 @@ if __name__ == '__main__':
     ]
 
     download_doc()
-
     for c in classes:
         data = parse_doc(c)
-        print(data)
+        generate(c, data)
