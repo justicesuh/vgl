@@ -1,13 +1,14 @@
+import json
 import os
 import requests
 from bs4 import BeautifulSoup
 
 
-def download_doc(path):
-    if os.path.exists(path):
+def download_doc():
+    if os.path.exists('doc'):
         return
     else:
-        os.mkdir(path)
+        os.mkdir('doc')
 
     url = 'https://javadoc.lwjgl.org/org/lwjgl/opengl/'
     opengl = requests.get('{}package-summary.html'.format(url))
@@ -23,12 +24,18 @@ def download_doc(path):
             f.write(requests.get(href).content)
 
 
-def parse_doc(doc):
+def parse_doc(c):
+    path = 'json/{}.json'.format(c)
+    if os.path.exists(path):
+        with open(path, 'r') as f:
+            data = json.load(f)
+            return data
+
     data = {
         'fields': [],
         'methods': []
     }
-    with open(doc, 'rb') as f:
+    with open('doc/{}.html'.format(c), 'rb') as f:
         soup = BeautifulSoup(f.read(), 'html.parser')
         tables = soup.find_all('table', {'class': 'memberSummary'})
 
@@ -52,16 +59,19 @@ def parse_doc(doc):
                 'return': codes[0].text.replace('static', '').strip()
             })
 
+    if not os.path.exists('json'):
+        os.mkdir('json')
+    with open(path, 'w') as f:
+        json.dump(data, f, indent=4)
     return data
 
 if __name__ == '__main__':
-    path = 'doc'
     classes = [
         'GL11'
     ]
 
-    download_doc(path)
+    download_doc()
 
     for c in classes:
-        data = parse_doc('{}/{}.html'.format(path, c))
+        data = parse_doc(c)
         print(data)
