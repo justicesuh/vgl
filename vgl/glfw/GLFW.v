@@ -302,10 +302,6 @@ import const (
 	GLFW_X11_INSTANCE_NAME
 )
 
-//pub fn get_library() voidptr {
-//	return C.getLibrary()
-//}
-
 pub fn glfw_create_cursor(image voidptr, xhot int, yhot int) i64 {
 	return C.glfwCreateCursor(image, xhot, yhot)
 }
@@ -376,15 +372,11 @@ pub fn glfw_get_input_mode(window i64, mode int) int {
 	return C.glfwGetInputMode(window, mode)
 }
 
-pub fn glfw_get_joystick_axes(jid int) voidptr {
-	count := 0
-
+pub fn glfw_get_joystick_axes(jid int, count *int) voidptr {
 	return C.glfwGetJoystickAxes(jid, &count)
 }
 
-pub fn glfw_get_joystick_buttons(jid int) voidptr {
-	count := 0
-
+pub fn glfw_get_joystick_buttons(jid int, count *int) voidptr {
 	return C.glfwGetJoystickButtons(jid, &count)
 }
 
@@ -393,9 +385,7 @@ pub fn glfw_get_joystick_guid(jid int) string {
 	return tos(ret, strlen(ret))
 }
 
-pub fn glfw_get_joystick_hats(jid int) voidptr {
-	count := 0
-
+pub fn glfw_get_joystick_hats(jid int, count *int) voidptr {
 	return C.glfwGetJoystickHats(jid, &count)
 }
 
@@ -438,9 +428,7 @@ pub fn glfw_get_monitor_pos(monitor i64, xpos *int, ypos *int) {
 	C.glfwGetMonitorPos(monitor, &xpos, &ypos)
 }
 
-pub fn glfw_get_monitors() *voidptr {
-	count := 0
-
+pub fn glfw_get_monitors(count *int) *voidptr {
 	return C.glfwGetMonitors(&count)
 }
 
@@ -485,9 +473,7 @@ pub fn glfw_get_video_mode(monitor i64) voidptr {
 	return C.glfwGetVideoMode(monitor)
 }
 
-pub fn glfw_get_video_modes(monitor i64) voidptr {
-	count := 0
-
+pub fn glfw_get_video_modes(monitor i64, count *int) voidptr {
 	return C.glfwGetVideoModes(monitor, &count)
 }
 
@@ -675,10 +661,7 @@ pub fn glfw_set_window_focus_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetWindowFocusCallback(window, cbfun)
 }
 
-pub fn glfw_set_window_icon(window i64, images voidptr) {
-	// TODO: should be length of images
-	count := 0
-
+pub fn glfw_set_window_icon(window i64, count int, images voidptr) {
 	C.glfwSetWindowIcon(window, count, images)
 }
 
