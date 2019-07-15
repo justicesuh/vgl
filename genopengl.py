@@ -121,6 +121,13 @@ def generate(c, data):
             f.write(ret)
             f.write(' {\n')
 
+            f.write('\tC.{}('.format(method['name']))
+            c_sig = []
+            for p in parameters:
+                c_sig.append(p[1])
+            f.write(', '.join(c_sig))
+            f.write(')\n')
+
             f.write('}\n')
 
 
