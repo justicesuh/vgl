@@ -86,6 +86,11 @@ def generate(c, data):
             f.write('\t{}\n'.format(field['name']))
         f.write(')\n')
 
+        for method in data['methods']:
+            f.write('\npub fn {}('.format(method['name']))
+            f.write('{}) {} {{\n'.format(method['parameters'], method['return']))
+            f.write('}\n')
+
 
 if __name__ == '__main__':
     classes = [
