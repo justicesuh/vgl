@@ -1,7 +1,11 @@
 import json
 import os
+import re
 import requests
 from bs4 import BeautifulSoup
+
+
+snake = re.compile('((?<=[a-z0-9])[A-Z]|(?!^)[A-Z](?=[a-z]))')
 
 
 def exists(path):
@@ -10,6 +14,11 @@ def exists(path):
 
 def mkdir(path):
     os.makedirs(path)
+
+
+def snake_case(name):
+    return snake.sub(r'_\1', name).lower()
+
 
 def download_doc():
     if exists('doc'):
@@ -87,7 +96,8 @@ def generate(c, data):
         f.write(')\n')
 
         for method in data['methods']:
-            f.write('\npub fn {}('.format(method['name']))
+            v_name = snake_case(method['name'])
+            f.write('\npub fn {}('.format(v_name))
             f.write('{}) {} {{\n'.format(method['parameters'], method['return']))
             f.write('}\n')
 
