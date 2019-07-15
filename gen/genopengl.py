@@ -116,7 +116,7 @@ def parse_doc(c):
 
 
 def generate(c, data):
-    path = 'vgl/{}'.format(c)
+    path = '../vgl/{}'.format(c)
     if not exists(path):
         mkdir(path)
 
