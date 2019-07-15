@@ -97,8 +97,30 @@ def generate(c, data):
 
         for method in data['methods']:
             v_name = snake_case(method['name'])
+            if v_name[-1] == 'd' and v_name[-2] == '_':
+                v_name = v_name[:-2] + 'd'
+
+            if len(method['parameters']) == 0:
+                parameters = []
+            else:
+                parameters = [[p[0], snake_case(p[1])] for p in [n.strip().split(' ') for n in method['parameters'].split(',')]]
+
+            ret = method['return']
+            if ret == 'void':
+                ret = ''
+
             f.write('\npub fn {}('.format(v_name))
-            f.write('{}) {} {{\n'.format(method['parameters'], method['return']))
+            v_sig = []
+            for p in parameters:
+                v_sig.append('{} {}'.format(p[1], p[0]))
+            f.write(', '.join(v_sig))
+            f.write(')')
+
+            if ret:
+                f.write(' ')
+            f.write(ret)
+            f.write(' {\n')
+
             f.write('}\n')
 
 
