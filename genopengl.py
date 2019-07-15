@@ -2,10 +2,38 @@ import json
 import os
 import re
 import requests
+import sys
 from bs4 import BeautifulSoup
 
 
+classes = [
+    'GL11'
+]
+
 snake = re.compile('((?<=[a-z0-9])[A-Z]|(?!^)[A-Z](?=[a-z]))')
+
+v_type_map = {
+    'byte': 'byte',
+    'short': 'i16',
+    'int': 'int',
+    'long': 'i64',
+    'float': 'f32',
+    'double': 'f64',
+    'boolean': 'bool',
+    'short[]': '[]i16',
+    'int[]': '[]int',
+    'long[]': '[]i64',
+    'float[]': '[]f32',
+    'double[]': '[]f64',
+    'boolean[]': '[]bool',
+    'java.nio.ByteBuffer': 'voidptr',
+    'java.nio.ShortBuffer': 'voidptr',
+    'java.nio.IntBuffer': 'voidptr',
+    'java.nio.DoubleBuffer': 'voidptr',
+    'java.nio.FloatBuffer': 'voidptr',
+    'java.lang.String': 'string',
+    'PointerBuffer': '*voidptr'
+}
 
 
 def exists(path):
@@ -18,6 +46,11 @@ def mkdir(path):
 
 def snake_case(name):
     return snake.sub(r'_\1', name).lower()
+
+
+def exit(msg):
+    print(msg)
+    sys.exit(0)
 
 
 def download_doc():
@@ -112,13 +145,18 @@ def generate(c, data):
             f.write('\npub fn {}('.format(v_name))
             v_sig = []
             for p in parameters:
+                if p[0] not in v_type_map:
+                    exit('{} type conversion does not exist'.format(p[0]))
                 v_sig.append('{} {}'.format(p[1], p[0]))
             f.write(', '.join(v_sig))
             f.write(')')
 
             if ret:
                 f.write(' ')
-            f.write(ret)
+                if ret not in v_type_map:
+                    exit('{} type conversion does not exist'.format(ret))
+                vret = v_type_map[ret]
+                f.write(vret)
             f.write(' {\n')
 
             f.write('\tC.{}('.format(method['name']))
@@ -132,10 +170,6 @@ def generate(c, data):
 
 
 if __name__ == '__main__':
-    classes = [
-        'GL11'
-    ]
-
     download_doc()
     for c in classes:
         data = parse_doc(c)
