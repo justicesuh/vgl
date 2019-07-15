@@ -1,4 +1,12 @@
-module GLFW
+module glfw
+
+#flag -I @VROOT/thirdparty/glfw 
+#flag -L @VROOT/thirdparty/glfw 
+#flag darwin -lglfw
+#flag linux -lglfw
+#flag windows -lglfw3 
+
+#include <GLFW/glfw3.h>
 
 import const (
 	GLFW_ACCUM_ALPHA_BITS
@@ -294,9 +302,9 @@ import const (
 	GLFW_X11_INSTANCE_NAME
 )
 
-pub fn get_library() voidptr {
-	return C.getLibrary()
-}
+//pub fn get_library() voidptr {
+//	return C.getLibrary()
+//}
 
 pub fn glfw_create_cursor(image voidptr, xhot int, yhot int) i64 {
 	return C.glfwCreateCursor(image, xhot, yhot)
@@ -306,13 +314,13 @@ pub fn glfw_create_standard_cursor(shape int) i64 {
 	return C.glfwCreateStandardCursor(shape)
 }
 
-pub fn glfw_create_window(width int, height int, title voidptr, monitor i64, share i64) i64 {
-	return C.glfwCreateWindow(width, height, title, monitor, share)
+pub fn glfw_create_window(width int, height int, title string, monitor i64, share i64) i64 {
+	return C.glfwCreateWindow(width, height, title.str, monitor, share)
 }
 
-pub fn glfw_create_window(width int, height int, title voidptr, monitor i64, share i64) i64 {
-	return C.glfwCreateWindow(width, height, title, monitor, share)
-}
+//pub fn glfw_create_window(width int, height int, title voidptr, monitor i64, share i64) i64 {
+//	return C.glfwCreateWindow(width, height, title, monitor, share)
+//}
 
 pub fn glfw_default_window_hints() {
 	C.glfwDefaultWindowHints()
@@ -330,15 +338,11 @@ pub fn glfw_extension_supported(extension voidptr) bool {
 	return C.glfwExtensionSupported(extension)
 }
 
-pub fn glfw_extension_supported(extension voidptr) bool {
-	return C.glfwExtensionSupported(extension)
-}
-
 pub fn glfw_focus_window(window i64) {
 	C.glfwFocusWindow(window)
 }
 
-pub fn glfw_get_clipboard_string(window i64) string {
+pub fn glfw_get_clipboard_string(window i64) byteptr {
 	return C.glfwGetClipboardString(window)
 }
 
@@ -346,9 +350,9 @@ pub fn glfw_get_current_context() i64 {
 	return C.glfwGetCurrentContext()
 }
 
-pub fn glfw_get_cursor_pos(window i64, xpos []f64, ypos []f64) {
-	C.glfwGetCursorPos(window, xpos, ypos)
-}
+//pub fn glfw_get_cursor_pos(window i64, xpos []f64, ypos []f64) {
+//	C.glfwGetCursorPos(window, xpos, ypos)
+//}
 
 pub fn glfw_get_cursor_pos(window i64, xpos voidptr, ypos voidptr) {
 	C.glfwGetCursorPos(window, xpos, ypos)
@@ -358,15 +362,15 @@ pub fn glfw_get_error(description *voidptr) int {
 	return C.glfwGetError(description)
 }
 
-pub fn glfw_get_framebuffer_size(window i64, width []int, height []int) {
-	C.glfwGetFramebufferSize(window, width, height)
-}
+//pub fn glfw_get_framebuffer_size(window i64, width []int, height []int) {
+//	C.glfwGetFramebufferSize(window, width, height)
+//}
 
 pub fn glfw_get_framebuffer_size(window i64, width voidptr, height voidptr) {
 	C.glfwGetFramebufferSize(window, width, height)
 }
 
-pub fn glfw_get_gamepad_name(jid int) string {
+pub fn glfw_get_gamepad_name(jid int) byteptr {
 	return C.glfwGetGamepadName(jid)
 }
 
@@ -383,22 +387,28 @@ pub fn glfw_get_input_mode(window i64, mode int) int {
 }
 
 pub fn glfw_get_joystick_axes(jid int) voidptr {
-	return C.glfwGetJoystickAxes(jid)
+	count := 0
+
+	return C.glfwGetJoystickAxes(jid, &count)
 }
 
 pub fn glfw_get_joystick_buttons(jid int) voidptr {
-	return C.glfwGetJoystickButtons(jid)
+	count := 0
+
+	return C.glfwGetJoystickButtons(jid, &count)
 }
 
-pub fn glfw_get_joystick_guid(jid int) string {
+pub fn glfw_get_joystick_guid(jid int) byteptr {
 	return C.glfwGetJoystickGUID(jid)
 }
 
 pub fn glfw_get_joystick_hats(jid int) voidptr {
-	return C.glfwGetJoystickHats(jid)
+	count := 0
+
+	return C.glfwGetJoystickHats(jid, &count)
 }
 
-pub fn glfw_get_joystick_name(jid int) string {
+pub fn glfw_get_joystick_name(jid int) byteptr {
 	return C.glfwGetJoystickName(jid)
 }
 
@@ -410,7 +420,7 @@ pub fn glfw_get_key(window i64, key int) int {
 	return C.glfwGetKey(window, key)
 }
 
-pub fn glfw_get_key_name(key int, scancode int) string {
+pub fn glfw_get_key_name(key int, scancode int) byteptr {
 	return C.glfwGetKeyName(key, scancode)
 }
 
@@ -418,36 +428,38 @@ pub fn glfw_get_key_scancode(key int) int {
 	return C.glfwGetKeyScancode(key)
 }
 
-pub fn glfw_get_monitor_content_scale(monitor i64, xscale []f32, yscale []f32) {
-	C.glfwGetMonitorContentScale(monitor, xscale, yscale)
-}
+//pub fn glfw_get_monitor_content_scale(monitor i64, xscale []f32, yscale []f32) {
+//	C.glfwGetMonitorContentScale(monitor, xscale, yscale)
+//}
 
 pub fn glfw_get_monitor_content_scale(monitor i64, xscale voidptr, yscale voidptr) {
 	C.glfwGetMonitorContentScale(monitor, xscale, yscale)
 }
 
-pub fn glfw_get_monitor_name(monitor i64) string {
+pub fn glfw_get_monitor_name(monitor i64) byteptr {
 	return C.glfwGetMonitorName(monitor)
 }
 
-pub fn glfw_get_monitor_physical_size(monitor i64, width_mm []int, height_mm []int) {
-	C.glfwGetMonitorPhysicalSize(monitor, width_mm, height_mm)
-}
+//pub fn glfw_get_monitor_physical_size(monitor i64, width_mm []int, height_mm []int) {
+//	C.glfwGetMonitorPhysicalSize(monitor, width_mm, height_mm)
+//}
 
 pub fn glfw_get_monitor_physical_size(monitor i64, width_mm voidptr, height_mm voidptr) {
 	C.glfwGetMonitorPhysicalSize(monitor, width_mm, height_mm)
 }
 
-pub fn glfw_get_monitor_pos(monitor i64, xpos []int, ypos []int) {
-	C.glfwGetMonitorPos(monitor, xpos, ypos)
-}
+//pub fn glfw_get_monitor_pos(monitor i64, xpos []int, ypos []int) {
+//	C.glfwGetMonitorPos(monitor, xpos, ypos)
+// }
 
 pub fn glfw_get_monitor_pos(monitor i64, xpos voidptr, ypos voidptr) {
 	C.glfwGetMonitorPos(monitor, xpos, ypos)
 }
 
 pub fn glfw_get_monitors() *voidptr {
-	return C.glfwGetMonitors()
+	count := 0
+
+	return C.glfwGetMonitors(&count)
 }
 
 pub fn glfw_get_monitor_user_pointer(monitor i64) i64 {
@@ -466,10 +478,6 @@ pub fn glfw_get_proc_address(procname voidptr) i64 {
 	return C.glfwGetProcAddress(procname)
 }
 
-pub fn glfw_get_proc_address(procname voidptr) i64 {
-	return C.glfwGetProcAddress(procname)
-}
-
 pub fn glfw_get_time() f64 {
 	return C.glfwGetTime()
 }
@@ -482,15 +490,15 @@ pub fn glfw_get_timer_value() i64 {
 	return C.glfwGetTimerValue()
 }
 
-pub fn glfw_get_version(major []int, minor []int, rev []int) {
-	C.glfwGetVersion(major, minor, rev)
-}
+//pub fn glfw_get_version(major []int, minor []int, rev []int) {
+//	C.glfwGetVersion(major, minor, rev)
+//}
 
 pub fn glfw_get_version(major voidptr, minor voidptr, rev voidptr) {
 	C.glfwGetVersion(major, minor, rev)
 }
 
-pub fn glfw_get_version_string() string {
+pub fn glfw_get_version_string() byteptr {
 	return C.glfwGetVersionString()
 }
 
@@ -499,24 +507,26 @@ pub fn glfw_get_video_mode(monitor i64) voidptr {
 }
 
 pub fn glfw_get_video_modes(monitor i64) voidptr {
-	return C.glfwGetVideoModes(monitor)
+	count := 0
+
+	return C.glfwGetVideoModes(monitor, &count)
 }
 
 pub fn glfw_get_window_attrib(window i64, attrib int) int {
 	return C.glfwGetWindowAttrib(window, attrib)
 }
 
-pub fn glfw_get_window_content_scale(window i64, xscale []f32, yscale []f32) {
-	C.glfwGetWindowContentScale(window, xscale, yscale)
-}
+//pub fn glfw_get_window_content_scale(window i64, xscale []f32, yscale []f32) {
+//	C.glfwGetWindowContentScale(window, xscale, yscale)
+//}
 
 pub fn glfw_get_window_content_scale(window i64, xscale voidptr, yscale voidptr) {
 	C.glfwGetWindowContentScale(window, xscale, yscale)
 }
 
-pub fn glfw_get_window_frame_size(window i64, left []int, top []int, right []int, bottom []int) {
-	C.glfwGetWindowFrameSize(window, left, top, right, bottom)
-}
+//pub fn glfw_get_window_frame_size(window i64, left []int, top []int, right []int, bottom []int) {
+//	C.glfwGetWindowFrameSize(window, left, top, right, bottom)
+//}
 
 pub fn glfw_get_window_frame_size(window i64, left voidptr, top voidptr, right voidptr, bottom voidptr) {
 	C.glfwGetWindowFrameSize(window, left, top, right, bottom)
@@ -530,17 +540,17 @@ pub fn glfw_get_window_opacity(window i64) f32 {
 	return C.glfwGetWindowOpacity(window)
 }
 
-pub fn glfw_get_window_pos(window i64, xpos []int, ypos []int) {
-	C.glfwGetWindowPos(window, xpos, ypos)
-}
+//pub fn glfw_get_window_pos(window i64, xpos []int, ypos []int) {
+//	C.glfwGetWindowPos(window, xpos, ypos)
+//}
 
 pub fn glfw_get_window_pos(window i64, xpos voidptr, ypos voidptr) {
 	C.glfwGetWindowPos(window, xpos, ypos)
 }
 
-pub fn glfw_get_window_size(window i64, width []int, height []int) {
-	C.glfwGetWindowSize(window, width, height)
-}
+//pub fn glfw_get_window_size(window i64, width []int, height []int) {
+//	C.glfwGetWindowSize(window, width, height)
+//}
 
 pub fn glfw_get_window_size(window i64, width voidptr, height voidptr) {
 	C.glfwGetWindowSize(window, width, height)
@@ -604,10 +614,6 @@ pub fn glfw_set_char_callback(window i64, cbfun voidptr) voidptr {
 
 pub fn glfw_set_char_mods_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetCharModsCallback(window, cbfun)
-}
-
-pub fn glfw_set_clipboard_string(window i64, string voidptr) {
-	C.glfwSetClipboardString(window, string)
 }
 
 pub fn glfw_set_clipboard_string(window i64, string voidptr) {
@@ -707,7 +713,10 @@ pub fn glfw_set_window_focus_callback(window i64, cbfun voidptr) voidptr {
 }
 
 pub fn glfw_set_window_icon(window i64, images voidptr) {
-	C.glfwSetWindowIcon(window, images)
+	// TODO: should be length of images
+	count := 0
+
+	C.glfwSetWindowIcon(window, count, images)
 }
 
 pub fn glfw_set_window_iconify_callback(window i64, cbfun voidptr) voidptr {
@@ -758,10 +767,6 @@ pub fn glfw_set_window_title(window i64, title voidptr) {
 	C.glfwSetWindowTitle(window, title)
 }
 
-pub fn glfw_set_window_title(window i64, title voidptr) {
-	C.glfwSetWindowTitle(window, title)
-}
-
 pub fn glfw_set_window_user_pointer(window i64, pointer i64) {
 	C.glfwSetWindowUserPointer(window, pointer)
 }
@@ -786,10 +791,6 @@ pub fn glfw_update_gamepad_mappings(string voidptr) bool {
 	return C.glfwUpdateGamepadMappings(string)
 }
 
-pub fn glfw_update_gamepad_mappings(string voidptr) bool {
-	return C.glfwUpdateGamepadMappings(string)
-}
-
 pub fn glfw_wait_events() {
 	C.glfwWaitEvents()
 }
@@ -806,234 +807,6 @@ pub fn glfw_window_hint_string(hint int, value voidptr) {
 	C.glfwWindowHintString(hint, value)
 }
 
-pub fn glfw_window_hint_string(hint int, value voidptr) {
-	C.glfwWindowHintString(hint, value)
-}
-
 pub fn glfw_window_should_close(window i64) bool {
 	return C.glfwWindowShouldClose(window)
-}
-
-pub fn nglfw_create_cursor(image i64, xhot int, yhot int) i64 {
-	return C.nglfwCreateCursor(image, xhot, yhot)
-}
-
-pub fn nglfw_create_window(width int, height int, title i64, monitor i64, share i64) i64 {
-	return C.nglfwCreateWindow(width, height, title, monitor, share)
-}
-
-pub fn nglfw_extension_supported(extension i64) int {
-	return C.nglfwExtensionSupported(extension)
-}
-
-pub fn nglfw_get_clipboard_string(window i64) i64 {
-	return C.nglfwGetClipboardString(window)
-}
-
-pub fn nglfw_get_cursor_pos(window i64, xpos i64, ypos i64) {
-	C.nglfwGetCursorPos(window, xpos, ypos)
-}
-
-pub fn nglfw_get_error(description i64) int {
-	return C.nglfwGetError(description)
-}
-
-pub fn nglfw_get_framebuffer_size(window i64, width i64, height i64) {
-	C.nglfwGetFramebufferSize(window, width, height)
-}
-
-pub fn nglfw_get_gamepad_name(jid int) i64 {
-	return C.nglfwGetGamepadName(jid)
-}
-
-pub fn nglfw_get_gamepad_state(jid int, state i64) int {
-	return C.nglfwGetGamepadState(jid, state)
-}
-
-pub fn nglfw_get_gamma_ramp(monitor i64) i64 {
-	return C.nglfwGetGammaRamp(monitor)
-}
-
-pub fn nglfw_get_joystick_axes(jid int, count i64) i64 {
-	return C.nglfwGetJoystickAxes(jid, count)
-}
-
-pub fn nglfw_get_joystick_buttons(jid int, count i64) i64 {
-	return C.nglfwGetJoystickButtons(jid, count)
-}
-
-pub fn nglfw_get_joystick_guid(jid int) i64 {
-	return C.nglfwGetJoystickGUID(jid)
-}
-
-pub fn nglfw_get_joystick_hats(jid int, count i64) i64 {
-	return C.nglfwGetJoystickHats(jid, count)
-}
-
-pub fn nglfw_get_joystick_name(jid int) i64 {
-	return C.nglfwGetJoystickName(jid)
-}
-
-pub fn nglfw_get_key_name(key int, scancode int) i64 {
-	return C.nglfwGetKeyName(key, scancode)
-}
-
-pub fn nglfw_get_monitor_content_scale(monitor i64, xscale i64, yscale i64) {
-	C.nglfwGetMonitorContentScale(monitor, xscale, yscale)
-}
-
-pub fn nglfw_get_monitor_name(monitor i64) i64 {
-	return C.nglfwGetMonitorName(monitor)
-}
-
-pub fn nglfw_get_monitor_physical_size(monitor i64, width_mm i64, height_mm i64) {
-	C.nglfwGetMonitorPhysicalSize(monitor, width_mm, height_mm)
-}
-
-pub fn nglfw_get_monitor_pos(monitor i64, xpos i64, ypos i64) {
-	C.nglfwGetMonitorPos(monitor, xpos, ypos)
-}
-
-pub fn nglfw_get_monitors(count i64) i64 {
-	return C.nglfwGetMonitors(count)
-}
-
-pub fn nglfw_get_proc_address(procname i64) i64 {
-	return C.nglfwGetProcAddress(procname)
-}
-
-pub fn nglfw_get_version(major i64, minor i64, rev i64) {
-	C.nglfwGetVersion(major, minor, rev)
-}
-
-pub fn nglfw_get_version_string() i64 {
-	return C.nglfwGetVersionString()
-}
-
-pub fn nglfw_get_video_mode(monitor i64) i64 {
-	return C.nglfwGetVideoMode(monitor)
-}
-
-pub fn nglfw_get_video_modes(monitor i64, count i64) i64 {
-	return C.nglfwGetVideoModes(monitor, count)
-}
-
-pub fn nglfw_get_window_content_scale(window i64, xscale i64, yscale i64) {
-	C.nglfwGetWindowContentScale(window, xscale, yscale)
-}
-
-pub fn nglfw_get_window_frame_size(window i64, left i64, top i64, right i64, bottom i64) {
-	C.nglfwGetWindowFrameSize(window, left, top, right, bottom)
-}
-
-pub fn nglfw_get_window_pos(window i64, xpos i64, ypos i64) {
-	C.nglfwGetWindowPos(window, xpos, ypos)
-}
-
-pub fn nglfw_get_window_size(window i64, width i64, height i64) {
-	C.nglfwGetWindowSize(window, width, height)
-}
-
-pub fn nglfw_set_char_callback(window i64, cbfun i64) i64 {
-	return C.nglfwSetCharCallback(window, cbfun)
-}
-
-pub fn nglfw_set_char_mods_callback(window i64, cbfun i64) i64 {
-	return C.nglfwSetCharModsCallback(window, cbfun)
-}
-
-pub fn nglfw_set_clipboard_string(window i64, string i64) {
-	C.nglfwSetClipboardString(window, string)
-}
-
-pub fn nglfw_set_cursor_enter_callback(window i64, cbfun i64) i64 {
-	return C.nglfwSetCursorEnterCallback(window, cbfun)
-}
-
-pub fn nglfw_set_cursor_pos_callback(window i64, cbfun i64) i64 {
-	return C.nglfwSetCursorPosCallback(window, cbfun)
-}
-
-pub fn nglfw_set_drop_callback(window i64, cbfun i64) i64 {
-	return C.nglfwSetDropCallback(window, cbfun)
-}
-
-pub fn nglfw_set_error_callback(cbfun i64) i64 {
-	return C.nglfwSetErrorCallback(cbfun)
-}
-
-pub fn nglfw_set_framebuffer_size_callback(window i64, cbfun i64) i64 {
-	return C.nglfwSetFramebufferSizeCallback(window, cbfun)
-}
-
-pub fn nglfw_set_gamma_ramp(monitor i64, ramp i64) {
-	C.nglfwSetGammaRamp(monitor, ramp)
-}
-
-pub fn nglfw_set_joystick_callback(cbfun i64) i64 {
-	return C.nglfwSetJoystickCallback(cbfun)
-}
-
-pub fn nglfw_set_key_callback(window i64, cbfun i64) i64 {
-	return C.nglfwSetKeyCallback(window, cbfun)
-}
-
-pub fn nglfw_set_monitor_callback(cbfun i64) i64 {
-	return C.nglfwSetMonitorCallback(cbfun)
-}
-
-pub fn nglfw_set_mouse_button_callback(window i64, cbfun i64) i64 {
-	return C.nglfwSetMouseButtonCallback(window, cbfun)
-}
-
-pub fn nglfw_set_scroll_callback(window i64, cbfun i64) i64 {
-	return C.nglfwSetScrollCallback(window, cbfun)
-}
-
-pub fn nglfw_set_window_close_callback(window i64, cbfun i64) i64 {
-	return C.nglfwSetWindowCloseCallback(window, cbfun)
-}
-
-pub fn nglfw_set_window_content_scale_callback(window i64, cbfun i64) i64 {
-	return C.nglfwSetWindowContentScaleCallback(window, cbfun)
-}
-
-pub fn nglfw_set_window_focus_callback(window i64, cbfun i64) i64 {
-	return C.nglfwSetWindowFocusCallback(window, cbfun)
-}
-
-pub fn nglfw_set_window_icon(window i64, count int, images i64) {
-	C.nglfwSetWindowIcon(window, count, images)
-}
-
-pub fn nglfw_set_window_iconify_callback(window i64, cbfun i64) i64 {
-	return C.nglfwSetWindowIconifyCallback(window, cbfun)
-}
-
-pub fn nglfw_set_window_maximize_callback(window i64, cbfun i64) i64 {
-	return C.nglfwSetWindowMaximizeCallback(window, cbfun)
-}
-
-pub fn nglfw_set_window_pos_callback(window i64, cbfun i64) i64 {
-	return C.nglfwSetWindowPosCallback(window, cbfun)
-}
-
-pub fn nglfw_set_window_refresh_callback(window i64, cbfun i64) i64 {
-	return C.nglfwSetWindowRefreshCallback(window, cbfun)
-}
-
-pub fn nglfw_set_window_size_callback(window i64, cbfun i64) i64 {
-	return C.nglfwSetWindowSizeCallback(window, cbfun)
-}
-
-pub fn nglfw_set_window_title(window i64, title i64) {
-	C.nglfwSetWindowTitle(window, title)
-}
-
-pub fn nglfw_update_gamepad_mappings(string i64) int {
-	return C.nglfwUpdateGamepadMappings(string)
-}
-
-pub fn nglfw_window_hint_string(hint int, value i64) {
-	C.nglfwWindowHintString(hint, value)
 }
