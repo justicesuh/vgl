@@ -147,7 +147,7 @@ def generate(c, data):
             for p in parameters:
                 if p[0] not in v_type_map:
                     exit('{} type conversion does not exist'.format(p[0]))
-                v_sig.append('{} {}'.format(p[1], p[0]))
+                v_sig.append('{} {}'.format(p[1], v_type_map[p[0]]))
             f.write(', '.join(v_sig))
             f.write(')')
 
@@ -159,7 +159,10 @@ def generate(c, data):
                 f.write(vret)
             f.write(' {\n')
 
-            f.write('\tC.{}('.format(method['name']))
+            f.write('\t')
+            if ret:
+                f.write('return ')
+            f.write('C.{}('.format(method['name']))
             c_sig = []
             for p in parameters:
                 c_sig.append(p[1])
