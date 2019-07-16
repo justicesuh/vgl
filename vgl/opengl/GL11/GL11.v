@@ -1,5 +1,10 @@
 module GL11
 
+#flag  -I @VROOT/thirdparty/glad
+#flag @VROOT/thirdparty/glad/glad.o 
+
+#include "glad.h"
+
 import const (
 	GL_2_BYTES
 	GL_2D
@@ -531,6 +536,10 @@ import const (
 	GL_ZOOM_Y
 )
 
+pub fn init_glad() int {
+	return C.gladLoadGL()
+}
+
 pub fn gl_accum(op int, value f32) {
 	C.glAccum(op, value)
 }
@@ -539,16 +548,8 @@ pub fn gl_alpha_func(func int, ref f32) {
 	C.glAlphaFunc(func, ref)
 }
 
-pub fn gl_are_textures_resident(textures []int, residences voidptr) bool {
-	return C.glAreTexturesResident(textures, residences)
-}
-
-pub fn gl_are_textures_resident(texture int, residences voidptr) bool {
-	return C.glAreTexturesResident(texture, residences)
-}
-
-pub fn gl_are_textures_resident(textures voidptr, residences voidptr) bool {
-	return C.glAreTexturesResident(textures, residences)
+pub fn gl_are_textures_resident(n int, textures *uint, residences *bool) bool {
+	return C.glAreTexturesResident(n, &textures, &residences)
 }
 
 pub fn gl_array_element(i int) {
@@ -563,9 +564,9 @@ pub fn gl_bind_texture(target int, texture int) {
 	C.glBindTexture(target, texture)
 }
 
-pub fn gl_bitmap(w int, h int, x_orig f32, y_orig f32, x_inc f32, y_inc f32, data i64) {
-	C.glBitmap(w, h, x_orig, y_orig, x_inc, y_inc, data)
-}
+//pub fn gl_bitmap(w int, h int, x_orig f32, y_orig f32, x_inc f32, y_inc f32, data i64) {
+//	C.glBitmap(w, h, x_orig, y_orig, x_inc, y_inc, data)
+//}
 
 pub fn gl_bitmap(w int, h int, x_orig f32, y_orig f32, x_inc f32, y_inc f32, data voidptr) {
 	C.glBitmap(w, h, x_orig, y_orig, x_inc, y_inc, data)
@@ -579,20 +580,8 @@ pub fn gl_call_list(list int) {
 	C.glCallList(list)
 }
 
-pub fn gl_call_lists(type int, lists voidptr) {
-	C.glCallLists(type, lists)
-}
-
-pub fn gl_call_lists(lists voidptr) {
-	C.glCallLists(lists)
-}
-
-pub fn gl_call_lists(lists voidptr) {
-	C.glCallLists(lists)
-}
-
-pub fn gl_call_lists(lists voidptr) {
-	C.glCallLists(lists)
+pub fn gl_call_lists(n int, typ int, lists voidptr) {
+	C.glCallLists(n, typ, lists)
 }
 
 pub fn gl_clear(mask int) {
@@ -619,9 +608,9 @@ pub fn gl_clear_stencil(s int) {
 	C.glClearStencil(s)
 }
 
-pub fn gl_clip_plane(plane int, equation []f64) {
-	C.glClipPlane(plane, equation)
-}
+//pub fn gl_clip_plane(plane int, equation []f64) {
+//	C.glClipPlane(plane, equation)
+//}
 
 pub fn gl_clip_plane(plane int, equation voidptr) {
 	C.glClipPlane(plane, equation)
@@ -639,9 +628,9 @@ pub fn gl_color3d(red f64, green f64, blue f64) {
 	C.glColor3d(red, green, blue)
 }
 
-pub fn gl_color3dv(v []f64) {
-	C.glColor3dv(v)
-}
+//pub fn gl_color3dv(v []f64) {
+//	C.glColor3dv(v)
+//}
 
 pub fn gl_color3dv(v voidptr) {
 	C.glColor3dv(v)
@@ -651,9 +640,9 @@ pub fn gl_color3f(red f32, green f32, blue f32) {
 	C.glColor3f(red, green, blue)
 }
 
-pub fn gl_color3fv(v []f32) {
-	C.glColor3fv(v)
-}
+//pub fn gl_color3fv(v []f32) {
+//	C.glColor3fv(v)
+//}
 
 pub fn gl_color3fv(v voidptr) {
 	C.glColor3fv(v)
@@ -663,9 +652,9 @@ pub fn gl_color3i(red int, green int, blue int) {
 	C.glColor3i(red, green, blue)
 }
 
-pub fn gl_color3iv(v []int) {
-	C.glColor3iv(v)
-}
+//pub fn gl_color3iv(v []int) {
+//	C.glColor3iv(v)
+//}
 
 pub fn gl_color3iv(v voidptr) {
 	C.glColor3iv(v)
@@ -675,9 +664,9 @@ pub fn gl_color3s(red i16, green i16, blue i16) {
 	C.glColor3s(red, green, blue)
 }
 
-pub fn gl_color3sv(v []i16) {
-	C.glColor3sv(v)
-}
+//pub fn gl_color3sv(v []i16) {
+//	C.glColor3sv(v)
+//}
 
 pub fn gl_color3sv(v voidptr) {
 	C.glColor3sv(v)
@@ -695,9 +684,9 @@ pub fn gl_color3ui(red int, green int, blue int) {
 	C.glColor3ui(red, green, blue)
 }
 
-pub fn gl_color3uiv(v []int) {
-	C.glColor3uiv(v)
-}
+//pub fn gl_color3uiv(v []int) {
+//	C.glColor3uiv(v)
+//}
 
 pub fn gl_color3uiv(v voidptr) {
 	C.glColor3uiv(v)
@@ -707,9 +696,9 @@ pub fn gl_color3us(red i16, green i16, blue i16) {
 	C.glColor3us(red, green, blue)
 }
 
-pub fn gl_color3usv(v []i16) {
-	C.glColor3usv(v)
-}
+//pub fn gl_color3usv(v []i16) {
+//	C.glColor3usv(v)
+//}
 
 pub fn gl_color3usv(v voidptr) {
 	C.glColor3usv(v)
@@ -727,9 +716,9 @@ pub fn gl_color4d(red f64, green f64, blue f64, alpha f64) {
 	C.glColor4d(red, green, blue, alpha)
 }
 
-pub fn gl_color4dv(v []f64) {
-	C.glColor4dv(v)
-}
+//pub fn gl_color4dv(v []f64) {
+//	C.glColor4dv(v)
+//}
 
 pub fn gl_color4dv(v voidptr) {
 	C.glColor4dv(v)
@@ -739,9 +728,9 @@ pub fn gl_color4f(red f32, green f32, blue f32, alpha f32) {
 	C.glColor4f(red, green, blue, alpha)
 }
 
-pub fn gl_color4fv(v []f32) {
-	C.glColor4fv(v)
-}
+//pub fn gl_color4fv(v []f32) {
+//	C.glColor4fv(v)
+//}
 
 pub fn gl_color4fv(v voidptr) {
 	C.glColor4fv(v)
@@ -751,9 +740,9 @@ pub fn gl_color4i(red int, green int, blue int, alpha int) {
 	C.glColor4i(red, green, blue, alpha)
 }
 
-pub fn gl_color4iv(v []int) {
-	C.glColor4iv(v)
-}
+//pub fn gl_color4iv(v []int) {
+//	C.glColor4iv(v)
+//}
 
 pub fn gl_color4iv(v voidptr) {
 	C.glColor4iv(v)
@@ -763,9 +752,9 @@ pub fn gl_color4s(red i16, green i16, blue i16, alpha i16) {
 	C.glColor4s(red, green, blue, alpha)
 }
 
-pub fn gl_color4sv(v []i16) {
-	C.glColor4sv(v)
-}
+//pub fn gl_color4sv(v []i16) {
+//	C.glColor4sv(v)
+//}
 
 pub fn gl_color4sv(v voidptr) {
 	C.glColor4sv(v)
@@ -783,9 +772,9 @@ pub fn gl_color4ui(red int, green int, blue int, alpha int) {
 	C.glColor4ui(red, green, blue, alpha)
 }
 
-pub fn gl_color4uiv(v []int) {
-	C.glColor4uiv(v)
-}
+//pub fn gl_color4uiv(v []int) {
+//	C.glColor4uiv(v)
+//}
 
 pub fn gl_color4uiv(v voidptr) {
 	C.glColor4uiv(v)
@@ -795,9 +784,9 @@ pub fn gl_color4us(red i16, green i16, blue i16, alpha i16) {
 	C.glColor4us(red, green, blue, alpha)
 }
 
-pub fn gl_color4usv(v []i16) {
-	C.glColor4usv(v)
-}
+//pub fn gl_color4usv(v []i16) {
+//	C.glColor4usv(v)
+//}
 
 pub fn gl_color4usv(v voidptr) {
 	C.glColor4usv(v)
@@ -811,28 +800,16 @@ pub fn gl_color_material(face int, mode int) {
 	C.glColorMaterial(face, mode)
 }
 
-pub fn gl_color_pointer(size int, type int, stride int, pointer i64) {
-	C.glColorPointer(size, type, stride, pointer)
+//pub fn gl_color_pointer(size int, type int, stride int, pointer i64) {
+//	C.glColorPointer(size, type, stride, pointer)
+//}
+
+pub fn gl_color_pointer(size int, typ int, stride int, pointer voidptr) {
+	C.glColorPointer(size, typ, stride, pointer)
 }
 
-pub fn gl_color_pointer(size int, type int, stride int, pointer voidptr) {
-	C.glColorPointer(size, type, stride, pointer)
-}
-
-pub fn gl_color_pointer(size int, type int, stride int, pointer voidptr) {
-	C.glColorPointer(size, type, stride, pointer)
-}
-
-pub fn gl_color_pointer(size int, type int, stride int, pointer voidptr) {
-	C.glColorPointer(size, type, stride, pointer)
-}
-
-pub fn gl_color_pointer(size int, type int, stride int, pointer voidptr) {
-	C.glColorPointer(size, type, stride, pointer)
-}
-
-pub fn gl_copy_pixels(x int, y int, width int, height int, type int) {
-	C.glCopyPixels(x, y, width, height, type)
+pub fn gl_copy_pixels(x int, y int, width int, height int, typ int) {
+	C.glCopyPixels(x, y, width, height, typ)
 }
 
 pub fn gl_copy_tex_image1d(target int, level int, internal_format int, x int, y int, width int, border int) {
@@ -859,13 +836,13 @@ pub fn gl_delete_lists(list int, range int) {
 	C.glDeleteLists(list, range)
 }
 
-pub fn gl_delete_textures(texture int) {
-	C.glDeleteTextures(texture)
-}
+//pub fn gl_delete_textures(texture int) {
+//	C.glDeleteTextures(texture)
+//}
 
-pub fn gl_delete_textures(textures []int) {
-	C.glDeleteTextures(textures)
-}
+//pub fn gl_delete_textures(textures []int) {
+//	C.glDeleteTextures(textures)
+//}
 
 pub fn gl_delete_textures(textures voidptr) {
 	C.glDeleteTextures(textures)
@@ -899,65 +876,21 @@ pub fn gl_draw_buffer(buf int) {
 	C.glDrawBuffer(buf)
 }
 
-pub fn gl_draw_elements(mode int, count int, type int, indices i64) {
-	C.glDrawElements(mode, count, type, indices)
+pub fn gl_draw_elements(mode int, count int, typ int, indices voidptr) {
+	C.glDrawElements(mode, count, typ, indices)
 }
 
-pub fn gl_draw_elements(mode int, type int, indices voidptr) {
-	C.glDrawElements(mode, type, indices)
-}
-
-pub fn gl_draw_elements(mode int, indices voidptr) {
-	C.glDrawElements(mode, indices)
-}
-
-pub fn gl_draw_elements(mode int, indices voidptr) {
-	C.glDrawElements(mode, indices)
-}
-
-pub fn gl_draw_elements(mode int, indices voidptr) {
-	C.glDrawElements(mode, indices)
-}
-
-pub fn gl_draw_pixels(width int, height int, format int, type int, pixels []f32) {
-	C.glDrawPixels(width, height, format, type, pixels)
-}
-
-pub fn gl_draw_pixels(width int, height int, format int, type int, pixels []int) {
-	C.glDrawPixels(width, height, format, type, pixels)
-}
-
-pub fn gl_draw_pixels(width int, height int, format int, type int, pixels i64) {
-	C.glDrawPixels(width, height, format, type, pixels)
-}
-
-pub fn gl_draw_pixels(width int, height int, format int, type int, pixels []i16) {
-	C.glDrawPixels(width, height, format, type, pixels)
-}
-
-pub fn gl_draw_pixels(width int, height int, format int, type int, pixels voidptr) {
-	C.glDrawPixels(width, height, format, type, pixels)
-}
-
-pub fn gl_draw_pixels(width int, height int, format int, type int, pixels voidptr) {
-	C.glDrawPixels(width, height, format, type, pixels)
-}
-
-pub fn gl_draw_pixels(width int, height int, format int, type int, pixels voidptr) {
-	C.glDrawPixels(width, height, format, type, pixels)
-}
-
-pub fn gl_draw_pixels(width int, height int, format int, type int, pixels voidptr) {
-	C.glDrawPixels(width, height, format, type, pixels)
+pub fn gl_draw_pixels(width int, height int, format int, typ int, pixels voidptr) {
+	C.glDrawPixels(width, height, format, typ, pixels)
 }
 
 pub fn gl_edge_flag(flag bool) {
 	C.glEdgeFlag(flag)
 }
 
-pub fn gl_edge_flag_pointer(stride int, pointer i64) {
-	C.glEdgeFlagPointer(stride, pointer)
-}
+//pub fn gl_edge_flag_pointer(stride int, pointer i64) {
+//	C.glEdgeFlagPointer(stride, pointer)
+//}
 
 pub fn gl_edge_flag_pointer(stride int, pointer voidptr) {
 	C.glEdgeFlagPointer(stride, pointer)
@@ -987,9 +920,9 @@ pub fn gl_eval_coord1d(u f64) {
 	C.glEvalCoord1d(u)
 }
 
-pub fn gl_eval_coord1dv(u []f64) {
-	C.glEvalCoord1dv(u)
-}
+//pub fn gl_eval_coord1dv(u []f64) {
+//	C.glEvalCoord1dv(u)
+//}
 
 pub fn gl_eval_coord1dv(u voidptr) {
 	C.glEvalCoord1dv(u)
@@ -999,9 +932,9 @@ pub fn gl_eval_coord1f(u f32) {
 	C.glEvalCoord1f(u)
 }
 
-pub fn gl_eval_coord1fv(u []f32) {
-	C.glEvalCoord1fv(u)
-}
+//pub fn gl_eval_coord1fv(u []f32) {
+//	C.glEvalCoord1fv(u)
+//}
 
 pub fn gl_eval_coord1fv(u voidptr) {
 	C.glEvalCoord1fv(u)
@@ -1011,9 +944,9 @@ pub fn gl_eval_coord2d(u f64, v f64) {
 	C.glEvalCoord2d(u, v)
 }
 
-pub fn gl_eval_coord2dv(u []f64) {
-	C.glEvalCoord2dv(u)
-}
+//pub fn gl_eval_coord2dv(u []f64) {
+//	C.glEvalCoord2dv(u)
+//}
 
 pub fn gl_eval_coord2dv(u voidptr) {
 	C.glEvalCoord2dv(u)
@@ -1023,9 +956,9 @@ pub fn gl_eval_coord2f(u f32, v f32) {
 	C.glEvalCoord2f(u, v)
 }
 
-pub fn gl_eval_coord2fv(u []f32) {
-	C.glEvalCoord2fv(u)
-}
+//pub fn gl_eval_coord2fv(u []f32) {
+//	C.glEvalCoord2fv(u)
+//}
 
 pub fn gl_eval_coord2fv(u voidptr) {
 	C.glEvalCoord2fv(u)
@@ -1047,12 +980,12 @@ pub fn gl_eval_point2(i int, j int) {
 	C.glEvalPoint2(i, j)
 }
 
-pub fn gl_feedback_buffer(type int, buffer []f32) {
-	C.glFeedbackBuffer(type, buffer)
-}
+//pub fn gl_feedback_buffer(type int, buffer []f32) {
+//	C.glFeedbackBuffer(type, buffer)
+//}
 
-pub fn gl_feedback_buffer(type int, buffer voidptr) {
-	C.glFeedbackBuffer(type, buffer)
+pub fn gl_feedback_buffer(typ int, buffer voidptr) {
+	C.glFeedbackBuffer(typ, buffer)
 }
 
 pub fn gl_finish() {
@@ -1067,9 +1000,9 @@ pub fn gl_fogf(pname int, param f32) {
 	C.glFogf(pname, param)
 }
 
-pub fn gl_fogfv(pname int, params []f32) {
-	C.glFogfv(pname, params)
-}
+//pub fn gl_fogfv(pname int, params []f32) {
+//	C.glFogfv(pname, params)
+//}
 
 pub fn gl_fogfv(pname int, params voidptr) {
 	C.glFogfv(pname, params)
@@ -1079,9 +1012,9 @@ pub fn gl_fogi(pname int, param int) {
 	C.glFogi(pname, param)
 }
 
-pub fn gl_fogiv(pname int, params []int) {
-	C.glFogiv(pname, params)
-}
+//pub fn gl_fogiv(pname int, params []int) {
+//	C.glFogiv(pname, params)
+//}
 
 pub fn gl_fogiv(pname int, params voidptr) {
 	C.glFogiv(pname, params)
@@ -1099,13 +1032,9 @@ pub fn gl_gen_lists(s int) int {
 	return C.glGenLists(s)
 }
 
-pub fn gl_gen_textures() int {
-	return C.glGenTextures()
-}
-
-pub fn gl_gen_textures(textures []int) {
-	C.glGenTextures(textures)
-}
+//pub fn gl_gen_textures(textures []int) {
+//	C.glGenTextures(textures)
+//}
 
 pub fn gl_gen_textures(textures voidptr) {
 	C.glGenTextures(textures)
@@ -1119,9 +1048,9 @@ pub fn gl_get_booleanv(pname int, params voidptr) {
 	C.glGetBooleanv(pname, params)
 }
 
-pub fn gl_get_clip_plane(plane int, equation []f64) {
-	C.glGetClipPlane(plane, equation)
-}
+//pub fn gl_get_clip_plane(plane int, equation []f64) {
+//	C.glGetClipPlane(plane, equation)
+//}
 
 pub fn gl_get_clip_plane(plane int, equation voidptr) {
 	C.glGetClipPlane(plane, equation)
@@ -1131,9 +1060,9 @@ pub fn gl_get_double(pname int) f64 {
 	return C.glGetDouble(pname)
 }
 
-pub fn gl_get_doublev(pname int, params []f64) {
-	C.glGetDoublev(pname, params)
-}
+//pub fn gl_get_doublev(pname int, params []f64) {
+//	C.glGetDoublev(pname, params)
+//}
 
 pub fn gl_get_doublev(pname int, params voidptr) {
 	C.glGetDoublev(pname, params)
@@ -1147,9 +1076,9 @@ pub fn gl_get_float(pname int) f32 {
 	return C.glGetFloat(pname)
 }
 
-pub fn gl_get_floatv(pname int, params []f32) {
-	C.glGetFloatv(pname, params)
-}
+//pub fn gl_get_floatv(pname int, params []f32) {
+//	C.glGetFloatv(pname, params)
+//}
 
 pub fn gl_get_floatv(pname int, params voidptr) {
 	C.glGetFloatv(pname, params)
@@ -1159,9 +1088,9 @@ pub fn gl_get_integer(pname int) int {
 	return C.glGetInteger(pname)
 }
 
-pub fn gl_get_integerv(pname int, params []int) {
-	C.glGetIntegerv(pname, params)
-}
+//pub fn gl_get_integerv(pname int, params []int) {
+//	C.glGetIntegerv(pname, params)
+//}
 
 pub fn gl_get_integerv(pname int, params voidptr) {
 	C.glGetIntegerv(pname, params)
@@ -1171,9 +1100,9 @@ pub fn gl_get_lightf(light int, pname int) f32 {
 	return C.glGetLightf(light, pname)
 }
 
-pub fn gl_get_lightfv(light int, pname int, data []f32) {
-	C.glGetLightfv(light, pname, data)
-}
+//pub fn gl_get_lightfv(light int, pname int, data []f32) {
+//	C.glGetLightfv(light, pname, data)
+//}
 
 pub fn gl_get_lightfv(light int, pname int, data voidptr) {
 	C.glGetLightfv(light, pname, data)
@@ -1183,9 +1112,9 @@ pub fn gl_get_lighti(light int, pname int) int {
 	return C.glGetLighti(light, pname)
 }
 
-pub fn gl_get_lightiv(light int, pname int, data []int) {
-	C.glGetLightiv(light, pname, data)
-}
+//pub fn gl_get_lightiv(light int, pname int, data []int) {
+//	C.glGetLightiv(light, pname, data)
+//}
 
 pub fn gl_get_lightiv(light int, pname int, data voidptr) {
 	C.glGetLightiv(light, pname, data)
@@ -1195,9 +1124,9 @@ pub fn gl_get_mapd(target int, query int) f64 {
 	return C.glGetMapd(target, query)
 }
 
-pub fn gl_get_mapdv(target int, query int, data []f64) {
-	C.glGetMapdv(target, query, data)
-}
+//pub fn gl_get_mapdv(target int, query int, data []f64) {
+//	C.glGetMapdv(target, query, data)
+//}
 
 pub fn gl_get_mapdv(target int, query int, data voidptr) {
 	C.glGetMapdv(target, query, data)
@@ -1207,9 +1136,9 @@ pub fn gl_get_mapf(target int, query int) f32 {
 	return C.glGetMapf(target, query)
 }
 
-pub fn gl_get_mapfv(target int, query int, data []f32) {
-	C.glGetMapfv(target, query, data)
-}
+//pub fn gl_get_mapfv(target int, query int, data []f32) {
+//	C.glGetMapfv(target, query, data)
+//}
 
 pub fn gl_get_mapfv(target int, query int, data voidptr) {
 	C.glGetMapfv(target, query, data)
@@ -1219,61 +1148,61 @@ pub fn gl_get_mapi(target int, query int) int {
 	return C.glGetMapi(target, query)
 }
 
-pub fn gl_get_mapiv(target int, query int, data []int) {
-	C.glGetMapiv(target, query, data)
-}
+//pub fn gl_get_mapiv(target int, query int, data []int) {
+//	C.glGetMapiv(target, query, data)
+//}
 
 pub fn gl_get_mapiv(target int, query int, data voidptr) {
 	C.glGetMapiv(target, query, data)
 }
 
-pub fn gl_get_materialfv(face int, pname int, data []f32) {
-	C.glGetMaterialfv(face, pname, data)
-}
+//pub fn gl_get_materialfv(face int, pname int, data []f32) {
+//	C.glGetMaterialfv(face, pname, data)
+//}
 
 pub fn gl_get_materialfv(face int, pname int, data voidptr) {
 	C.glGetMaterialfv(face, pname, data)
 }
 
-pub fn gl_get_materialiv(face int, pname int, data []int) {
-	C.glGetMaterialiv(face, pname, data)
-}
+//pub fn gl_get_materialiv(face int, pname int, data []int) {
+//	C.glGetMaterialiv(face, pname, data)
+//}
 
 pub fn gl_get_materialiv(face int, pname int, data voidptr) {
 	C.glGetMaterialiv(face, pname, data)
 }
 
-pub fn gl_get_pixel_mapfv(map int, data []f32) {
-	C.glGetPixelMapfv(map, data)
-}
+//pub fn gl_get_pixel_mapfv(map int, data []f32) {
+//	C.glGetPixelMapfv(map, data)
+//}
 
-pub fn gl_get_pixel_mapfv(map int, data i64) {
-	C.glGetPixelMapfv(map, data)
-}
+//pub fn gl_get_pixel_mapfv(map int, data i64) {
+//	C.glGetPixelMapfv(map, data)
+//}
 
 pub fn gl_get_pixel_mapfv(map int, data voidptr) {
 	C.glGetPixelMapfv(map, data)
 }
 
-pub fn gl_get_pixel_mapuiv(map int, data []int) {
-	C.glGetPixelMapuiv(map, data)
-}
+//pub fn gl_get_pixel_mapuiv(map int, data []int) {
+//	C.glGetPixelMapuiv(map, data)
+//}
 
-pub fn gl_get_pixel_mapuiv(map int, data i64) {
-	C.glGetPixelMapuiv(map, data)
-}
+//pub fn gl_get_pixel_mapuiv(map int, data i64) {
+//	C.glGetPixelMapuiv(map, data)
+//}
 
 pub fn gl_get_pixel_mapuiv(map int, data voidptr) {
 	C.glGetPixelMapuiv(map, data)
 }
 
-pub fn gl_get_pixel_mapusv(map int, data i64) {
-	C.glGetPixelMapusv(map, data)
-}
+//pub fn gl_get_pixel_mapusv(map int, data i64) {
+//	C.glGetPixelMapusv(map, data)
+//}
 
-pub fn gl_get_pixel_mapusv(map int, data []i16) {
-	C.glGetPixelMapusv(map, data)
-}
+//pub fn gl_get_pixel_mapusv(map int, data []i16) {
+//	C.glGetPixelMapusv(map, data)
+//}
 
 pub fn gl_get_pixel_mapusv(map int, data voidptr) {
 	C.glGetPixelMapusv(map, data)
@@ -1287,25 +1216,26 @@ pub fn gl_get_pointerv(pname int, params *voidptr) {
 	C.glGetPointerv(pname, params)
 }
 
-pub fn gl_get_polygon_stipple(pattern i64) {
-	C.glGetPolygonStipple(pattern)
-}
+//pub fn gl_get_polygon_stipple(pattern i64) {
+//	C.glGetPolygonStipple(pattern)
+//}
 
 pub fn gl_get_polygon_stipple(pattern voidptr) {
 	C.glGetPolygonStipple(pattern)
 }
 
 pub fn gl_get_string(name int) string {
-	return C.glGetString(name)
+	ret := C.glGetString(name)
+	return tos(ret, strlen(ret))
 }
 
 pub fn gl_get_tex_envf(env int, pname int) f32 {
 	return C.glGetTexEnvf(env, pname)
 }
 
-pub fn gl_get_tex_envfv(env int, pname int, data []f32) {
-	C.glGetTexEnvfv(env, pname, data)
-}
+//pub fn gl_get_tex_envfv(env int, pname int, data []f32) {
+//	C.glGetTexEnvfv(env, pname, data)
+//}
 
 pub fn gl_get_tex_envfv(env int, pname int, data voidptr) {
 	C.glGetTexEnvfv(env, pname, data)
@@ -1315,9 +1245,9 @@ pub fn gl_get_tex_envi(env int, pname int) int {
 	return C.glGetTexEnvi(env, pname)
 }
 
-pub fn gl_get_tex_enviv(env int, pname int, data []int) {
-	C.glGetTexEnviv(env, pname, data)
-}
+//pub fn gl_get_tex_enviv(env int, pname int, data []int) {
+//	C.glGetTexEnviv(env, pname, data)
+//}
 
 pub fn gl_get_tex_enviv(env int, pname int, data voidptr) {
 	C.glGetTexEnviv(env, pname, data)
@@ -1327,9 +1257,9 @@ pub fn gl_get_tex_gend(coord int, pname int) f64 {
 	return C.glGetTexGend(coord, pname)
 }
 
-pub fn gl_get_tex_gendv(coord int, pname int, data []f64) {
-	C.glGetTexGendv(coord, pname, data)
-}
+//pub fn gl_get_tex_gendv(coord int, pname int, data []f64) {
+//	C.glGetTexGendv(coord, pname, data)
+//}
 
 pub fn gl_get_tex_gendv(coord int, pname int, data voidptr) {
 	C.glGetTexGendv(coord, pname, data)
@@ -1339,9 +1269,9 @@ pub fn gl_get_tex_genf(coord int, pname int) f32 {
 	return C.glGetTexGenf(coord, pname)
 }
 
-pub fn gl_get_tex_genfv(coord int, pname int, data []f32) {
-	C.glGetTexGenfv(coord, pname, data)
-}
+//pub fn gl_get_tex_genfv(coord int, pname int, data []f32) {
+//	C.glGetTexGenfv(coord, pname, data)
+//}
 
 pub fn gl_get_tex_genfv(coord int, pname int, data voidptr) {
 	C.glGetTexGenfv(coord, pname, data)
@@ -1351,61 +1281,25 @@ pub fn gl_get_tex_geni(coord int, pname int) int {
 	return C.glGetTexGeni(coord, pname)
 }
 
-pub fn gl_get_tex_geniv(coord int, pname int, data []int) {
-	C.glGetTexGeniv(coord, pname, data)
-}
+//pub fn gl_get_tex_geniv(coord int, pname int, data []int) {
+//	C.glGetTexGeniv(coord, pname, data)
+//}
 
 pub fn gl_get_tex_geniv(coord int, pname int, data voidptr) {
 	C.glGetTexGeniv(coord, pname, data)
 }
 
-pub fn gl_get_tex_image(tex int, level int, format int, type int, pixels []f64) {
-	C.glGetTexImage(tex, level, format, type, pixels)
-}
-
-pub fn gl_get_tex_image(tex int, level int, format int, type int, pixels []f32) {
-	C.glGetTexImage(tex, level, format, type, pixels)
-}
-
-pub fn gl_get_tex_image(tex int, level int, format int, type int, pixels []int) {
-	C.glGetTexImage(tex, level, format, type, pixels)
-}
-
-pub fn gl_get_tex_image(tex int, level int, format int, type int, pixels i64) {
-	C.glGetTexImage(tex, level, format, type, pixels)
-}
-
-pub fn gl_get_tex_image(tex int, level int, format int, type int, pixels []i16) {
-	C.glGetTexImage(tex, level, format, type, pixels)
-}
-
-pub fn gl_get_tex_image(tex int, level int, format int, type int, pixels voidptr) {
-	C.glGetTexImage(tex, level, format, type, pixels)
-}
-
-pub fn gl_get_tex_image(tex int, level int, format int, type int, pixels voidptr) {
-	C.glGetTexImage(tex, level, format, type, pixels)
-}
-
-pub fn gl_get_tex_image(tex int, level int, format int, type int, pixels voidptr) {
-	C.glGetTexImage(tex, level, format, type, pixels)
-}
-
-pub fn gl_get_tex_image(tex int, level int, format int, type int, pixels voidptr) {
-	C.glGetTexImage(tex, level, format, type, pixels)
-}
-
-pub fn gl_get_tex_image(tex int, level int, format int, type int, pixels voidptr) {
-	C.glGetTexImage(tex, level, format, type, pixels)
+pub fn gl_get_tex_image(tex int, level int, format int, typ int, pixels voidptr) {
+	C.glGetTexImage(tex, level, format, typ, pixels)
 }
 
 pub fn gl_get_tex_level_parameterf(target int, level int, pname int) f32 {
 	return C.glGetTexLevelParameterf(target, level, pname)
 }
 
-pub fn gl_get_tex_level_parameterfv(target int, level int, pname int, params []f32) {
-	C.glGetTexLevelParameterfv(target, level, pname, params)
-}
+//pub fn gl_get_tex_level_parameterfv(target int, level int, pname int, params []f32) {
+//	C.glGetTexLevelParameterfv(target, level, pname, params)
+//}
 
 pub fn gl_get_tex_level_parameterfv(target int, level int, pname int, params voidptr) {
 	C.glGetTexLevelParameterfv(target, level, pname, params)
@@ -1415,9 +1309,9 @@ pub fn gl_get_tex_level_parameteri(target int, level int, pname int) int {
 	return C.glGetTexLevelParameteri(target, level, pname)
 }
 
-pub fn gl_get_tex_level_parameteriv(target int, level int, pname int, params []int) {
-	C.glGetTexLevelParameteriv(target, level, pname, params)
-}
+//pub fn gl_get_tex_level_parameteriv(target int, level int, pname int, params []int) {
+//	C.glGetTexLevelParameteriv(target, level, pname, params)
+//}
 
 pub fn gl_get_tex_level_parameteriv(target int, level int, pname int, params voidptr) {
 	C.glGetTexLevelParameteriv(target, level, pname, params)
@@ -1427,9 +1321,9 @@ pub fn gl_get_tex_parameterf(target int, pname int) f32 {
 	return C.glGetTexParameterf(target, pname)
 }
 
-pub fn gl_get_tex_parameterfv(target int, pname int, params []f32) {
-	C.glGetTexParameterfv(target, pname, params)
-}
+//pub fn gl_get_tex_parameterfv(target int, pname int, params []f32) {
+//	C.glGetTexParameterfv(target, pname, params)
+//}
 
 pub fn gl_get_tex_parameterfv(target int, pname int, params voidptr) {
 	C.glGetTexParameterfv(target, pname, params)
@@ -1439,9 +1333,9 @@ pub fn gl_get_tex_parameteri(target int, pname int) int {
 	return C.glGetTexParameteri(target, pname)
 }
 
-pub fn gl_get_tex_parameteriv(target int, pname int, params []int) {
-	C.glGetTexParameteriv(target, pname, params)
-}
+//pub fn gl_get_tex_parameteriv(target int, pname int, params []int) {
+//	C.glGetTexParameteriv(target, pname, params)
+//}
 
 pub fn gl_get_tex_parameteriv(target int, pname int, params voidptr) {
 	C.glGetTexParameteriv(target, pname, params)
@@ -1455,9 +1349,9 @@ pub fn gl_indexd(index f64) {
 	C.glIndexd(index)
 }
 
-pub fn gl_indexdv(index []f64) {
-	C.glIndexdv(index)
-}
+//pub fn gl_indexdv(index []f64) {
+//	C.glIndexdv(index)
+//}
 
 pub fn gl_indexdv(index voidptr) {
 	C.glIndexdv(index)
@@ -1467,9 +1361,9 @@ pub fn gl_indexf(index f32) {
 	C.glIndexf(index)
 }
 
-pub fn gl_indexfv(index []f32) {
-	C.glIndexfv(index)
-}
+//pub fn gl_indexfv(index []f32) {
+//	C.glIndexfv(index)
+//}
 
 pub fn gl_indexfv(index voidptr) {
 	C.glIndexfv(index)
@@ -1479,9 +1373,9 @@ pub fn gl_indexi(index int) {
 	C.glIndexi(index)
 }
 
-pub fn gl_indexiv(index []int) {
-	C.glIndexiv(index)
-}
+//pub fn gl_indexiv(index []int) {
+//	C.glIndexiv(index)
+//}
 
 pub fn gl_indexiv(index voidptr) {
 	C.glIndexiv(index)
@@ -1491,33 +1385,21 @@ pub fn gl_index_mask(mask int) {
 	C.glIndexMask(mask)
 }
 
-pub fn gl_index_pointer(type int, stride int, pointer i64) {
-	C.glIndexPointer(type, stride, pointer)
-}
+//pub fn gl_index_pointer(type int, stride int, pointer i64) {
+//	C.glIndexPointer(type, stride, pointer)
+//}
 
-pub fn gl_index_pointer(type int, stride int, pointer voidptr) {
-	C.glIndexPointer(type, stride, pointer)
-}
-
-pub fn gl_index_pointer(stride int, pointer voidptr) {
-	C.glIndexPointer(stride, pointer)
-}
-
-pub fn gl_index_pointer(stride int, pointer voidptr) {
-	C.glIndexPointer(stride, pointer)
-}
-
-pub fn gl_index_pointer(stride int, pointer voidptr) {
-	C.glIndexPointer(stride, pointer)
+pub fn gl_index_pointer(typ int, stride int, pointer voidptr) {
+	C.glIndexPointer(typ, stride, pointer)
 }
 
 pub fn gl_indexs(index i16) {
 	C.glIndexs(index)
 }
 
-pub fn gl_indexsv(index []i16) {
-	C.glIndexsv(index)
-}
+//pub fn gl_indexsv(index []i16) {
+//	C.glIndexsv(index)
+//}
 
 pub fn gl_indexsv(index voidptr) {
 	C.glIndexsv(index)
@@ -1533,42 +1415,6 @@ pub fn gl_indexubv(index voidptr) {
 
 pub fn gl_init_names() {
 	C.glInitNames()
-}
-
-pub fn gl_interleaved_arrays(format int, stride int, pointer []f64) {
-	C.glInterleavedArrays(format, stride, pointer)
-}
-
-pub fn gl_interleaved_arrays(format int, stride int, pointer []f32) {
-	C.glInterleavedArrays(format, stride, pointer)
-}
-
-pub fn gl_interleaved_arrays(format int, stride int, pointer []int) {
-	C.glInterleavedArrays(format, stride, pointer)
-}
-
-pub fn gl_interleaved_arrays(format int, stride int, pointer i64) {
-	C.glInterleavedArrays(format, stride, pointer)
-}
-
-pub fn gl_interleaved_arrays(format int, stride int, pointer []i16) {
-	C.glInterleavedArrays(format, stride, pointer)
-}
-
-pub fn gl_interleaved_arrays(format int, stride int, pointer voidptr) {
-	C.glInterleavedArrays(format, stride, pointer)
-}
-
-pub fn gl_interleaved_arrays(format int, stride int, pointer voidptr) {
-	C.glInterleavedArrays(format, stride, pointer)
-}
-
-pub fn gl_interleaved_arrays(format int, stride int, pointer voidptr) {
-	C.glInterleavedArrays(format, stride, pointer)
-}
-
-pub fn gl_interleaved_arrays(format int, stride int, pointer voidptr) {
-	C.glInterleavedArrays(format, stride, pointer)
 }
 
 pub fn gl_interleaved_arrays(format int, stride int, pointer voidptr) {
@@ -1591,9 +1437,9 @@ pub fn gl_lightf(light int, pname int, param f32) {
 	C.glLightf(light, pname, param)
 }
 
-pub fn gl_lightfv(light int, pname int, params []f32) {
-	C.glLightfv(light, pname, params)
-}
+//pub fn gl_lightfv(light int, pname int, params []f32) {
+//	C.glLightfv(light, pname, params)
+//}
 
 pub fn gl_lightfv(light int, pname int, params voidptr) {
 	C.glLightfv(light, pname, params)
@@ -1603,9 +1449,9 @@ pub fn gl_lighti(light int, pname int, param int) {
 	C.glLighti(light, pname, param)
 }
 
-pub fn gl_lightiv(light int, pname int, params []int) {
-	C.glLightiv(light, pname, params)
-}
+//pub fn gl_lightiv(light int, pname int, params []int) {
+//	C.glLightiv(light, pname, params)
+//}
 
 pub fn gl_lightiv(light int, pname int, params voidptr) {
 	C.glLightiv(light, pname, params)
@@ -1615,9 +1461,9 @@ pub fn gl_light_modelf(pname int, param f32) {
 	C.glLightModelf(pname, param)
 }
 
-pub fn gl_light_modelfv(pname int, params []f32) {
-	C.glLightModelfv(pname, params)
-}
+//pub fn gl_light_modelfv(pname int, params []f32) {
+//	C.glLightModelfv(pname, params)
+//}
 
 pub fn gl_light_modelfv(pname int, params voidptr) {
 	C.glLightModelfv(pname, params)
@@ -1627,9 +1473,9 @@ pub fn gl_light_modeli(pname int, param int) {
 	C.glLightModeli(pname, param)
 }
 
-pub fn gl_light_modeliv(pname int, params []int) {
-	C.glLightModeliv(pname, params)
-}
+//pub fn gl_light_modeliv(pname int, params []int) {
+//	C.glLightModeliv(pname, params)
+//}
 
 pub fn gl_light_modeliv(pname int, params voidptr) {
 	C.glLightModeliv(pname, params)
@@ -1651,17 +1497,17 @@ pub fn gl_load_identity() {
 	C.glLoadIdentity()
 }
 
-pub fn gl_load_matrixd(m []f64) {
-	C.glLoadMatrixd(m)
-}
+//pub fn gl_load_matrixd(m []f64) {
+//	C.glLoadMatrixd(m)
+//}
 
 pub fn gl_load_matrixd(m voidptr) {
 	C.glLoadMatrixd(m)
 }
 
-pub fn gl_load_matrixf(m []f32) {
-	C.glLoadMatrixf(m)
-}
+//pub fn gl_load_matrixf(m []f32) {
+//	C.glLoadMatrixf(m)
+//}
 
 pub fn gl_load_matrixf(m voidptr) {
 	C.glLoadMatrixf(m)
@@ -1675,33 +1521,33 @@ pub fn gl_logic_op(op int) {
 	C.glLogicOp(op)
 }
 
-pub fn gl_map1d(target int, u1 f64, u2 f64, stride int, order int, points []f64) {
-	C.glMap1d(target, u1, u2, stride, order, points)
-}
+//pub fn gl_map1d(target int, u1 f64, u2 f64, stride int, order int, points []f64) {
+//	C.glMap1d(target, u1, u2, stride, order, points)
+//}
 
 pub fn gl_map1d(target int, u1 f64, u2 f64, stride int, order int, points voidptr) {
 	C.glMap1d(target, u1, u2, stride, order, points)
 }
 
-pub fn gl_map1f(target int, u1 f32, u2 f32, stride int, order int, points []f32) {
-	C.glMap1f(target, u1, u2, stride, order, points)
-}
+//pub fn gl_map1f(target int, u1 f32, u2 f32, stride int, order int, points []f32) {
+//	C.glMap1f(target, u1, u2, stride, order, points)
+//}
 
 pub fn gl_map1f(target int, u1 f32, u2 f32, stride int, order int, points voidptr) {
 	C.glMap1f(target, u1, u2, stride, order, points)
 }
 
-pub fn gl_map2d(target int, u1 f64, u2 f64, ustride int, uorder int, v1 f64, v2 f64, vstride int, vorder int, points []f64) {
-	C.glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points)
-}
+//pub fn gl_map2d(target int, u1 f64, u2 f64, ustride int, uorder int, v1 f64, v2 f64, vstride int, vorder int, points []f64) {
+//	C.glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points)
+//}
 
 pub fn gl_map2d(target int, u1 f64, u2 f64, ustride int, uorder int, v1 f64, v2 f64, vstride int, vorder int, points voidptr) {
 	C.glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points)
 }
 
-pub fn gl_map2f(target int, u1 f32, u2 f32, ustride int, uorder int, v1 f32, v2 f32, vstride int, vorder int, points []f32) {
-	C.glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points)
-}
+//pub fn gl_map2f(target int, u1 f32, u2 f32, ustride int, uorder int, v1 f32, v2 f32, vstride int, vorder int, points []f32) {
+//	C.glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points)
+//}
 
 pub fn gl_map2f(target int, u1 f32, u2 f32, ustride int, uorder int, v1 f32, v2 f32, vstride int, vorder int, points voidptr) {
 	C.glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points)
@@ -1727,9 +1573,9 @@ pub fn gl_materialf(face int, pname int, param f32) {
 	C.glMaterialf(face, pname, param)
 }
 
-pub fn gl_materialfv(face int, pname int, params []f32) {
-	C.glMaterialfv(face, pname, params)
-}
+//pub fn gl_materialfv(face int, pname int, params []f32) {
+//	C.glMaterialfv(face, pname, params)
+//}
 
 pub fn gl_materialfv(face int, pname int, params voidptr) {
 	C.glMaterialfv(face, pname, params)
@@ -1739,9 +1585,9 @@ pub fn gl_materiali(face int, pname int, param int) {
 	C.glMateriali(face, pname, param)
 }
 
-pub fn gl_materialiv(face int, pname int, params []int) {
-	C.glMaterialiv(face, pname, params)
-}
+//pub fn gl_materialiv(face int, pname int, params []int) {
+//	C.glMaterialiv(face, pname, params)
+//}
 
 pub fn gl_materialiv(face int, pname int, params voidptr) {
 	C.glMaterialiv(face, pname, params)
@@ -1751,17 +1597,17 @@ pub fn gl_matrix_mode(mode int) {
 	C.glMatrixMode(mode)
 }
 
-pub fn gl_mult_matrixd(m []f64) {
-	C.glMultMatrixd(m)
-}
+//pub fn gl_mult_matrixd(m []f64) {
+//	C.glMultMatrixd(m)
+//}
 
 pub fn gl_mult_matrixd(m voidptr) {
 	C.glMultMatrixd(m)
 }
 
-pub fn gl_mult_matrixf(m []f32) {
-	C.glMultMatrixf(m)
-}
+//pub fn gl_mult_matrixf(m []f32) {
+//	C.glMultMatrixf(m)
+//}
 
 pub fn gl_mult_matrixf(m voidptr) {
 	C.glMultMatrixf(m)
@@ -1783,9 +1629,9 @@ pub fn gl_normal3d(nx f64, ny f64, nz f64) {
 	C.glNormal3d(nx, ny, nz)
 }
 
-pub fn gl_normal3dv(v []f64) {
-	C.glNormal3dv(v)
-}
+//pub fn gl_normal3dv(v []f64) {
+//	C.glNormal3dv(v)
+//}
 
 pub fn gl_normal3dv(v voidptr) {
 	C.glNormal3dv(v)
@@ -1795,9 +1641,9 @@ pub fn gl_normal3f(nx f32, ny f32, nz f32) {
 	C.glNormal3f(nx, ny, nz)
 }
 
-pub fn gl_normal3fv(v []f32) {
-	C.glNormal3fv(v)
-}
+//pub fn gl_normal3fv(v []f32) {
+//	C.glNormal3fv(v)
+//}
 
 pub fn gl_normal3fv(v voidptr) {
 	C.glNormal3fv(v)
@@ -1807,9 +1653,9 @@ pub fn gl_normal3i(nx int, ny int, nz int) {
 	C.glNormal3i(nx, ny, nz)
 }
 
-pub fn gl_normal3iv(v []int) {
-	C.glNormal3iv(v)
-}
+//pub fn gl_normal3iv(v []int) {
+//	C.glNormal3iv(v)
+//}
 
 pub fn gl_normal3iv(v voidptr) {
 	C.glNormal3iv(v)
@@ -1819,32 +1665,20 @@ pub fn gl_normal3s(nx i16, ny i16, nz i16) {
 	C.glNormal3s(nx, ny, nz)
 }
 
-pub fn gl_normal3sv(v []i16) {
-	C.glNormal3sv(v)
-}
+//pub fn gl_normal3sv(v []i16) {
+//	C.glNormal3sv(v)
+//}
 
 pub fn gl_normal3sv(v voidptr) {
 	C.glNormal3sv(v)
 }
 
-pub fn gl_normal_pointer(type int, stride int, pointer i64) {
-	C.glNormalPointer(type, stride, pointer)
-}
+//pub fn gl_normal_pointer(type int, stride int, pointer i64) {
+//	C.glNormalPointer(type, stride, pointer)
+//}
 
-pub fn gl_normal_pointer(type int, stride int, pointer voidptr) {
-	C.glNormalPointer(type, stride, pointer)
-}
-
-pub fn gl_normal_pointer(type int, stride int, pointer voidptr) {
-	C.glNormalPointer(type, stride, pointer)
-}
-
-pub fn gl_normal_pointer(type int, stride int, pointer voidptr) {
-	C.glNormalPointer(type, stride, pointer)
-}
-
-pub fn gl_normal_pointer(type int, stride int, pointer voidptr) {
-	C.glNormalPointer(type, stride, pointer)
+pub fn gl_normal_pointer(typ int, stride int, pointer voidptr) {
+	C.glNormalPointer(typ, stride, pointer)
 }
 
 pub fn gl_ortho(l f64, r f64, b f64, t f64, n f64, f f64) {
@@ -1855,37 +1689,33 @@ pub fn gl_pass_through(token f32) {
 	C.glPassThrough(token)
 }
 
-pub fn gl_pixel_mapfv(map int, values []f32) {
-	C.glPixelMapfv(map, values)
-}
+//pub fn gl_pixel_mapfv(map int, values []f32) {
+//	C.glPixelMapfv(map, values)
+//}
 
-pub fn gl_pixel_mapfv(map int, size int, values i64) {
-	C.glPixelMapfv(map, size, values)
-}
+//pub fn gl_pixel_mapfv(map int, size int, values i64) {
+//	C.glPixelMapfv(map, size, values)
+//}
 
 pub fn gl_pixel_mapfv(map int, values voidptr) {
 	C.glPixelMapfv(map, values)
 }
 
-pub fn gl_pixel_mapuiv(map int, values []int) {
-	C.glPixelMapuiv(map, values)
-}
+//pub fn gl_pixel_mapuiv(map int, values []int) {
+//	C.glPixelMapuiv(map, values)
+//}
 
 pub fn gl_pixel_mapuiv(map int, size int, values i64) {
 	C.glPixelMapuiv(map, size, values)
 }
 
-pub fn gl_pixel_mapuiv(map int, values voidptr) {
-	C.glPixelMapuiv(map, values)
-}
+//pub fn gl_pixel_mapusv(map int, size int, values i64) {
+//	C.glPixelMapusv(map, size, values)
+//}
 
-pub fn gl_pixel_mapusv(map int, size int, values i64) {
-	C.glPixelMapusv(map, size, values)
-}
-
-pub fn gl_pixel_mapusv(map int, values []i16) {
-	C.glPixelMapusv(map, values)
-}
+//pub fn gl_pixel_mapusv(map int, values []i16) {
+//	C.glPixelMapusv(map, values)
+//}
 
 pub fn gl_pixel_mapusv(map int, values voidptr) {
 	C.glPixelMapusv(map, values)
@@ -1923,9 +1753,9 @@ pub fn gl_polygon_offset(factor f32, units f32) {
 	C.glPolygonOffset(factor, units)
 }
 
-pub fn gl_polygon_stipple(pattern i64) {
-	C.glPolygonStipple(pattern)
-}
+//pub fn gl_polygon_stipple(pattern i64) {
+//	C.glPolygonStipple(pattern)
+//}
 
 pub fn gl_polygon_stipple(pattern voidptr) {
 	C.glPolygonStipple(pattern)
@@ -1947,9 +1777,9 @@ pub fn gl_pop_name() {
 	C.glPopName()
 }
 
-pub fn gl_prioritize_textures(textures []int, priorities []f32) {
-	C.glPrioritizeTextures(textures, priorities)
-}
+//pub fn gl_prioritize_textures(textures []int, priorities []f32) {
+//	C.glPrioritizeTextures(textures, priorities)
+//}
 
 pub fn gl_prioritize_textures(textures voidptr, priorities voidptr) {
 	C.glPrioritizeTextures(textures, priorities)
@@ -1975,9 +1805,9 @@ pub fn gl_raster_pos2d(x f64, y f64) {
 	C.glRasterPos2d(x, y)
 }
 
-pub fn gl_raster_pos2dv(coords []f64) {
-	C.glRasterPos2dv(coords)
-}
+//pub fn gl_raster_pos2dv(coords []f64) {
+//	C.glRasterPos2dv(coords)
+//}
 
 pub fn gl_raster_pos2dv(coords voidptr) {
 	C.glRasterPos2dv(coords)
@@ -1987,9 +1817,9 @@ pub fn gl_raster_pos2f(x f32, y f32) {
 	C.glRasterPos2f(x, y)
 }
 
-pub fn gl_raster_pos2fv(coords []f32) {
-	C.glRasterPos2fv(coords)
-}
+//pub fn gl_raster_pos2fv(coords []f32) {
+//	C.glRasterPos2fv(coords)
+//}
 
 pub fn gl_raster_pos2fv(coords voidptr) {
 	C.glRasterPos2fv(coords)
@@ -1999,9 +1829,9 @@ pub fn gl_raster_pos2i(x int, y int) {
 	C.glRasterPos2i(x, y)
 }
 
-pub fn gl_raster_pos2iv(coords []int) {
-	C.glRasterPos2iv(coords)
-}
+//pub fn gl_raster_pos2iv(coords []int) {
+//	C.glRasterPos2iv(coords)
+//}
 
 pub fn gl_raster_pos2iv(coords voidptr) {
 	C.glRasterPos2iv(coords)
@@ -2011,9 +1841,9 @@ pub fn gl_raster_pos2s(x i16, y i16) {
 	C.glRasterPos2s(x, y)
 }
 
-pub fn gl_raster_pos2sv(coords []i16) {
-	C.glRasterPos2sv(coords)
-}
+//pub fn gl_raster_pos2sv(coords []i16) {
+//	C.glRasterPos2sv(coords)
+//}
 
 pub fn gl_raster_pos2sv(coords voidptr) {
 	C.glRasterPos2sv(coords)
@@ -2023,9 +1853,9 @@ pub fn gl_raster_pos3d(x f64, y f64, z f64) {
 	C.glRasterPos3d(x, y, z)
 }
 
-pub fn gl_raster_pos3dv(coords []f64) {
-	C.glRasterPos3dv(coords)
-}
+//pub fn gl_raster_pos3dv(coords []f64) {
+//	C.glRasterPos3dv(coords)
+//}
 
 pub fn gl_raster_pos3dv(coords voidptr) {
 	C.glRasterPos3dv(coords)
@@ -2035,9 +1865,9 @@ pub fn gl_raster_pos3f(x f32, y f32, z f32) {
 	C.glRasterPos3f(x, y, z)
 }
 
-pub fn gl_raster_pos3fv(coords []f32) {
-	C.glRasterPos3fv(coords)
-}
+//pub fn gl_raster_pos3fv(coords []f32) {
+//	C.glRasterPos3fv(coords)
+//}
 
 pub fn gl_raster_pos3fv(coords voidptr) {
 	C.glRasterPos3fv(coords)
@@ -2047,9 +1877,9 @@ pub fn gl_raster_pos3i(x int, y int, z int) {
 	C.glRasterPos3i(x, y, z)
 }
 
-pub fn gl_raster_pos3iv(coords []int) {
-	C.glRasterPos3iv(coords)
-}
+//pub fn gl_raster_pos3iv(coords []int) {
+//	C.glRasterPos3iv(coords)
+//}
 
 pub fn gl_raster_pos3iv(coords voidptr) {
 	C.glRasterPos3iv(coords)
@@ -2059,9 +1889,9 @@ pub fn gl_raster_pos3s(x i16, y i16, z i16) {
 	C.glRasterPos3s(x, y, z)
 }
 
-pub fn gl_raster_pos3sv(coords []i16) {
-	C.glRasterPos3sv(coords)
-}
+//pub fn gl_raster_pos3sv(coords []i16) {
+//	C.glRasterPos3sv(coords)
+//}
 
 pub fn gl_raster_pos3sv(coords voidptr) {
 	C.glRasterPos3sv(coords)
@@ -2071,9 +1901,9 @@ pub fn gl_raster_pos4d(x f64, y f64, z f64, w f64) {
 	C.glRasterPos4d(x, y, z, w)
 }
 
-pub fn gl_raster_pos4dv(coords []f64) {
-	C.glRasterPos4dv(coords)
-}
+//pub fn gl_raster_pos4dv(coords []f64) {
+//	C.glRasterPos4dv(coords)
+//}
 
 pub fn gl_raster_pos4dv(coords voidptr) {
 	C.glRasterPos4dv(coords)
@@ -2083,9 +1913,9 @@ pub fn gl_raster_pos4f(x f32, y f32, z f32, w f32) {
 	C.glRasterPos4f(x, y, z, w)
 }
 
-pub fn gl_raster_pos4fv(coords []f32) {
-	C.glRasterPos4fv(coords)
-}
+//pub fn gl_raster_pos4fv(coords []f32) {
+//	C.glRasterPos4fv(coords)
+//}
 
 pub fn gl_raster_pos4fv(coords voidptr) {
 	C.glRasterPos4fv(coords)
@@ -2095,9 +1925,9 @@ pub fn gl_raster_pos4i(x int, y int, z int, w int) {
 	C.glRasterPos4i(x, y, z, w)
 }
 
-pub fn gl_raster_pos4iv(coords []int) {
-	C.glRasterPos4iv(coords)
-}
+//pub fn gl_raster_pos4iv(coords []int) {
+//	C.glRasterPos4iv(coords)
+//}
 
 pub fn gl_raster_pos4iv(coords voidptr) {
 	C.glRasterPos4iv(coords)
@@ -2107,9 +1937,9 @@ pub fn gl_raster_pos4s(x i16, y i16, z i16, w i16) {
 	C.glRasterPos4s(x, y, z, w)
 }
 
-pub fn gl_raster_pos4sv(coords []i16) {
-	C.glRasterPos4sv(coords)
-}
+//pub fn gl_raster_pos4sv(coords []i16) {
+//	C.glRasterPos4sv(coords)
+//}
 
 pub fn gl_raster_pos4sv(coords voidptr) {
 	C.glRasterPos4sv(coords)
@@ -2119,45 +1949,17 @@ pub fn gl_read_buffer(src int) {
 	C.glReadBuffer(src)
 }
 
-pub fn gl_read_pixels(x int, y int, width int, height int, format int, type int, pixels []f32) {
-	C.glReadPixels(x, y, width, height, format, type, pixels)
-}
-
-pub fn gl_read_pixels(x int, y int, width int, height int, format int, type int, pixels []int) {
-	C.glReadPixels(x, y, width, height, format, type, pixels)
-}
-
-pub fn gl_read_pixels(x int, y int, width int, height int, format int, type int, pixels i64) {
-	C.glReadPixels(x, y, width, height, format, type, pixels)
-}
-
-pub fn gl_read_pixels(x int, y int, width int, height int, format int, type int, pixels []i16) {
-	C.glReadPixels(x, y, width, height, format, type, pixels)
-}
-
-pub fn gl_read_pixels(x int, y int, width int, height int, format int, type int, pixels voidptr) {
-	C.glReadPixels(x, y, width, height, format, type, pixels)
-}
-
-pub fn gl_read_pixels(x int, y int, width int, height int, format int, type int, pixels voidptr) {
-	C.glReadPixels(x, y, width, height, format, type, pixels)
-}
-
-pub fn gl_read_pixels(x int, y int, width int, height int, format int, type int, pixels voidptr) {
-	C.glReadPixels(x, y, width, height, format, type, pixels)
-}
-
-pub fn gl_read_pixels(x int, y int, width int, height int, format int, type int, pixels voidptr) {
-	C.glReadPixels(x, y, width, height, format, type, pixels)
+pub fn gl_read_pixels(x int, y int, width int, height int, format int, typ int, pixels voidptr) {
+	C.glReadPixels(x, y, width, height, format, typ, pixels)
 }
 
 pub fn gl_rectd(x1 f64, y1 f64, x2 f64, y2 f64) {
 	C.glRectd(x1, y1, x2, y2)
 }
 
-pub fn gl_rectdv(v1 []f64, v2 []f64) {
-	C.glRectdv(v1, v2)
-}
+//pub fn gl_rectdv(v1 []f64, v2 []f64) {
+//	C.glRectdv(v1, v2)
+//}
 
 pub fn gl_rectdv(v1 voidptr, v2 voidptr) {
 	C.glRectdv(v1, v2)
@@ -2167,9 +1969,9 @@ pub fn gl_rectf(x1 f32, y1 f32, x2 f32, y2 f32) {
 	C.glRectf(x1, y1, x2, y2)
 }
 
-pub fn gl_rectfv(v1 []f32, v2 []f32) {
-	C.glRectfv(v1, v2)
-}
+//pub fn gl_rectfv(v1 []f32, v2 []f32) {
+//	C.glRectfv(v1, v2)
+//}
 
 pub fn gl_rectfv(v1 voidptr, v2 voidptr) {
 	C.glRectfv(v1, v2)
@@ -2179,9 +1981,9 @@ pub fn gl_recti(x1 int, y1 int, x2 int, y2 int) {
 	C.glRecti(x1, y1, x2, y2)
 }
 
-pub fn gl_rectiv(v1 []int, v2 []int) {
-	C.glRectiv(v1, v2)
-}
+//pub fn gl_rectiv(v1 []int, v2 []int) {
+//	C.glRectiv(v1, v2)
+//}
 
 pub fn gl_rectiv(v1 voidptr, v2 voidptr) {
 	C.glRectiv(v1, v2)
@@ -2191,9 +1993,9 @@ pub fn gl_rects(x1 i16, y1 i16, x2 i16, y2 i16) {
 	C.glRects(x1, y1, x2, y2)
 }
 
-pub fn gl_rectsv(v1 []i16, v2 []i16) {
-	C.glRectsv(v1, v2)
-}
+//pub fn gl_rectsv(v1 []i16, v2 []i16) {
+//	C.glRectsv(v1, v2)
+//}
 
 pub fn gl_rectsv(v1 voidptr, v2 voidptr) {
 	C.glRectsv(v1, v2)
@@ -2223,9 +2025,9 @@ pub fn gl_scissor(x int, y int, width int, height int) {
 	C.glScissor(x, y, width, height)
 }
 
-pub fn gl_select_buffer(buffer []int) {
-	C.glSelectBuffer(buffer)
-}
+//pub fn gl_select_buffer(buffer []int) {
+//	C.glSelectBuffer(buffer)
+//}
 
 pub fn gl_select_buffer(buffer voidptr) {
 	C.glSelectBuffer(buffer)
@@ -2251,9 +2053,9 @@ pub fn gl_tex_coord1d(s f64) {
 	C.glTexCoord1d(s)
 }
 
-pub fn gl_tex_coord1dv(v []f64) {
-	C.glTexCoord1dv(v)
-}
+//pub fn gl_tex_coord1dv(v []f64) {
+//	C.glTexCoord1dv(v)
+//}
 
 pub fn gl_tex_coord1dv(v voidptr) {
 	C.glTexCoord1dv(v)
@@ -2263,9 +2065,9 @@ pub fn gl_tex_coord1f(s f32) {
 	C.glTexCoord1f(s)
 }
 
-pub fn gl_tex_coord1fv(v []f32) {
-	C.glTexCoord1fv(v)
-}
+//pub fn gl_tex_coord1fv(v []f32) {
+//	C.glTexCoord1fv(v)
+//}
 
 pub fn gl_tex_coord1fv(v voidptr) {
 	C.glTexCoord1fv(v)
@@ -2275,9 +2077,9 @@ pub fn gl_tex_coord1i(s int) {
 	C.glTexCoord1i(s)
 }
 
-pub fn gl_tex_coord1iv(v []int) {
-	C.glTexCoord1iv(v)
-}
+//pub fn gl_tex_coord1iv(v []int) {
+//	C.glTexCoord1iv(v)
+//}
 
 pub fn gl_tex_coord1iv(v voidptr) {
 	C.glTexCoord1iv(v)
@@ -2287,9 +2089,9 @@ pub fn gl_tex_coord1s(s i16) {
 	C.glTexCoord1s(s)
 }
 
-pub fn gl_tex_coord1sv(v []i16) {
-	C.glTexCoord1sv(v)
-}
+//pub fn gl_tex_coord1sv(v []i16) {
+//	C.glTexCoord1sv(v)
+//}
 
 pub fn gl_tex_coord1sv(v voidptr) {
 	C.glTexCoord1sv(v)
@@ -2299,9 +2101,9 @@ pub fn gl_tex_coord2d(s f64, t f64) {
 	C.glTexCoord2d(s, t)
 }
 
-pub fn gl_tex_coord2dv(v []f64) {
-	C.glTexCoord2dv(v)
-}
+//pub fn gl_tex_coord2dv(v []f64) {
+//	C.glTexCoord2dv(v)
+//}
 
 pub fn gl_tex_coord2dv(v voidptr) {
 	C.glTexCoord2dv(v)
@@ -2311,9 +2113,9 @@ pub fn gl_tex_coord2f(s f32, t f32) {
 	C.glTexCoord2f(s, t)
 }
 
-pub fn gl_tex_coord2fv(v []f32) {
-	C.glTexCoord2fv(v)
-}
+//pub fn gl_tex_coord2fv(v []f32) {
+//	C.glTexCoord2fv(v)
+//}
 
 pub fn gl_tex_coord2fv(v voidptr) {
 	C.glTexCoord2fv(v)
@@ -2323,9 +2125,9 @@ pub fn gl_tex_coord2i(s int, t int) {
 	C.glTexCoord2i(s, t)
 }
 
-pub fn gl_tex_coord2iv(v []int) {
-	C.glTexCoord2iv(v)
-}
+//pub fn gl_tex_coord2iv(v []int) {
+//	C.glTexCoord2iv(v)
+//}
 
 pub fn gl_tex_coord2iv(v voidptr) {
 	C.glTexCoord2iv(v)
@@ -2335,9 +2137,9 @@ pub fn gl_tex_coord2s(s i16, t i16) {
 	C.glTexCoord2s(s, t)
 }
 
-pub fn gl_tex_coord2sv(v []i16) {
-	C.glTexCoord2sv(v)
-}
+//pub fn gl_tex_coord2sv(v []i16) {
+//	C.glTexCoord2sv(v)
+//}
 
 pub fn gl_tex_coord2sv(v voidptr) {
 	C.glTexCoord2sv(v)
@@ -2347,9 +2149,9 @@ pub fn gl_tex_coord3d(s f64, t f64, r f64) {
 	C.glTexCoord3d(s, t, r)
 }
 
-pub fn gl_tex_coord3dv(v []f64) {
-	C.glTexCoord3dv(v)
-}
+//pub fn gl_tex_coord3dv(v []f64) {
+//	C.glTexCoord3dv(v)
+//}
 
 pub fn gl_tex_coord3dv(v voidptr) {
 	C.glTexCoord3dv(v)
@@ -2359,9 +2161,9 @@ pub fn gl_tex_coord3f(s f32, t f32, r f32) {
 	C.glTexCoord3f(s, t, r)
 }
 
-pub fn gl_tex_coord3fv(v []f32) {
-	C.glTexCoord3fv(v)
-}
+//pub fn gl_tex_coord3fv(v []f32) {
+//	C.glTexCoord3fv(v)
+//}
 
 pub fn gl_tex_coord3fv(v voidptr) {
 	C.glTexCoord3fv(v)
@@ -2371,9 +2173,9 @@ pub fn gl_tex_coord3i(s int, t int, r int) {
 	C.glTexCoord3i(s, t, r)
 }
 
-pub fn gl_tex_coord3iv(v []int) {
-	C.glTexCoord3iv(v)
-}
+//pub fn gl_tex_coord3iv(v []int) {
+//	C.glTexCoord3iv(v)
+//}
 
 pub fn gl_tex_coord3iv(v voidptr) {
 	C.glTexCoord3iv(v)
@@ -2383,9 +2185,9 @@ pub fn gl_tex_coord3s(s i16, t i16, r i16) {
 	C.glTexCoord3s(s, t, r)
 }
 
-pub fn gl_tex_coord3sv(v []i16) {
-	C.glTexCoord3sv(v)
-}
+//pub fn gl_tex_coord3sv(v []i16) {
+//	C.glTexCoord3sv(v)
+//}
 
 pub fn gl_tex_coord3sv(v voidptr) {
 	C.glTexCoord3sv(v)
@@ -2395,9 +2197,9 @@ pub fn gl_tex_coord4d(s f64, t f64, r f64, q f64) {
 	C.glTexCoord4d(s, t, r, q)
 }
 
-pub fn gl_tex_coord4dv(v []f64) {
-	C.glTexCoord4dv(v)
-}
+//pub fn gl_tex_coord4dv(v []f64) {
+//	C.glTexCoord4dv(v)
+//}
 
 pub fn gl_tex_coord4dv(v voidptr) {
 	C.glTexCoord4dv(v)
@@ -2407,9 +2209,9 @@ pub fn gl_tex_coord4f(s f32, t f32, r f32, q f32) {
 	C.glTexCoord4f(s, t, r, q)
 }
 
-pub fn gl_tex_coord4fv(v []f32) {
-	C.glTexCoord4fv(v)
-}
+//pub fn gl_tex_coord4fv(v []f32) {
+//	C.glTexCoord4fv(v)
+//}
 
 pub fn gl_tex_coord4fv(v voidptr) {
 	C.glTexCoord4fv(v)
@@ -2419,9 +2221,9 @@ pub fn gl_tex_coord4i(s int, t int, r int, q int) {
 	C.glTexCoord4i(s, t, r, q)
 }
 
-pub fn gl_tex_coord4iv(v []int) {
-	C.glTexCoord4iv(v)
-}
+//pub fn gl_tex_coord4iv(v []int) {
+//	C.glTexCoord4iv(v)
+//}
 
 pub fn gl_tex_coord4iv(v voidptr) {
 	C.glTexCoord4iv(v)
@@ -2431,41 +2233,29 @@ pub fn gl_tex_coord4s(s i16, t i16, r i16, q i16) {
 	C.glTexCoord4s(s, t, r, q)
 }
 
-pub fn gl_tex_coord4sv(v []i16) {
-	C.glTexCoord4sv(v)
-}
+//pub fn gl_tex_coord4sv(v []i16) {
+//	C.glTexCoord4sv(v)
+//}
 
 pub fn gl_tex_coord4sv(v voidptr) {
 	C.glTexCoord4sv(v)
 }
 
-pub fn gl_tex_coord_pointer(size int, type int, stride int, pointer i64) {
-	C.glTexCoordPointer(size, type, stride, pointer)
-}
+//pub fn gl_tex_coord_pointer(size int, type int, stride int, pointer i64) {
+//	C.glTexCoordPointer(size, type, stride, pointer)
+//}
 
-pub fn gl_tex_coord_pointer(size int, type int, stride int, pointer voidptr) {
-	C.glTexCoordPointer(size, type, stride, pointer)
-}
-
-pub fn gl_tex_coord_pointer(size int, type int, stride int, pointer voidptr) {
-	C.glTexCoordPointer(size, type, stride, pointer)
-}
-
-pub fn gl_tex_coord_pointer(size int, type int, stride int, pointer voidptr) {
-	C.glTexCoordPointer(size, type, stride, pointer)
-}
-
-pub fn gl_tex_coord_pointer(size int, type int, stride int, pointer voidptr) {
-	C.glTexCoordPointer(size, type, stride, pointer)
+pub fn gl_tex_coord_pointer(size int, typ int, stride int, pointer voidptr) {
+	C.glTexCoordPointer(size, typ, stride, pointer)
 }
 
 pub fn gl_tex_envf(target int, pname int, param f32) {
 	C.glTexEnvf(target, pname, param)
 }
 
-pub fn gl_tex_envfv(target int, pname int, params []f32) {
-	C.glTexEnvfv(target, pname, params)
-}
+//pub fn gl_tex_envfv(target int, pname int, params []f32) {
+//	C.glTexEnvfv(target, pname, params)
+//}
 
 pub fn gl_tex_envfv(target int, pname int, params voidptr) {
 	C.glTexEnvfv(target, pname, params)
@@ -2475,9 +2265,9 @@ pub fn gl_tex_envi(target int, pname int, param int) {
 	C.glTexEnvi(target, pname, param)
 }
 
-pub fn gl_tex_enviv(target int, pname int, params []int) {
-	C.glTexEnviv(target, pname, params)
-}
+//pub fn gl_tex_enviv(target int, pname int, params []int) {
+//	C.glTexEnviv(target, pname, params)
+//}
 
 pub fn gl_tex_enviv(target int, pname int, params voidptr) {
 	C.glTexEnviv(target, pname, params)
@@ -2487,9 +2277,9 @@ pub fn gl_tex_gend(coord int, pname int, param f64) {
 	C.glTexGend(coord, pname, param)
 }
 
-pub fn gl_tex_gendv(coord int, pname int, params []f64) {
-	C.glTexGendv(coord, pname, params)
-}
+//pub fn gl_tex_gendv(coord int, pname int, params []f64) {
+//	C.glTexGendv(coord, pname, params)
+//}
 
 pub fn gl_tex_gendv(coord int, pname int, params voidptr) {
 	C.glTexGendv(coord, pname, params)
@@ -2499,9 +2289,9 @@ pub fn gl_tex_genf(coord int, pname int, param f32) {
 	C.glTexGenf(coord, pname, param)
 }
 
-pub fn gl_tex_genfv(coord int, pname int, params []f32) {
-	C.glTexGenfv(coord, pname, params)
-}
+//pub fn gl_tex_genfv(coord int, pname int, params []f32) {
+//	C.glTexGenfv(coord, pname, params)
+//}
 
 pub fn gl_tex_genfv(coord int, pname int, params voidptr) {
 	C.glTexGenfv(coord, pname, params)
@@ -2511,101 +2301,29 @@ pub fn gl_tex_geni(coord int, pname int, param int) {
 	C.glTexGeni(coord, pname, param)
 }
 
-pub fn gl_tex_geniv(coord int, pname int, params []int) {
-	C.glTexGeniv(coord, pname, params)
-}
+//pub fn gl_tex_geniv(coord int, pname int, params []int) {
+//	C.glTexGeniv(coord, pname, params)
+//}
 
 pub fn gl_tex_geniv(coord int, pname int, params voidptr) {
 	C.glTexGeniv(coord, pname, params)
 }
 
-pub fn gl_tex_image1d(target int, level int, internalformat int, width int, border int, format int, type int, pixels []f64) {
-	C.glTexImage1D(target, level, internalformat, width, border, format, type, pixels)
+pub fn gl_tex_image1d(target int, level int, internalformat int, width int, border int, format int, typ int, pixels voidptr) {
+	C.glTexImage1D(target, level, internalformat, width, border, format, typ, pixels)
 }
 
-pub fn gl_tex_image1d(target int, level int, internalformat int, width int, border int, format int, type int, pixels []f32) {
-	C.glTexImage1D(target, level, internalformat, width, border, format, type, pixels)
-}
-
-pub fn gl_tex_image1d(target int, level int, internalformat int, width int, border int, format int, type int, pixels []int) {
-	C.glTexImage1D(target, level, internalformat, width, border, format, type, pixels)
-}
-
-pub fn gl_tex_image1d(target int, level int, internalformat int, width int, border int, format int, type int, pixels i64) {
-	C.glTexImage1D(target, level, internalformat, width, border, format, type, pixels)
-}
-
-pub fn gl_tex_image1d(target int, level int, internalformat int, width int, border int, format int, type int, pixels []i16) {
-	C.glTexImage1D(target, level, internalformat, width, border, format, type, pixels)
-}
-
-pub fn gl_tex_image1d(target int, level int, internalformat int, width int, border int, format int, type int, pixels voidptr) {
-	C.glTexImage1D(target, level, internalformat, width, border, format, type, pixels)
-}
-
-pub fn gl_tex_image1d(target int, level int, internalformat int, width int, border int, format int, type int, pixels voidptr) {
-	C.glTexImage1D(target, level, internalformat, width, border, format, type, pixels)
-}
-
-pub fn gl_tex_image1d(target int, level int, internalformat int, width int, border int, format int, type int, pixels voidptr) {
-	C.glTexImage1D(target, level, internalformat, width, border, format, type, pixels)
-}
-
-pub fn gl_tex_image1d(target int, level int, internalformat int, width int, border int, format int, type int, pixels voidptr) {
-	C.glTexImage1D(target, level, internalformat, width, border, format, type, pixels)
-}
-
-pub fn gl_tex_image1d(target int, level int, internalformat int, width int, border int, format int, type int, pixels voidptr) {
-	C.glTexImage1D(target, level, internalformat, width, border, format, type, pixels)
-}
-
-pub fn gl_tex_image2d(target int, level int, internalformat int, width int, height int, border int, format int, type int, pixels []f64) {
-	C.glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels)
-}
-
-pub fn gl_tex_image2d(target int, level int, internalformat int, width int, height int, border int, format int, type int, pixels []f32) {
-	C.glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels)
-}
-
-pub fn gl_tex_image2d(target int, level int, internalformat int, width int, height int, border int, format int, type int, pixels []int) {
-	C.glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels)
-}
-
-pub fn gl_tex_image2d(target int, level int, internalformat int, width int, height int, border int, format int, type int, pixels i64) {
-	C.glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels)
-}
-
-pub fn gl_tex_image2d(target int, level int, internalformat int, width int, height int, border int, format int, type int, pixels []i16) {
-	C.glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels)
-}
-
-pub fn gl_tex_image2d(target int, level int, internalformat int, width int, height int, border int, format int, type int, pixels voidptr) {
-	C.glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels)
-}
-
-pub fn gl_tex_image2d(target int, level int, internalformat int, width int, height int, border int, format int, type int, pixels voidptr) {
-	C.glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels)
-}
-
-pub fn gl_tex_image2d(target int, level int, internalformat int, width int, height int, border int, format int, type int, pixels voidptr) {
-	C.glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels)
-}
-
-pub fn gl_tex_image2d(target int, level int, internalformat int, width int, height int, border int, format int, type int, pixels voidptr) {
-	C.glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels)
-}
-
-pub fn gl_tex_image2d(target int, level int, internalformat int, width int, height int, border int, format int, type int, pixels voidptr) {
-	C.glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels)
+pub fn gl_tex_image2d(target int, level int, internalformat int, width int, height int, border int, format int, typ int, pixels voidptr) {
+	C.glTexImage2D(target, level, internalformat, width, height, border, format, typ, pixels)
 }
 
 pub fn gl_tex_parameterf(target int, pname int, param f32) {
 	C.glTexParameterf(target, pname, param)
 }
 
-pub fn gl_tex_parameterfv(target int, pname int, params []f32) {
-	C.glTexParameterfv(target, pname, params)
-}
+//pub fn gl_tex_parameterfv(target int, pname int, params []f32) {
+//	C.glTexParameterfv(target, pname, params)
+//}
 
 pub fn gl_tex_parameterfv(target int, pname int, params voidptr) {
 	C.glTexParameterfv(target, pname, params)
@@ -2615,92 +2333,20 @@ pub fn gl_tex_parameteri(target int, pname int, param int) {
 	C.glTexParameteri(target, pname, param)
 }
 
-pub fn gl_tex_parameteriv(target int, pname int, params []int) {
-	C.glTexParameteriv(target, pname, params)
-}
+//pub fn gl_tex_parameteriv(target int, pname int, params []int) {
+//	C.glTexParameteriv(target, pname, params)
+//}
 
 pub fn gl_tex_parameteriv(target int, pname int, params voidptr) {
 	C.glTexParameteriv(target, pname, params)
 }
 
-pub fn gl_tex_sub_image1d(target int, level int, xoffset int, width int, format int, type int, pixels []f64) {
-	C.glTexSubImage1D(target, level, xoffset, width, format, type, pixels)
+pub fn gl_tex_sub_image1d(target int, level int, xoffset int, width int, format int, typ int, pixels voidptr) {
+	C.glTexSubImage1D(target, level, xoffset, width, format, typ, pixels)
 }
 
-pub fn gl_tex_sub_image1d(target int, level int, xoffset int, width int, format int, type int, pixels []f32) {
-	C.glTexSubImage1D(target, level, xoffset, width, format, type, pixels)
-}
-
-pub fn gl_tex_sub_image1d(target int, level int, xoffset int, width int, format int, type int, pixels []int) {
-	C.glTexSubImage1D(target, level, xoffset, width, format, type, pixels)
-}
-
-pub fn gl_tex_sub_image1d(target int, level int, xoffset int, width int, format int, type int, pixels i64) {
-	C.glTexSubImage1D(target, level, xoffset, width, format, type, pixels)
-}
-
-pub fn gl_tex_sub_image1d(target int, level int, xoffset int, width int, format int, type int, pixels []i16) {
-	C.glTexSubImage1D(target, level, xoffset, width, format, type, pixels)
-}
-
-pub fn gl_tex_sub_image1d(target int, level int, xoffset int, width int, format int, type int, pixels voidptr) {
-	C.glTexSubImage1D(target, level, xoffset, width, format, type, pixels)
-}
-
-pub fn gl_tex_sub_image1d(target int, level int, xoffset int, width int, format int, type int, pixels voidptr) {
-	C.glTexSubImage1D(target, level, xoffset, width, format, type, pixels)
-}
-
-pub fn gl_tex_sub_image1d(target int, level int, xoffset int, width int, format int, type int, pixels voidptr) {
-	C.glTexSubImage1D(target, level, xoffset, width, format, type, pixels)
-}
-
-pub fn gl_tex_sub_image1d(target int, level int, xoffset int, width int, format int, type int, pixels voidptr) {
-	C.glTexSubImage1D(target, level, xoffset, width, format, type, pixels)
-}
-
-pub fn gl_tex_sub_image1d(target int, level int, xoffset int, width int, format int, type int, pixels voidptr) {
-	C.glTexSubImage1D(target, level, xoffset, width, format, type, pixels)
-}
-
-pub fn gl_tex_sub_image2d(target int, level int, xoffset int, yoffset int, width int, height int, format int, type int, pixels []f64) {
-	C.glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels)
-}
-
-pub fn gl_tex_sub_image2d(target int, level int, xoffset int, yoffset int, width int, height int, format int, type int, pixels []f32) {
-	C.glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels)
-}
-
-pub fn gl_tex_sub_image2d(target int, level int, xoffset int, yoffset int, width int, height int, format int, type int, pixels []int) {
-	C.glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels)
-}
-
-pub fn gl_tex_sub_image2d(target int, level int, xoffset int, yoffset int, width int, height int, format int, type int, pixels i64) {
-	C.glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels)
-}
-
-pub fn gl_tex_sub_image2d(target int, level int, xoffset int, yoffset int, width int, height int, format int, type int, pixels []i16) {
-	C.glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels)
-}
-
-pub fn gl_tex_sub_image2d(target int, level int, xoffset int, yoffset int, width int, height int, format int, type int, pixels voidptr) {
-	C.glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels)
-}
-
-pub fn gl_tex_sub_image2d(target int, level int, xoffset int, yoffset int, width int, height int, format int, type int, pixels voidptr) {
-	C.glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels)
-}
-
-pub fn gl_tex_sub_image2d(target int, level int, xoffset int, yoffset int, width int, height int, format int, type int, pixels voidptr) {
-	C.glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels)
-}
-
-pub fn gl_tex_sub_image2d(target int, level int, xoffset int, yoffset int, width int, height int, format int, type int, pixels voidptr) {
-	C.glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels)
-}
-
-pub fn gl_tex_sub_image2d(target int, level int, xoffset int, yoffset int, width int, height int, format int, type int, pixels voidptr) {
-	C.glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels)
+pub fn gl_tex_sub_image2d(target int, level int, xoffset int, yoffset int, width int, height int, format int, typ int, pixels voidptr) {
+	C.glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, typ, pixels)
 }
 
 pub fn gl_translated(x f64, y f64, z f64) {
@@ -2715,9 +2361,9 @@ pub fn gl_vertex2d(x f64, y f64) {
 	C.glVertex2d(x, y)
 }
 
-pub fn gl_vertex2dv(coords []f64) {
-	C.glVertex2dv(coords)
-}
+//pub fn gl_vertex2dv(coords []f64) {
+//	C.glVertex2dv(coords)
+//}
 
 pub fn gl_vertex2dv(coords voidptr) {
 	C.glVertex2dv(coords)
@@ -2727,9 +2373,9 @@ pub fn gl_vertex2f(x f32, y f32) {
 	C.glVertex2f(x, y)
 }
 
-pub fn gl_vertex2fv(coords []f32) {
-	C.glVertex2fv(coords)
-}
+//pub fn gl_vertex2fv(coords []f32) {
+//	C.glVertex2fv(coords)
+//}
 
 pub fn gl_vertex2fv(coords voidptr) {
 	C.glVertex2fv(coords)
@@ -2739,9 +2385,9 @@ pub fn gl_vertex2i(x int, y int) {
 	C.glVertex2i(x, y)
 }
 
-pub fn gl_vertex2iv(coords []int) {
-	C.glVertex2iv(coords)
-}
+//pub fn gl_vertex2iv(coords []int) {
+//	C.glVertex2iv(coords)
+//}
 
 pub fn gl_vertex2iv(coords voidptr) {
 	C.glVertex2iv(coords)
@@ -2751,9 +2397,9 @@ pub fn gl_vertex2s(x i16, y i16) {
 	C.glVertex2s(x, y)
 }
 
-pub fn gl_vertex2sv(coords []i16) {
-	C.glVertex2sv(coords)
-}
+//pub fn gl_vertex2sv(coords []i16) {
+//	C.glVertex2sv(coords)
+//}
 
 pub fn gl_vertex2sv(coords voidptr) {
 	C.glVertex2sv(coords)
@@ -2763,9 +2409,9 @@ pub fn gl_vertex3d(x f64, y f64, z f64) {
 	C.glVertex3d(x, y, z)
 }
 
-pub fn gl_vertex3dv(coords []f64) {
-	C.glVertex3dv(coords)
-}
+//pub fn gl_vertex3dv(coords []f64) {
+//	C.glVertex3dv(coords)
+//}
 
 pub fn gl_vertex3dv(coords voidptr) {
 	C.glVertex3dv(coords)
@@ -2775,9 +2421,9 @@ pub fn gl_vertex3f(x f32, y f32, z f32) {
 	C.glVertex3f(x, y, z)
 }
 
-pub fn gl_vertex3fv(coords []f32) {
-	C.glVertex3fv(coords)
-}
+//pub fn gl_vertex3fv(coords []f32) {
+//	C.glVertex3fv(coords)
+//}
 
 pub fn gl_vertex3fv(coords voidptr) {
 	C.glVertex3fv(coords)
@@ -2787,9 +2433,9 @@ pub fn gl_vertex3i(x int, y int, z int) {
 	C.glVertex3i(x, y, z)
 }
 
-pub fn gl_vertex3iv(coords []int) {
-	C.glVertex3iv(coords)
-}
+//pub fn gl_vertex3iv(coords []int) {
+//	C.glVertex3iv(coords)
+//}
 
 pub fn gl_vertex3iv(coords voidptr) {
 	C.glVertex3iv(coords)
@@ -2799,9 +2445,9 @@ pub fn gl_vertex3s(x i16, y i16, z i16) {
 	C.glVertex3s(x, y, z)
 }
 
-pub fn gl_vertex3sv(coords []i16) {
-	C.glVertex3sv(coords)
-}
+//pub fn gl_vertex3sv(coords []i16) {
+//	C.glVertex3sv(coords)
+//}
 
 pub fn gl_vertex3sv(coords voidptr) {
 	C.glVertex3sv(coords)
@@ -2811,9 +2457,9 @@ pub fn gl_vertex4d(x f64, y f64, z f64, w f64) {
 	C.glVertex4d(x, y, z, w)
 }
 
-pub fn gl_vertex4dv(coords []f64) {
-	C.glVertex4dv(coords)
-}
+//pub fn gl_vertex4dv(coords []f64) {
+//	C.glVertex4dv(coords)
+//}
 
 pub fn gl_vertex4dv(coords voidptr) {
 	C.glVertex4dv(coords)
@@ -2823,9 +2469,9 @@ pub fn gl_vertex4f(x f32, y f32, z f32, w f32) {
 	C.glVertex4f(x, y, z, w)
 }
 
-pub fn gl_vertex4fv(coords []f32) {
-	C.glVertex4fv(coords)
-}
+//pub fn gl_vertex4fv(coords []f32) {
+//	C.glVertex4fv(coords)
+//}
 
 pub fn gl_vertex4fv(coords voidptr) {
 	C.glVertex4fv(coords)
@@ -2835,9 +2481,9 @@ pub fn gl_vertex4i(x int, y int, z int, w int) {
 	C.glVertex4i(x, y, z, w)
 }
 
-pub fn gl_vertex4iv(coords []int) {
-	C.glVertex4iv(coords)
-}
+//pub fn gl_vertex4iv(coords []int) {
+//	C.glVertex4iv(coords)
+//}
 
 pub fn gl_vertex4iv(coords voidptr) {
 	C.glVertex4iv(coords)
@@ -2847,32 +2493,20 @@ pub fn gl_vertex4s(x i16, y i16, z i16, w i16) {
 	C.glVertex4s(x, y, z, w)
 }
 
-pub fn gl_vertex4sv(coords []i16) {
-	C.glVertex4sv(coords)
-}
+//pub fn gl_vertex4sv(coords []i16) {
+//	C.glVertex4sv(coords)
+//}
 
 pub fn gl_vertex4sv(coords voidptr) {
 	C.glVertex4sv(coords)
 }
 
-pub fn gl_vertex_pointer(size int, type int, stride int, pointer i64) {
-	C.glVertexPointer(size, type, stride, pointer)
-}
+//pub fn gl_vertex_pointer(size int, type int, stride int, pointer i64) {
+//	C.glVertexPointer(size, type, stride, pointer)
+//}
 
-pub fn gl_vertex_pointer(size int, type int, stride int, pointer voidptr) {
-	C.glVertexPointer(size, type, stride, pointer)
-}
-
-pub fn gl_vertex_pointer(size int, type int, stride int, pointer voidptr) {
-	C.glVertexPointer(size, type, stride, pointer)
-}
-
-pub fn gl_vertex_pointer(size int, type int, stride int, pointer voidptr) {
-	C.glVertexPointer(size, type, stride, pointer)
-}
-
-pub fn gl_vertex_pointer(size int, type int, stride int, pointer voidptr) {
-	C.glVertexPointer(size, type, stride, pointer)
+pub fn gl_vertex_pointer(size int, typ int, stride int, pointer voidptr) {
+	C.glVertexPointer(size, typ, stride, pointer)
 }
 
 pub fn gl_viewport(x int, y int, w int, h int) {
@@ -2887,8 +2521,8 @@ pub fn ngl_bitmap(w int, h int, x_orig f32, y_orig f32, x_inc f32, y_inc f32, da
 	C.nglBitmap(w, h, x_orig, y_orig, x_inc, y_inc, data)
 }
 
-pub fn ngl_call_lists(n int, type int, lists i64) {
-	C.nglCallLists(n, type, lists)
+pub fn ngl_call_lists(n int, typ int, lists i64) {
+	C.nglCallLists(n, typ, lists)
 }
 
 pub fn ngl_clip_plane(plane int, equation i64) {
@@ -2959,20 +2593,20 @@ pub fn ngl_color4usv(v i64) {
 	C.nglColor4usv(v)
 }
 
-pub fn ngl_color_pointer(size int, type int, stride int, pointer i64) {
-	C.nglColorPointer(size, type, stride, pointer)
+pub fn ngl_color_pointer(size int, typ int, stride int, pointer i64) {
+	C.nglColorPointer(size, typ, stride, pointer)
 }
 
 pub fn ngl_delete_textures(n int, textures i64) {
 	C.nglDeleteTextures(n, textures)
 }
 
-pub fn ngl_draw_elements(mode int, count int, type int, indices i64) {
-	C.nglDrawElements(mode, count, type, indices)
+pub fn ngl_draw_elements(mode int, count int, typ int, indices i64) {
+	C.nglDrawElements(mode, count, typ, indices)
 }
 
-pub fn ngl_draw_pixels(width int, height int, format int, type int, pixels i64) {
-	C.nglDrawPixels(width, height, format, type, pixels)
+pub fn ngl_draw_pixels(width int, height int, format int, typ int, pixels i64) {
+	C.nglDrawPixels(width, height, format, typ, pixels)
 }
 
 pub fn ngl_edge_flag_pointer(stride int, pointer i64) {
@@ -2999,8 +2633,8 @@ pub fn ngl_eval_coord2fv(u i64) {
 	C.nglEvalCoord2fv(u)
 }
 
-pub fn ngl_feedback_buffer(size int, type int, buffer i64) {
-	C.nglFeedbackBuffer(size, type, buffer)
+pub fn ngl_feedback_buffer(size int, typ int, buffer i64) {
+	C.nglFeedbackBuffer(size, typ, buffer)
 }
 
 pub fn ngl_fogfv(pname int, params i64) {
@@ -3107,8 +2741,8 @@ pub fn ngl_get_tex_geniv(coord int, pname int, data i64) {
 	C.nglGetTexGeniv(coord, pname, data)
 }
 
-pub fn ngl_get_tex_image(tex int, level int, format int, type int, pixels i64) {
-	C.nglGetTexImage(tex, level, format, type, pixels)
+pub fn ngl_get_tex_image(tex int, level int, format int, typ int, pixels i64) {
+	C.nglGetTexImage(tex, level, format, typ, pixels)
 }
 
 pub fn ngl_get_tex_level_parameterfv(target int, level int, pname int, params i64) {
@@ -3139,8 +2773,8 @@ pub fn ngl_indexiv(index i64) {
 	C.nglIndexiv(index)
 }
 
-pub fn ngl_index_pointer(type int, stride int, pointer i64) {
-	C.nglIndexPointer(type, stride, pointer)
+pub fn ngl_index_pointer(typ int, stride int, pointer i64) {
+	C.nglIndexPointer(typ, stride, pointer)
 }
 
 pub fn ngl_indexsv(index i64) {
