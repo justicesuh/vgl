@@ -302,6 +302,7 @@ import const (
 	GLFW_X11_INSTANCE_NAME
 )
 
+//TODO
 pub fn create_cursor(image voidptr, xhot int, yhot int) i64 {
 	return C.glfwCreateCursor(image, xhot, yhot)
 }
@@ -318,6 +319,7 @@ pub fn default_window_hints() {
 	C.glfwDefaultWindowHints()
 }
 
+// TODO
 pub fn destroy_cursor(cursor i64) {
 	C.glfwDestroyCursor(cursor)
 }
@@ -326,8 +328,8 @@ pub fn destroy_window(window i64) {
 	C.glfwDestroyWindow(window)
 }
 
-pub fn extension_supported(extension voidptr) bool {
-	return C.glfwExtensionSupported(extension)
+pub fn extension_supported(extension string) bool {
+	return C.glfwExtensionSupported(extension.str)
 }
 
 pub fn focus_window(window i64) {
@@ -343,16 +345,23 @@ pub fn get_current_context() i64 {
 	return C.glfwGetCurrentContext()
 }
 
-pub fn get_cursor_pos(window i64, xpos *f64, ypos *f64) {
+pub fn get_cursor_pos(window i64) []int {
+	xpos := 0
+	ypos := 0
 	C.glfwGetCursorPos(window, &xpos, &ypos)
+	return [xpos, ypos]
 }
 
+// TODO
 pub fn get_error(description *voidptr) int {
 	return C.glfwGetError(description)
 }
 
-pub fn get_framebuffer_size(window i64, width *int, height *int) {
+pub fn get_framebuffer_size(window i64) []int {
+	width := 0
+	height := 0
 	C.glfwGetFramebufferSize(window, &width, &height)
+	return [width, height]
 }
 
 pub fn get_gamepad_name(jid int) string {
@@ -360,10 +369,12 @@ pub fn get_gamepad_name(jid int) string {
 	return tos(ret, strlen(ret))
 }
 
+// TODO
 pub fn get_gamepad_state(jid int, state voidptr) bool {
 	return C.glfwGetGamepadState(jid, state)
 }
 
+// TODO
 pub fn get_gamma_ramp(monitor i64) voidptr {
 	return C.glfwGetGammaRamp(monitor)
 }
@@ -372,10 +383,12 @@ pub fn get_input_mode(window i64, mode int) int {
 	return C.glfwGetInputMode(window, mode)
 }
 
-pub fn get_joystick_axes(jid int, count *int) voidptr {
+// TODO
+pub fn get_joystick_axes(jid int, count *int) {
 	return C.glfwGetJoystickAxes(jid, &count)
 }
 
+// TODO
 pub fn get_joystick_buttons(jid int, count *int) voidptr {
 	return C.glfwGetJoystickButtons(jid, &count)
 }
@@ -385,6 +398,7 @@ pub fn get_joystick_guid(jid int) string {
 	return tos(ret, strlen(ret))
 }
 
+// TODO
 pub fn get_joystick_hats(jid int, count *int) voidptr {
 	return C.glfwGetJoystickHats(jid, &count)
 }
@@ -411,8 +425,11 @@ pub fn get_key_scancode(key int) int {
 	return C.glfwGetKeyScancode(key)
 }
 
-pub fn get_monitor_content_scale(monitor i64, xscale *f32, yscale *f32) {
+pub fn get_monitor_content_scale(monitor i64) []f32 {
+	xscale := f32(0)
+	yscale := f32(0)
 	C.glfwGetMonitorContentScale(monitor, &xscale, &yscale)
+	return [xscale, yscale]
 }
 
 pub fn get_monitor_name(monitor i64) string {
@@ -420,14 +437,21 @@ pub fn get_monitor_name(monitor i64) string {
 	return tos(ret, strlen(ret))
 }
 
-pub fn get_monitor_physical_size(monitor i64, width_mm *int, height_mm *int) {
+pub fn get_monitor_physical_size(monitor i64) []int {
+	width_mm := 0
+	height_mm := 0
 	C.glfwGetMonitorPhysicalSize(monitor, &width_mm, &height_mm)
+	return [width_mm, height_mm]
 }
 
-pub fn get_monitor_pos(monitor i64, xpos *int, ypos *int) {
+pub fn get_monitor_pos(monitor i64) []int {
+	xpos := 0
+	ypos := 0
 	C.glfwGetMonitorPos(monitor, &xpos, &ypos)
+	return [xpos, ypos]
 }
 
+// TODO
 pub fn get_monitors(count *int) *voidptr {
 	return C.glfwGetMonitors(&count)
 }
@@ -460,8 +484,12 @@ pub fn get_timer_value() i64 {
 	return C.glfwGetTimerValue()
 }
 
-pub fn get_version(major *int, minor *int, rev *int) {
+pub fn get_version() []int {
+	major := 0
+	minor := 0
+	rev := 0
 	C.glfwGetVersion(&major, &minor, &rev)
+	return [major, minor, rev]
 }
 
 pub fn get_version_string() string {
@@ -473,6 +501,7 @@ pub fn get_video_mode(monitor i64) voidptr {
 	return C.glfwGetVideoMode(monitor)
 }
 
+// TODO
 pub fn get_video_modes(monitor i64, count *int) voidptr {
 	return C.glfwGetVideoModes(monitor, &count)
 }
@@ -481,12 +510,20 @@ pub fn get_window_attrib(window i64, attrib int) int {
 	return C.glfwGetWindowAttrib(window, attrib)
 }
 
-pub fn get_window_content_scale(window i64, xscale *f32, yscale *f32) {
+pub fn get_window_content_scale(window i64) []f32 {
+	xscale := f32(0)
+	yscale := f32(0)
 	C.glfwGetWindowContentScale(window, &xscale, &yscale)
+	return [xscale, yscale]
 }
 
-pub fn get_window_frame_size(window i64, left *int, top *int, right *int, bottom *int) {
+pub fn get_window_frame_size(window i64) []int {
+	left := 0
+	top := 0
+	right := 0
+	bottom := 0
 	C.glfwGetWindowFrameSize(window, &left, &top, &right, &bottom)
+	return [left, top, right, bottom]
 }
 
 pub fn get_window_monitor(window i64) i64 {
@@ -497,12 +534,18 @@ pub fn get_window_opacity(window i64) f32 {
 	return C.glfwGetWindowOpacity(window)
 }
 
-pub fn get_window_pos(window i64, xpos *int, ypos *int) {
+pub fn get_window_pos(window i64) []int {
+	xpos := 0
+	ypos := 0
 	C.glfwGetWindowPos(window, &xpos, &ypos)
+	return [xpos, ypos]
 }
 
-pub fn get_window_size(window i64, width *int, height *int) {
-	C.glfwGetWindowSize(window, width, height)
+pub fn get_window_size(window i64) []int {
+	width := 0
+	height := 0
+	C.glfwGetWindowSize(window, &width, &height)
+	return [width, height]
 }
 
 pub fn get_window_user_pointer(window i64) i64 {
@@ -557,10 +600,12 @@ pub fn restore_window(window i64) {
 	C.glfwRestoreWindow(window)
 }
 
+// TODO
 pub fn set_char_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetCharCallback(window, cbfun)
 }
 
+// TODO
 pub fn set_char_mods_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetCharModsCallback(window, cbfun)
 }
@@ -573,6 +618,7 @@ pub fn set_cursor(window i64, cursor i64) {
 	C.glfwSetCursor(window, cursor)
 }
 
+// TODO
 pub fn set_cursor_enter_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetCursorEnterCallback(window, cbfun)
 }
@@ -581,18 +627,22 @@ pub fn set_cursor_pos(window i64, xpos f64, ypos f64) {
 	C.glfwSetCursorPos(window, xpos, ypos)
 }
 
+// TODO
 pub fn set_cursor_pos_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetCursorPosCallback(window, cbfun)
 }
 
+// TODO
 pub fn set_drop_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetDropCallback(window, cbfun)
 }
 
+// TODO
 pub fn set_error_callback(cbfun voidptr) voidptr {
 	return C.glfwSetErrorCallback(cbfun)
 }
 
+// TODO
 pub fn set_framebuffer_size_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetFramebufferSizeCallback(window, cbfun)
 }
@@ -609,6 +659,7 @@ pub fn set_input_mode(window i64, mode int, value int) {
 	C.glfwSetInputMode(window, mode, value)
 }
 
+// TODO
 pub fn set_joystick_callback(cbfun voidptr) voidptr {
 	return C.glfwSetJoystickCallback(cbfun)
 }
@@ -617,10 +668,12 @@ pub fn set_joystick_user_pointer(jid int, pointer i64) {
 	C.glfwSetJoystickUserPointer(jid, pointer)
 }
 
+// TODO
 pub fn set_key_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetKeyCallback(window, cbfun)
 }
 
+// TODO
 pub fn set_monitor_callback(cbfun voidptr) voidptr {
 	return C.glfwSetMonitorCallback(cbfun)
 }
@@ -629,10 +682,12 @@ pub fn set_monitor_user_pointer(monitor i64, pointer i64) {
 	C.glfwSetMonitorUserPointer(monitor, pointer)
 }
 
+// TODO
 pub fn set_mouse_button_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetMouseButtonCallback(window, cbfun)
 }
 
+// TODO
 pub fn set_scroll_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetScrollCallback(window, cbfun)
 }
@@ -649,26 +704,32 @@ pub fn set_window_attrib(window i64, attrib int, value int) {
 	C.glfwSetWindowAttrib(window, attrib, value)
 }
 
+// TODO
 pub fn set_window_close_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetWindowCloseCallback(window, cbfun)
 }
 
+// TODO
 pub fn set_window_content_scale_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetWindowContentScaleCallback(window, cbfun)
 }
 
+// TODO
 pub fn set_window_focus_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetWindowFocusCallback(window, cbfun)
 }
 
+// TODO
 pub fn set_window_icon(window i64, count int, images voidptr) {
 	C.glfwSetWindowIcon(window, count, images)
 }
 
+// TODO
 pub fn set_window_iconify_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetWindowIconifyCallback(window, cbfun)
 }
 
+// TODO
 pub fn set_window_maximize_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetWindowMaximizeCallback(window, cbfun)
 }
@@ -685,10 +746,12 @@ pub fn set_window_pos(window i64, xpos int, ypos int) {
 	C.glfwSetWindowPos(window, xpos, ypos)
 }
 
+// TODO
 pub fn set_window_pos_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetWindowPosCallback(window, cbfun)
 }
 
+// TODO
 pub fn set_window_refresh_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetWindowRefreshCallback(window, cbfun)
 }
@@ -701,6 +764,7 @@ pub fn set_window_size(window i64, width int, height int) {
 	C.glfwSetWindowSize(window, width, height)
 }
 
+// TODO
 pub fn set_window_size_callback(window i64, cbfun voidptr) voidptr {
 	return C.glfwSetWindowSizeCallback(window, cbfun)
 }
@@ -733,8 +797,8 @@ pub fn terminate() {
 	C.glfwTerminate()
 }
 
-pub fn update_gamepad_mappings(string voidptr) bool {
-	return C.glfwUpdateGamepadMappings(string)
+pub fn update_gamepad_mappings(str string) bool {
+	return C.glfwUpdateGamepadMappings(str.str)
 }
 
 pub fn wait_events() {

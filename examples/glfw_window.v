@@ -1,5 +1,4 @@
 import vgl.glfw
-import vgl.opengl.GL11
 
 fn key_down(window i64, key, code, action, mods int) {
 	switch key {
@@ -16,6 +15,9 @@ fn main() {
 	window := glfw.create_window(600, 400, 'GLFW Window', 0, 0)
 	glfw.set_key_callback(window, key_down)
 	glfw.show_window(window)
+
+	pos := glfw.get_window_size(window)
+	println(pos)
 
 	for {
 		if glfw.window_should_close(window) {
