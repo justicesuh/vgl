@@ -1,6 +1,4 @@
 import vgl.opengl.gl11
-import vgl.opengl.gl12
-import vgl.opengl.gl13
 import vgl.glfw
 
 fn key_down(window i64, key, code, action, mods int) {
