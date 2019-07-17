@@ -44,118 +44,106 @@ import const (
 	GL_UNSIGNED_SHORT_5_6_5_REV
 )
 
-pub fn gl_copy_tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, x int, y int, width int, height int) {
+pub fn copy_tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, x int, y int, width int, height int) {
 	C.glCopyTexSubImage3D(target, level, xoffset, yoffset, zoffset, x, y, width, height)
 }
 
-pub fn gl_draw_range_elements(mode int, start int, end int, count int, type int, indices i64) {
+pub fn draw_range_elements(mode int, start int, end int, count int, type int, indices i64) {
 	C.glDrawRangeElements(mode, start, end, count, type, indices)
 }
 
-pub fn gl_draw_range_elements(mode int, start int, end int, type int, indices voidptr) {
+pub fn draw_range_elements(mode int, start int, end int, type int, indices voidptr) {
 	C.glDrawRangeElements(mode, start, end, type, indices)
 }
 
-pub fn gl_draw_range_elements(mode int, start int, end int, indices voidptr) {
+pub fn draw_range_elements(mode int, start int, end int, indices voidptr) {
 	C.glDrawRangeElements(mode, start, end, indices)
 }
 
-pub fn gl_draw_range_elements(mode int, start int, end int, indices voidptr) {
+pub fn draw_range_elements(mode int, start int, end int, indices voidptr) {
 	C.glDrawRangeElements(mode, start, end, indices)
 }
 
-pub fn gl_draw_range_elements(mode int, start int, end int, indices voidptr) {
+pub fn draw_range_elements(mode int, start int, end int, indices voidptr) {
 	C.glDrawRangeElements(mode, start, end, indices)
 }
 
-pub fn gl_tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels []f64) {
+pub fn tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels []f64) {
 	C.glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels)
 }
 
-pub fn gl_tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels []f32) {
+pub fn tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels []f32) {
 	C.glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels)
 }
 
-pub fn gl_tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels []int) {
+pub fn tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels []int) {
 	C.glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels)
 }
 
-pub fn gl_tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels i64) {
+pub fn tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels i64) {
 	C.glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels)
 }
 
-pub fn gl_tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels []i16) {
+pub fn tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels []i16) {
 	C.glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels)
 }
 
-pub fn gl_tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels voidptr) {
+pub fn tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels voidptr) {
 	C.glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels)
 }
 
-pub fn gl_tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels voidptr) {
+pub fn tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels voidptr) {
 	C.glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels)
 }
 
-pub fn gl_tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels voidptr) {
+pub fn tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels voidptr) {
 	C.glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels)
 }
 
-pub fn gl_tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels voidptr) {
+pub fn tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels voidptr) {
 	C.glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels)
 }
 
-pub fn gl_tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels voidptr) {
+pub fn tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels voidptr) {
 	C.glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels)
 }
 
-pub fn gl_tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels []f64) {
+pub fn tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels []f64) {
 	C.glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
 }
 
-pub fn gl_tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels []f32) {
+pub fn tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels []f32) {
 	C.glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
 }
 
-pub fn gl_tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels []int) {
+pub fn tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels []int) {
 	C.glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
 }
 
-pub fn gl_tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels i64) {
+pub fn tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels i64) {
 	C.glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
 }
 
-pub fn gl_tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels []i16) {
+pub fn tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels []i16) {
 	C.glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
 }
 
-pub fn gl_tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels voidptr) {
+pub fn tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels voidptr) {
 	C.glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
 }
 
-pub fn gl_tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels voidptr) {
+pub fn tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels voidptr) {
 	C.glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
 }
 
-pub fn gl_tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels voidptr) {
+pub fn tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels voidptr) {
 	C.glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
 }
 
-pub fn gl_tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels voidptr) {
+pub fn tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels voidptr) {
 	C.glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
 }
 
-pub fn gl_tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels voidptr) {
+pub fn tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels voidptr) {
 	C.glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
-}
-
-pub fn ngl_draw_range_elements(mode int, start int, end int, count int, type int, indices i64) {
-	C.nglDrawRangeElements(mode, start, end, count, type, indices)
-}
-
-pub fn ngl_tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels i64) {
-	C.nglTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels)
-}
-
-pub fn ngl_tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels i64) {
-	C.nglTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
 }
