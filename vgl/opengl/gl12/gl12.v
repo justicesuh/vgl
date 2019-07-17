@@ -1,5 +1,10 @@
 module gl12
 
+#flag  -I @VROOT/thirdparty/glad
+#flag @VROOT/thirdparty/glad/glad.o
+
+#include <glad.h>
+
 import const (
 	GL_ALIASED_LINE_WIDTH_RANGE
 	GL_ALIASED_POINT_SIZE_RANGE
@@ -49,21 +54,16 @@ pub fn copy_tex_sub_image3d(target int, level int, xoffset int, yoffset int, zof
 }
 
 // TODO
-pub fn draw_range_elements(mode int, u32 start, u32 end, count int, typ int, indices voidptr) {
+pub fn draw_range_elements(mode int, start u32, end u32, count int, typ int, indices voidptr) {
 	C.glDrawRangeElements(mode, start, end, count, typ, indices)	
 }
 
 // TODO
-pub fn tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels voidptr) {
-	C.glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels)
+pub fn tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, typ int, pixels voidptr) {
+	C.glTexImage3D(target, level, internalformat, width, height, depth, border, format, typ, pixels)
 }
 
 // TODO
-pub fn tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, format int, type int, pixels voidptr) {
-	C.glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels)
-}
-
-// TODO
-pub fn tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, type int, pixels voidptr) {
-	C.glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
+pub fn tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, typ int, pixels voidptr) {
+	C.glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, typ, pixels)
 }

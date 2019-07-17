@@ -1,5 +1,10 @@
 module gl13
 
+#flag  -I @VROOT/thirdparty/glad
+#flag @VROOT/thirdparty/glad/glad.o
+
+#include <glad.h>
+
 import const (
 	GL_ACTIVE_TEXTURE
 	GL_ADD_SIGNED
@@ -107,76 +112,47 @@ pub fn client_active_texture(texture int) {
 	C.glClientActiveTexture(texture)
 }
 
-pub fn compressed_tex_image1d(target int, level int, internalformat int, width int, border int, image_size int, data i64) {
-	C.glCompressedTexImage1D(target, level, internalformat, width, border, image_size, data)
-}
-
+// TODO
 pub fn compressed_tex_image1d(target int, level int, internalformat int, width int, border int, data voidptr) {
-	C.glCompressedTexImage1D(target, level, internalformat, width, border, data)
+	C.glCompressedTexImage1D(target, level, internalformat, width, border, 0, data)
 }
 
-pub fn compressed_tex_image2d(target int, level int, internalformat int, width int, height int, border int, image_size int, data i64) {
-	C.glCompressedTexImage2D(target, level, internalformat, width, height, border, image_size, data)
-}
-
+// TODO
 pub fn compressed_tex_image2d(target int, level int, internalformat int, width int, height int, border int, data voidptr) {
-	C.glCompressedTexImage2D(target, level, internalformat, width, height, border, data)
+	C.glCompressedTexImage2D(target, level, internalformat, width, height, border, 0, data)
 }
 
-pub fn compressed_tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, image_size int, data i64) {
-	C.glCompressedTexImage3D(target, level, internalformat, width, height, depth, border, image_size, data)
-}
-
+// TODO
 pub fn compressed_tex_image3d(target int, level int, internalformat int, width int, height int, depth int, border int, data voidptr) {
-	C.glCompressedTexImage3D(target, level, internalformat, width, height, depth, border, data)
+	C.glCompressedTexImage3D(target, level, internalformat, width, height, depth, border, 0, data)
 }
 
-pub fn compressed_tex_sub_image1d(target int, level int, xoffset int, width int, format int, image_size int, data i64) {
-	C.glCompressedTexSubImage1D(target, level, xoffset, width, format, image_size, data)
-}
-
+// TODO
 pub fn compressed_tex_sub_image1d(target int, level int, xoffset int, width int, format int, data voidptr) {
-	C.glCompressedTexSubImage1D(target, level, xoffset, width, format, data)
+	C.glCompressedTexSubImage1D(target, level, xoffset, width, format, 0, data)
 }
 
-pub fn compressed_tex_sub_image2d(target int, level int, xoffset int, yoffset int, width int, height int, format int, image_size int, data i64) {
-	C.glCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, image_size, data)
-}
-
+// TODO
 pub fn compressed_tex_sub_image2d(target int, level int, xoffset int, yoffset int, width int, height int, format int, data voidptr) {
-	C.glCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, data)
+	C.glCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, 0, data)
 }
 
-pub fn compressed_tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, image_size int, data i64) {
-	C.glCompressedTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, image_size, data)
-}
-
+// TODO
 pub fn compressed_tex_sub_image3d(target int, level int, xoffset int, yoffset int, zoffset int, width int, height int, depth int, format int, data voidptr) {
-	C.glCompressedTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, data)
+	C.glCompressedTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, 0, data)
 }
 
-pub fn get_compressed_tex_image(target int, level int, pixels i64) {
-	C.glGetCompressedTexImage(target, level, pixels)
-}
-
+// TODO
 pub fn get_compressed_tex_image(target int, level int, pixels voidptr) {
 	C.glGetCompressedTexImage(target, level, pixels)
 }
 
 pub fn load_transpose_matrixd(m []f64) {
-	C.glLoadTransposeMatrixd(m)
-}
-
-pub fn load_transpose_matrixd(m voidptr) {
-	C.glLoadTransposeMatrixd(m)
+	C.glLoadTransposeMatrixd(m.data)
 }
 
 pub fn load_transpose_matrixf(m []f32) {
-	C.glLoadTransposeMatrixf(m)
-}
-
-pub fn load_transpose_matrixf(m voidptr) {
-	C.glLoadTransposeMatrixf(m)
+	C.glLoadTransposeMatrixf(m.data)
 }
 
 pub fn multi_tex_coord1d(texture int, s f64) {
@@ -184,11 +160,7 @@ pub fn multi_tex_coord1d(texture int, s f64) {
 }
 
 pub fn multi_tex_coord1dv(texture int, v []f64) {
-	C.glMultiTexCoord1dv(texture, v)
-}
-
-pub fn multi_tex_coord1dv(texture int, v voidptr) {
-	C.glMultiTexCoord1dv(texture, v)
+	C.glMultiTexCoord1dv(texture, v.data)
 }
 
 pub fn multi_tex_coord1f(texture int, s f32) {
@@ -196,11 +168,7 @@ pub fn multi_tex_coord1f(texture int, s f32) {
 }
 
 pub fn multi_tex_coord1fv(texture int, v []f32) {
-	C.glMultiTexCoord1fv(texture, v)
-}
-
-pub fn multi_tex_coord1fv(texture int, v voidptr) {
-	C.glMultiTexCoord1fv(texture, v)
+	C.glMultiTexCoord1fv(texture, v.data)
 }
 
 pub fn multi_tex_coord1i(texture int, s int) {
@@ -208,11 +176,7 @@ pub fn multi_tex_coord1i(texture int, s int) {
 }
 
 pub fn multi_tex_coord1iv(texture int, v []int) {
-	C.glMultiTexCoord1iv(texture, v)
-}
-
-pub fn multi_tex_coord1iv(texture int, v voidptr) {
-	C.glMultiTexCoord1iv(texture, v)
+	C.glMultiTexCoord1iv(texture, v.data)
 }
 
 pub fn multi_tex_coord1s(texture int, s i16) {
@@ -220,11 +184,7 @@ pub fn multi_tex_coord1s(texture int, s i16) {
 }
 
 pub fn multi_tex_coord1sv(texture int, v []i16) {
-	C.glMultiTexCoord1sv(texture, v)
-}
-
-pub fn multi_tex_coord1sv(texture int, v voidptr) {
-	C.glMultiTexCoord1sv(texture, v)
+	C.glMultiTexCoord1sv(texture, v.data)
 }
 
 pub fn multi_tex_coord2d(texture int, s f64, t f64) {
@@ -232,11 +192,7 @@ pub fn multi_tex_coord2d(texture int, s f64, t f64) {
 }
 
 pub fn multi_tex_coord2dv(texture int, v []f64) {
-	C.glMultiTexCoord2dv(texture, v)
-}
-
-pub fn multi_tex_coord2dv(texture int, v voidptr) {
-	C.glMultiTexCoord2dv(texture, v)
+	C.glMultiTexCoord2dv(texture, v.data)
 }
 
 pub fn multi_tex_coord2f(texture int, s f32, t f32) {
@@ -244,11 +200,7 @@ pub fn multi_tex_coord2f(texture int, s f32, t f32) {
 }
 
 pub fn multi_tex_coord2fv(texture int, v []f32) {
-	C.glMultiTexCoord2fv(texture, v)
-}
-
-pub fn multi_tex_coord2fv(texture int, v voidptr) {
-	C.glMultiTexCoord2fv(texture, v)
+	C.glMultiTexCoord2fv(texture, v.data)
 }
 
 pub fn multi_tex_coord2i(texture int, s int, t int) {
@@ -256,11 +208,7 @@ pub fn multi_tex_coord2i(texture int, s int, t int) {
 }
 
 pub fn multi_tex_coord2iv(texture int, v []int) {
-	C.glMultiTexCoord2iv(texture, v)
-}
-
-pub fn multi_tex_coord2iv(texture int, v voidptr) {
-	C.glMultiTexCoord2iv(texture, v)
+	C.glMultiTexCoord2iv(texture, v.data)
 }
 
 pub fn multi_tex_coord2s(texture int, s i16, t i16) {
@@ -268,11 +216,7 @@ pub fn multi_tex_coord2s(texture int, s i16, t i16) {
 }
 
 pub fn multi_tex_coord2sv(texture int, v []i16) {
-	C.glMultiTexCoord2sv(texture, v)
-}
-
-pub fn multi_tex_coord2sv(texture int, v voidptr) {
-	C.glMultiTexCoord2sv(texture, v)
+	C.glMultiTexCoord2sv(texture, v.data)
 }
 
 pub fn multi_tex_coord3d(texture int, s f64, t f64, r f64) {
@@ -280,11 +224,7 @@ pub fn multi_tex_coord3d(texture int, s f64, t f64, r f64) {
 }
 
 pub fn multi_tex_coord3dv(texture int, v []f64) {
-	C.glMultiTexCoord3dv(texture, v)
-}
-
-pub fn multi_tex_coord3dv(texture int, v voidptr) {
-	C.glMultiTexCoord3dv(texture, v)
+	C.glMultiTexCoord3dv(texture, v.data)
 }
 
 pub fn multi_tex_coord3f(texture int, s f32, t f32, r f32) {
@@ -292,11 +232,7 @@ pub fn multi_tex_coord3f(texture int, s f32, t f32, r f32) {
 }
 
 pub fn multi_tex_coord3fv(texture int, v []f32) {
-	C.glMultiTexCoord3fv(texture, v)
-}
-
-pub fn multi_tex_coord3fv(texture int, v voidptr) {
-	C.glMultiTexCoord3fv(texture, v)
+	C.glMultiTexCoord3fv(texture, v.data)
 }
 
 pub fn multi_tex_coord3i(texture int, s int, t int, r int) {
@@ -304,11 +240,7 @@ pub fn multi_tex_coord3i(texture int, s int, t int, r int) {
 }
 
 pub fn multi_tex_coord3iv(texture int, v []int) {
-	C.glMultiTexCoord3iv(texture, v)
-}
-
-pub fn multi_tex_coord3iv(texture int, v voidptr) {
-	C.glMultiTexCoord3iv(texture, v)
+	C.glMultiTexCoord3iv(texture, v.data)
 }
 
 pub fn multi_tex_coord3s(texture int, s i16, t i16, r i16) {
@@ -316,11 +248,7 @@ pub fn multi_tex_coord3s(texture int, s i16, t i16, r i16) {
 }
 
 pub fn multi_tex_coord3sv(texture int, v []i16) {
-	C.glMultiTexCoord3sv(texture, v)
-}
-
-pub fn multi_tex_coord3sv(texture int, v voidptr) {
-	C.glMultiTexCoord3sv(texture, v)
+	C.glMultiTexCoord3sv(texture, v.data)
 }
 
 pub fn multi_tex_coord4d(texture int, s f64, t f64, r f64, q f64) {
@@ -328,11 +256,7 @@ pub fn multi_tex_coord4d(texture int, s f64, t f64, r f64, q f64) {
 }
 
 pub fn multi_tex_coord4dv(texture int, v []f64) {
-	C.glMultiTexCoord4dv(texture, v)
-}
-
-pub fn multi_tex_coord4dv(texture int, v voidptr) {
-	C.glMultiTexCoord4dv(texture, v)
+	C.glMultiTexCoord4dv(texture, v.data)
 }
 
 pub fn multi_tex_coord4f(texture int, s f32, t f32, r f32, q f32) {
@@ -340,11 +264,7 @@ pub fn multi_tex_coord4f(texture int, s f32, t f32, r f32, q f32) {
 }
 
 pub fn multi_tex_coord4fv(texture int, v []f32) {
-	C.glMultiTexCoord4fv(texture, v)
-}
-
-pub fn multi_tex_coord4fv(texture int, v voidptr) {
-	C.glMultiTexCoord4fv(texture, v)
+	C.glMultiTexCoord4fv(texture, v.data)
 }
 
 pub fn multi_tex_coord4i(texture int, s int, t int, r int, q int) {
@@ -352,11 +272,7 @@ pub fn multi_tex_coord4i(texture int, s int, t int, r int, q int) {
 }
 
 pub fn multi_tex_coord4iv(texture int, v []int) {
-	C.glMultiTexCoord4iv(texture, v)
-}
-
-pub fn multi_tex_coord4iv(texture int, v voidptr) {
-	C.glMultiTexCoord4iv(texture, v)
+	C.glMultiTexCoord4iv(texture, v.data)
 }
 
 pub fn multi_tex_coord4s(texture int, s i16, t i16, r i16, q i16) {
@@ -364,27 +280,15 @@ pub fn multi_tex_coord4s(texture int, s i16, t i16, r i16, q i16) {
 }
 
 pub fn multi_tex_coord4sv(texture int, v []i16) {
-	C.glMultiTexCoord4sv(texture, v)
-}
-
-pub fn multi_tex_coord4sv(texture int, v voidptr) {
-	C.glMultiTexCoord4sv(texture, v)
+	C.glMultiTexCoord4sv(texture, v.data)
 }
 
 pub fn mult_transpose_matrixd(m []f64) {
-	C.glMultTransposeMatrixd(m)
-}
-
-pub fn mult_transpose_matrixd(m voidptr) {
-	C.glMultTransposeMatrixd(m)
+	C.glMultTransposeMatrixd(m.data)
 }
 
 pub fn mult_transpose_matrixf(m []f32) {
-	C.glMultTransposeMatrixf(m)
-}
-
-pub fn mult_transpose_matrixf(m voidptr) {
-	C.glMultTransposeMatrixf(m)
+	C.glMultTransposeMatrixf(m.data)
 }
 
 pub fn sample_coverage(value f32, invert bool) {
