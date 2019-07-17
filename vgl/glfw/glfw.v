@@ -2,10 +2,10 @@ module glfw
 
 #flag -I @VROOT/thirdparty/glfw 
 #flag -L @VROOT/thirdparty/glfw 
+
 #flag darwin -lglfw
 #flag linux -lglfw
 #flag windows -lglfw3 
-
 #include <GLFW/glfw3.h>
 
 import const (

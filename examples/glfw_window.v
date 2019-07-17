@@ -1,4 +1,5 @@
 import vgl.glfw
+import vgl.opengl.GL11
 
 fn key_down(window i64, key, code, action, mods int) {
 	switch key {
