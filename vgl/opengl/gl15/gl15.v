@@ -2,6 +2,7 @@ module gl15
 
 #flag  -I @VROOT/thirdparty/glad
 #flag @VROOT/thirdparty/glad/glad.o
+
 #include <glad.h>
 
 import const (
@@ -65,148 +66,38 @@ pub fn bind_buffer(target int, buffer int) {
 	C.glBindBuffer(target, buffer)
 }
 
-pub fn buffer_data(target int, data []f64, usage int) {
-	C.glBufferData(target, data, usage)
-}
-
-pub fn buffer_data(target int, data []f32, usage int) {
-	C.glBufferData(target, data, usage)
-}
-
-pub fn buffer_data(target int, data []int, usage int) {
-	C.glBufferData(target, data, usage)
-}
-
-pub fn buffer_data(target int, data []i64, usage int) {
-	C.glBufferData(target, data, usage)
-}
-
-pub fn buffer_data(target int, size i64, usage int) {
-	C.glBufferData(target, size, usage)
-}
-
-pub fn buffer_data(target int, data []i16, usage int) {
-	C.glBufferData(target, data, usage)
-}
-
+// TODO
 pub fn buffer_data(target int, data voidptr, usage int) {
-	C.glBufferData(target, data, usage)
+	C.glBufferData(target, 0, data, usage)
 }
 
-pub fn buffer_data(target int, data voidptr, usage int) {
-	C.glBufferData(target, data, usage)
+// TODO
+pub fn buffer_sub_data(target int, offset int, data voidptr) {
+	C.glBufferSubData(target, offset, 0, data)
 }
 
-pub fn buffer_data(target int, data voidptr, usage int) {
-	C.glBufferData(target, data, usage)
+pub fn delete_buffer(buffers []u32) {
+	C.glDeleteBuffers(buffers.len, buffers.data)
 }
 
-pub fn buffer_data(target int, data voidptr, usage int) {
-	C.glBufferData(target, data, usage)
+pub fn delete_queries(ids []u32) {
+	C.glDeleteQueries(ids.len, ids.data)
 }
 
-pub fn buffer_data(target int, data voidptr, usage int) {
-	C.glBufferData(target, data, usage)
+pub fn end_query(target int, id int) {
+	C.glEndQuery(target, id)
 }
 
-pub fn buffer_data(target int, data voidptr, usage int) {
-	C.glBufferData(target, data, usage)
+pub fn get_buffers(size int) []u32 {
+	buffers := [u32(0); size]
+	C.glGenBuffers(size, buffers.data)
+	return buffers
 }
 
-pub fn buffer_sub_data(target int, offset i64, data []f64) {
-	C.glBufferSubData(target, offset, data)
-}
-
-pub fn buffer_sub_data(target int, offset i64, data []f32) {
-	C.glBufferSubData(target, offset, data)
-}
-
-pub fn buffer_sub_data(target int, offset i64, data []int) {
-	C.glBufferSubData(target, offset, data)
-}
-
-pub fn buffer_sub_data(target int, offset i64, data []i64) {
-	C.glBufferSubData(target, offset, data)
-}
-
-pub fn buffer_sub_data(target int, offset i64, data []i16) {
-	C.glBufferSubData(target, offset, data)
-}
-
-pub fn buffer_sub_data(target int, offset i64, data voidptr) {
-	C.glBufferSubData(target, offset, data)
-}
-
-pub fn buffer_sub_data(target int, offset i64, data voidptr) {
-	C.glBufferSubData(target, offset, data)
-}
-
-pub fn buffer_sub_data(target int, offset i64, data voidptr) {
-	C.glBufferSubData(target, offset, data)
-}
-
-pub fn buffer_sub_data(target int, offset i64, data voidptr) {
-	C.glBufferSubData(target, offset, data)
-}
-
-pub fn buffer_sub_data(target int, offset i64, data voidptr) {
-	C.glBufferSubData(target, offset, data)
-}
-
-pub fn buffer_sub_data(target int, offset i64, data voidptr) {
-	C.glBufferSubData(target, offset, data)
-}
-
-pub fn delete_buffers(buffer int) {
-	C.glDeleteBuffers(buffer)
-}
-
-pub fn delete_buffers(buffers []int) {
-	C.glDeleteBuffers(buffers)
-}
-
-pub fn delete_buffers(buffers voidptr) {
-	C.glDeleteBuffers(buffers)
-}
-
-pub fn delete_queries(id int) {
-	C.glDeleteQueries(id)
-}
-
-pub fn delete_queries(ids []int) {
-	C.glDeleteQueries(ids)
-}
-
-pub fn delete_queries(ids voidptr) {
-	C.glDeleteQueries(ids)
-}
-
-pub fn end_query(target int) {
-	C.glEndQuery(target)
-}
-
-pub fn gen_buffers() int {
-	return C.glGenBuffers()
-}
-
-pub fn gen_buffers(buffers []int) {
-	C.glGenBuffers(buffers)
-}
-
-pub fn gen_buffers(buffers voidptr) {
-	C.glGenBuffers(buffers)
-}
-
-pub fn gen_queries() int {
-	return C.glGenQueries()
-}
-
-pub fn gen_queries(ids []int) {
-	C.glGenQueries(ids)
-}
-
-pub fn gen_queries(ids voidptr) {
-	C.glGenQueries(ids)
+pub fn gen_queries(size int) []u32 {
+	ids := [u32(0); size]
+	C.glGenQueries(size, ids.data)
+	return ids
 }
 
 pub fn get_buffer_parameteri(target int, pname int) int {
@@ -214,11 +105,7 @@ pub fn get_buffer_parameteri(target int, pname int) int {
 }
 
 pub fn get_buffer_parameteriv(target int, pname int, params []int) {
-	C.glGetBufferParameteriv(target, pname, params)
-}
-
-pub fn get_buffer_parameteriv(target int, pname int, params voidptr) {
-	C.glGetBufferParameteriv(target, pname, params)
+	C.glGetBufferParameteriv(target, pname, params.data)
 }
 
 pub fn get_buffer_pointer(target int, pname int) i64 {
@@ -226,51 +113,12 @@ pub fn get_buffer_pointer(target int, pname int) i64 {
 }
 
 pub fn get_buffer_pointerv(target int, pname int, params *voidptr) {
-	C.glGetBufferPointerv(target, pname, params)
+	C.glGetBufferPointerv(target, pname, params.data)
 }
 
-pub fn get_buffer_sub_data(target int, offset i64, data []f64) {
-	C.glGetBufferSubData(target, offset, data)
-}
-
-pub fn get_buffer_sub_data(target int, offset i64, data []f32) {
-	C.glGetBufferSubData(target, offset, data)
-}
-
-pub fn get_buffer_sub_data(target int, offset i64, data []int) {
-	C.glGetBufferSubData(target, offset, data)
-}
-
-pub fn get_buffer_sub_data(target int, offset i64, data []i64) {
-	C.glGetBufferSubData(target, offset, data)
-}
-
-pub fn get_buffer_sub_data(target int, offset i64, data []i16) {
-	C.glGetBufferSubData(target, offset, data)
-}
-
-pub fn get_buffer_sub_data(target int, offset i64, data voidptr) {
-	C.glGetBufferSubData(target, offset, data)
-}
-
-pub fn get_buffer_sub_data(target int, offset i64, data voidptr) {
-	C.glGetBufferSubData(target, offset, data)
-}
-
-pub fn get_buffer_sub_data(target int, offset i64, data voidptr) {
-	C.glGetBufferSubData(target, offset, data)
-}
-
-pub fn get_buffer_sub_data(target int, offset i64, data voidptr) {
-	C.glGetBufferSubData(target, offset, data)
-}
-
-pub fn get_buffer_sub_data(target int, offset i64, data voidptr) {
-	C.glGetBufferSubData(target, offset, data)
-}
-
-pub fn get_buffer_sub_data(target int, offset i64, data voidptr) {
-	C.glGetBufferSubData(target, offset, data)
+// TODO
+pub fn get_buffer_sub_data(target int, offset int, data voidptr) {
+	C.glGetBufferSubData(target, offset, 0, data)
 }
 
 pub fn get_queryi(target int, pname int) int {
@@ -278,11 +126,7 @@ pub fn get_queryi(target int, pname int) int {
 }
 
 pub fn get_queryiv(target int, pname int, params []int) {
-	C.glGetQueryiv(target, pname, params)
-}
-
-pub fn get_queryiv(target int, pname int, params voidptr) {
-	C.glGetQueryiv(target, pname, params)
+	C.glGetQueryiv(target, pname, params.data)
 }
 
 pub fn get_query_objecti(id int, pname int) int {
@@ -290,11 +134,7 @@ pub fn get_query_objecti(id int, pname int) int {
 }
 
 pub fn get_query_objectiv(id int, pname int, params []int) {
-	C.glGetQueryObjectiv(id, pname, params)
-}
-
-pub fn get_query_objectiv(id int, pname int, params voidptr) {
-	C.glGetQueryObjectiv(id, pname, params)
+	C.glGetQueryObjectiv(id, pname, params.data)
 }
 
 pub fn get_query_objectui(id int, pname int) int {
@@ -302,11 +142,7 @@ pub fn get_query_objectui(id int, pname int) int {
 }
 
 pub fn get_query_objectuiv(id int, pname int, params []int) {
-	C.glGetQueryObjectuiv(id, pname, params)
-}
-
-pub fn get_query_objectuiv(id int, pname int, params voidptr) {
-	C.glGetQueryObjectuiv(id, pname, params)
+	C.glGetQueryObjectuiv(id, pname, params.data)
 }
 
 pub fn is_buffer(buffer int) bool {
@@ -317,18 +153,11 @@ pub fn is_query(id int) bool {
 	return C.glIsQuery(id)
 }
 
+// TODO
 pub fn map_buffer(target int, access int) voidptr {
 	return C.glMapBuffer(target, access)
 }
 
-pub fn map_buffer(target int, access int, length i64, old_buffer voidptr) voidptr {
-	return C.glMapBuffer(target, access, length, old_buffer)
-}
-
-pub fn map_buffer(target int, access int, old_buffer voidptr) voidptr {
-	return C.glMapBuffer(target, access, old_buffer)
-}
-
-pub fn unmap_buffer(target int) bool {
+pub fn unmap_buffer(target u32) bool {
 	return C.glUnmapBuffer(target)
 }
