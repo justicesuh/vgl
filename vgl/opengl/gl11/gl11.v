@@ -1,9 +1,9 @@
-module GL11
+module gl11
 
 #flag  -I @VROOT/thirdparty/glad
+#flag @VROOT/thirdparty/glad/glad.o
 
-#include "glad.h"
-#flag @VROOT/thirdparty/glad/glad.o 
+#include <glad.h>
 
 import const (
 	GL_2_BYTES
@@ -944,10 +944,7 @@ pub fn gen_textures(n int) []u32 {
 	return textures
 }
 
-pub fn get_boolean(pname int) bool {
-	return C.glGetBoolean(pname)
-}
-
+// TODO
 pub fn get_booleanv(pname int, params voidptr) {
 	C.glGetBooleanv(pname, params)
 }
@@ -958,13 +955,9 @@ pub fn get_clip_plane(plane int) []f64 {
 	return equation
 }
 
-pub fn get_double(pname int) f64 {
-	return C.glGetDouble(pname)
-}
-
 // TODO
-pub fn get_doublev(pname int) []f64 {
-	return [f64(0)]
+pub fn get_doublev(pname int, params voidptr) {
+	C.glGetBooleanv(pname, params)
 }
 
 
@@ -972,18 +965,9 @@ pub fn get_error() int {
 	return C.glGetError()
 }
 
-pub fn get_float(pname int) f32 {
-	return C.glGetFloat(pname)
-}
-
-
 // TODO
 pub fn get_floatv(pname int, params voidptr) {
 	C.glGetFloatv(pname, params)
-}
-
-pub fn get_integer(pname int) int {
-	return C.glGetInteger(pname)
 }
 
 // TODO
@@ -991,17 +975,9 @@ pub fn get_integerv(pname int, params voidptr) {
 	C.glGetIntegerv(pname, params)
 }
 
-pub fn get_lightf(light int, pname int) f32 {
-	return C.glGetLightf(light, pname)
-}
-
 // TODO
 pub fn get_lightfv(light int, pname int, data voidptr) {
 	C.glGetLightfv(light, pname, data)
-}
-
-pub fn get_lighti(light int, pname int) int {
-	return C.glGetLighti(light, pname)
 }
 
 // TODO
@@ -1009,26 +985,14 @@ pub fn get_lightiv(light int, pname int, data voidptr) {
 	C.glGetLightiv(light, pname, data)
 }
 
-pub fn get_mapd(target int, query int) f64 {
-	return C.glGetMapd(target, query)
-}
-
 // TODO
 pub fn get_mapdv(target int, query int, data voidptr) {
 	C.glGetMapdv(target, query, data)
 }
 
-pub fn get_mapf(target int, query int) f32 {
-	return C.glGetMapf(target, query)
-}
-
 // TODO
 pub fn get_mapfv(target int, query int, data voidptr) {
 	C.glGetMapfv(target, query, data)
-}
-
-pub fn get_mapi(target int, query int) int {
-	return C.glGetMapi(target, query)
 }
 
 // TODO
@@ -1061,10 +1025,6 @@ pub fn get_pixel_mapusv(map int, data voidptr) {
 	C.glGetPixelMapusv(map, data)
 }
 
-pub fn get_pointer(pname int) i64 {
-	return C.glGetPointer(pname)
-}
-
 // TODO
 pub fn get_pointerv(pname int, params *voidptr) {
 	C.glGetPointerv(pname, params)
@@ -1080,17 +1040,9 @@ pub fn get_string(name int) string {
 	return tos(ret, strlen(ret))
 }
 
-pub fn get_tex_envf(env int, pname int) f32 {
-	return C.glGetTexEnvf(env, pname)
-}
-
 // TODO
 pub fn get_tex_envfv(env int, pname int, data voidptr) {
 	C.glGetTexEnvfv(env, pname, data)
-}
-
-pub fn get_tex_envi(env int, pname int) int {
-	return C.glGetTexEnvi(env, pname)
 }
 
 // TODO
@@ -1098,26 +1050,14 @@ pub fn get_tex_enviv(env int, pname int, data voidptr) {
 	C.glGetTexEnviv(env, pname, data)
 }
 
-pub fn get_tex_gend(coord int, pname int) f64 {
-	return C.glGetTexGend(coord, pname)
-}
-
 // TODO
 pub fn get_tex_gendv(coord int, pname int, data voidptr) {
 	C.glGetTexGendv(coord, pname, data)
 }
 
-pub fn get_tex_genf(coord int, pname int) f32 {
-	return C.glGetTexGenf(coord, pname)
-}
-
 // TODO
 pub fn get_tex_genfv(coord int, pname int, data voidptr) {
 	C.glGetTexGenfv(coord, pname, data)
-}
-
-pub fn get_tex_geni(coord int, pname int) int {
-	return C.glGetTexGeni(coord, pname)
 }
 
 // TODO
@@ -1129,17 +1069,9 @@ pub fn get_tex_image(tex int, level int, format int, typ int, pixels voidptr) {
 	C.glGetTexImage(tex, level, format, typ, pixels)
 }
 
-pub fn get_tex_level_parameterf(target int, level int, pname int) f32 {
-	return C.glGetTexLevelParameterf(target, level, pname)
-}
-
 // TODO
 pub fn get_tex_level_parameterfv(target int, level int, pname int, params voidptr) {
 	C.glGetTexLevelParameterfv(target, level, pname, params)
-}
-
-pub fn get_tex_level_parameteri(target int, level int, pname int) int {
-	return C.glGetTexLevelParameteri(target, level, pname)
 }
 
 // TODO
@@ -1147,17 +1079,9 @@ pub fn get_tex_level_parameteriv(target int, level int, pname int, params voidpt
 	C.glGetTexLevelParameteriv(target, level, pname, params)
 }
 
-pub fn get_tex_parameterf(target int, pname int) f32 {
-	return C.glGetTexParameterf(target, pname)
-}
-
 // TODO
 pub fn get_tex_parameterfv(target int, pname int, params voidptr) {
 	C.glGetTexParameterfv(target, pname, params)
-}
-
-pub fn get_tex_parameteri(target int, pname int) int {
-	return C.glGetTexParameteri(target, pname)
 }
 
 // TODO
@@ -1705,10 +1629,6 @@ pub fn tex_coord1d(s f64) {
 	C.glTexCoord1d(s)
 }
 
-pub fn tex_coord1dv(v []f64) {
-	C.glTextCoord1dv(v.data)
-}
-
 pub fn tex_coord1f(s f32) {
 	C.glTexCoord1f(s)
 }
@@ -1759,10 +1679,6 @@ pub fn tex_coord2iv(v []int) {
 
 pub fn tex_coord2s(s i16, t i16) {
 	C.glTexCoord2s(s, t)
-}
-
-pub fn tex_coord2sv(v []i16) {
-	C.glTexCoords2sv(v.data)
 }
 
 pub fn tex_coord3d(s f64, t f64, r f64) {
