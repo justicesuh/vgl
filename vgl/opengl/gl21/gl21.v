@@ -32,25 +32,25 @@ import const (
 )
 
 pub fn uniform_matrix2x3fv(location int, transpose bool, value []f32) {
-	C.glUniformMatrix2x3fv(location, transpose, value.data)
+	C.glUniformMatrix2x3fv(location, value.len, transpose, value.data)
 }
 
 pub fn uniform_matrix2x4fv(location int, transpose bool, value []f32) {
-	C.glUniformMatrix2x4fv(location, transpose, value.data)
+	C.glUniformMatrix2x4fv(location, value.len, transpose, value.data)
 }
 
 pub fn uniform_matrix3x2fv(location int, transpose bool, value []f32) {
-	C.glUniformMatrix3x2fv(location, transpose, value.data)
+	C.glUniformMatrix3x2fv(location, value.len, transpose, value.data)
 }
 
 pub fn uniform_matrix3x4fv(location int, transpose bool, value []f32) {
-	C.glUniformMatrix3x4fv(location, transpose, value.data)
+	C.glUniformMatrix3x4fv(location, value.len, transpose, value.data)
 }
 
 pub fn uniform_matrix4x2fv(location int, transpose bool, value []f32) {
-	C.glUniformMatrix4x2fv(location, transpose, value.data)
+	C.glUniformMatrix4x2fv(location, value.len, transpose, value.data)
 }
 
 pub fn uniform_matrix4x3fv(location int, transpose bool, value []f32) {
-	C.glUniformMatrix4x3fv(location, transpose, value.data)
+	C.glUniformMatrix4x3fv(location, value.len, transpose, value.data)
 }

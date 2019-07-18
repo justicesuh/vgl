@@ -142,12 +142,12 @@ pub fn enable_vertex_attrib_array(index u32) {
 
 // TODO
 pub fn get_active_attrib(program int, index int, length []int, size []int, typ []int, name voidptr) {
-	C.glGetActiveAttrib(program, index, length, size, typ, name)
+	C.glGetActiveAttrib(program, index, length.len, length.data, size.data, typ.data, name)
 }
 
 // TODO
-pub fn get_active_uniform(program int, index int, length []int, size []int, typ []int, name voidptr) {
-	C.glGetActiveUniform(program, index, length, size, typ, name)
+pub fn get_active_uniform(program int, index u32, length []int, size []int, typ []int, name voidptr) {
+	C.glGetActiveUniform(program, index, length.len, length.data, size.data, typ.data, name)
 }
 
 // TODO
@@ -161,10 +161,6 @@ pub fn get_attrib_location(program u32, name string) int {
 	return C.glGetAttribLocation(program, name.str)
 }
 
-pub fn get_programi(program int, pname int) int {
-	return C.glGetProgrami(program, pname)
-}
-
 // TODO
 pub fn get_program_info_log(program int, max_length int) string {
 	// C.glGetProgramInfoLog(program, ...)
@@ -175,13 +171,11 @@ pub fn get_programiv(program int, pname int, params []int) {
 	C.glGetProgramiv(program, pname, params.data)
 }
 
-pub fn get_shaderi(shader int, pname int) int {
-	return C.glGetShaderi(shader, pname)
-}
-
 // TODO
-pub fn get_shader_info_log(shader int, max_length int) string {
-	return C.glGetShaderInfoLog(shader, max_length)
+pub fn get_shader_info_log(shader u32, max_length int) string {
+	tmp := ''
+	C.glGetShaderInfoLog(shader, max_length, 0, &tmp)
+	return ''
 }
 
 pub fn get_shaderiv(shader int, pname int, params []int) {
@@ -189,20 +183,12 @@ pub fn get_shaderiv(shader int, pname int, params []int) {
 }
 
 // TODO
-pub fn get_shader_source(shader int, length voidptr, source voidptr) {
-	C.glGetShaderSource(shader, length, source)
-}
-
-pub fn get_uniformf(program int, location int) f32 {
-	return C.glGetUniformf(program, location)
+pub fn get_shader_source(shader u32, length voidptr, source voidptr) {
+	C.glGetShaderSource(shader, 0, length, source)
 }
 
 pub fn get_uniformfv(program int, location int, params []f32) {
 	C.glGetUniformfv(program, location, params.data)
-}
-
-pub fn get_uniformi(program int, location int) int {
-	return C.glGetUniformi(program, location)
 }
 
 pub fn get_uniformiv(program int, location int, params []int) {
@@ -219,10 +205,6 @@ pub fn get_vertex_attribdv(index int, pname int, params []f64) {
 
 pub fn get_vertex_attribfv(index int, pname int, params []f32) {
 	C.glGetVertexAttribfv(index, pname, params.data)
-}
-
-pub fn get_vertex_attribi(index int, pname int) int {
-	return C.glGetVertexAttribi(index, pname)
 }
 
 pub fn get_vertex_attribiv(index int, pname int, params []int) {
@@ -247,8 +229,10 @@ pub fn link_program(program u32) {
 }
 
 // TODO
-pub fn shader_source(shader int, strings *voidptr, length voidptr) {
-	C.glShaderSource(shader, strings, length)
+pub fn shader_source(shader u32, strings *voidptr, length voidptr) {
+	// arrlen should be length of strings and length arrays
+	arrlen := 0
+	C.glShaderSource(shader, arrlen, strings, length)
 }
 
 pub fn stencil_func_separate(face int, func int, ref int, mask int) {
@@ -268,7 +252,7 @@ pub fn uniform1f(location int, v0 f32) {
 }
 
 pub fn uniform1fv(location int, value []f32) {
-	C.glUniform1fv(location, value.data)
+	C.glUniform1fv(location, value.len, value.data)
 }
 
 pub fn uniform1i(location int, v0 int) {
@@ -276,7 +260,7 @@ pub fn uniform1i(location int, v0 int) {
 }
 
 pub fn uniform1iv(location int, value []int) {
-	C.glUniform1iv(location, value.data)
+	C.glUniform1iv(location, value.len, value.data)
 }
 
 pub fn uniform2f(location int, v0 f32, v1 f32) {
@@ -284,7 +268,7 @@ pub fn uniform2f(location int, v0 f32, v1 f32) {
 }
 
 pub fn uniform2fv(location int, value []f32) {
-	C.glUniform2fv(location, value.data)
+	C.glUniform2fv(location, value.len, value.data)
 }
 
 pub fn uniform2i(location int, v0 int, v1 int) {
@@ -292,7 +276,7 @@ pub fn uniform2i(location int, v0 int, v1 int) {
 }
 
 pub fn uniform2iv(location int, value []int) {
-	C.glUniform2iv(location, value.data)
+	C.glUniform2iv(location, value.len, value.data)
 }
 
 pub fn uniform3f(location int, v0 f32, v1 f32, v2 f32) {
@@ -300,7 +284,7 @@ pub fn uniform3f(location int, v0 f32, v1 f32, v2 f32) {
 }
 
 pub fn uniform3fv(location int, value []f32) {
-	C.glUniform3fv(location, value.data)
+	C.glUniform3fv(location, value.len, value.data)
 }
 
 pub fn uniform3i(location int, v0 int, v1 int, v2 int) {
@@ -308,7 +292,7 @@ pub fn uniform3i(location int, v0 int, v1 int, v2 int) {
 }
 
 pub fn uniform3iv(location int, value []int) {
-	C.glUniform3iv(location, value.data)
+	C.glUniform3iv(location, value.len, value.data)
 }
 
 pub fn uniform4f(location int, v0 f32, v1 f32, v2 f32, v3 f32) {
@@ -316,7 +300,7 @@ pub fn uniform4f(location int, v0 f32, v1 f32, v2 f32, v3 f32) {
 }
 
 pub fn uniform4fv(location int, value []f32) {
-	C.glUniform4fv(location, value.data)
+	C.glUniform4fv(location, value.len, value.data)
 }
 
 pub fn uniform4i(location int, v0 int, v1 int, v2 int, v3 int) {
@@ -324,19 +308,19 @@ pub fn uniform4i(location int, v0 int, v1 int, v2 int, v3 int) {
 }
 
 pub fn uniform4iv(location int, value []int) {
-	C.glUniform4iv(location, value.data)
+	C.glUniform4iv(location, value.len, value.data)
 }
 
 pub fn uniform_matrix2fv(location int, transpose bool, value []f32) {
-	C.glUniformMatrix2fv(location, transpose, value.data)
+	C.glUniformMatrix2fv(location, value.len, transpose, value.data)
 }
 
 pub fn uniform_matrix3fv(location int, transpose bool, value []f32) {
-	C.glUniformMatrix3fv(location, transpose, value.data)
+	C.glUniformMatrix3fv(location, value.len, transpose, value.data)
 }
 
 pub fn uniform_matrix4fv(location int, transpose bool, value []f32) {
-	C.glUniformMatrix4fv(location, transpose, value.data)
+	C.glUniformMatrix4fv(location, value.len, transpose, value.data)
 }
 
 pub fn use_program(program u32) {

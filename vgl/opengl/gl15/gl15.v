@@ -84,8 +84,8 @@ pub fn delete_queries(ids []u32) {
 	C.glDeleteQueries(ids.len, ids.data)
 }
 
-pub fn end_query(target int, id int) {
-	C.glEndQuery(target, id)
+pub fn end_query(target int) {
+	C.glEndQuery(target)
 }
 
 pub fn get_buffers(size int) []u32 {
@@ -100,16 +100,8 @@ pub fn gen_queries(size int) []u32 {
 	return ids
 }
 
-pub fn get_buffer_parameteri(target int, pname int) int {
-	return C.glGetBufferParameteri(target, pname)
-}
-
 pub fn get_buffer_parameteriv(target int, pname int, params []int) {
 	C.glGetBufferParameteriv(target, pname, params.data)
-}
-
-pub fn get_buffer_pointer(target int, pname int) i64 {
-	return C.glGetBufferPointer(target, pname)
 }
 
 // TODO
@@ -122,24 +114,12 @@ pub fn get_buffer_sub_data(target int, offset int, data voidptr) {
 	C.glGetBufferSubData(target, offset, 0, data)
 }
 
-pub fn get_queryi(target int, pname int) int {
-	return C.glGetQueryi(target, pname)
-}
-
 pub fn get_queryiv(target int, pname int, params []int) {
 	C.glGetQueryiv(target, pname, params.data)
 }
 
-pub fn get_query_objecti(id int, pname int) int {
-	return C.glGetQueryObjecti(id, pname)
-}
-
 pub fn get_query_objectiv(id int, pname int, params []int) {
 	C.glGetQueryObjectiv(id, pname, params.data)
-}
-
-pub fn get_query_objectui(id int, pname int) int {
-	return C.glGetQueryObjectui(id, pname)
 }
 
 pub fn get_query_objectuiv(id int, pname int, params []int) {
