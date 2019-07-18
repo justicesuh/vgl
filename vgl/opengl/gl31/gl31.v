@@ -2,6 +2,7 @@ module gl31
 
 #flag  -I @VROOT/thirdparty/glad
 #flag @VROOT/thirdparty/glad/glad.o
+
 #include <glad.h>
 
 import const (
@@ -76,104 +77,33 @@ pub fn draw_arrays_instanced(mode int, first int, count int, primcount int) {
 	C.glDrawArraysInstanced(mode, first, count, primcount)
 }
 
-pub fn draw_elements_instanced(mode int, count int, type int, indices i64, primcount int) {
-	C.glDrawElementsInstanced(mode, count, type, indices, primcount)
-}
-
-pub fn draw_elements_instanced(mode int, type int, indices voidptr, primcount int) {
-	C.glDrawElementsInstanced(mode, type, indices, primcount)
-}
-
-pub fn draw_elements_instanced(mode int, indices voidptr, primcount int) {
-	C.glDrawElementsInstanced(mode, indices, primcount)
-}
-
-pub fn draw_elements_instanced(mode int, indices voidptr, primcount int) {
-	C.glDrawElementsInstanced(mode, indices, primcount)
-}
-
-pub fn draw_elements_instanced(mode int, indices voidptr, primcount int) {
-	C.glDrawElementsInstanced(mode, indices, primcount)
-}
-
-pub fn get_active_uniform_blocki(program int, uniform_block_index int, pname int) int {
-	return C.glGetActiveUniformBlocki(program, uniform_block_index, pname)
+// TODO
+pub fn draw_elements_instanced(mode int, count int, typ int, indices voidptr, instance_count int) {
+	C.glDrawElementsInstanced(mode, count, typ, indices, instance_count)
 }
 
 pub fn get_active_uniform_blockiv(program int, uniform_block_index int, pname int, params []int) {
-	C.glGetActiveUniformBlockiv(program, uniform_block_index, pname, params)
+	C.glGetActiveUniformBlockiv(program, uniform_block_index, pname, params.data)
 }
 
-pub fn get_active_uniform_blockiv(program int, uniform_block_index int, pname int, params voidptr) {
-	C.glGetActiveUniformBlockiv(program, uniform_block_index, pname, params)
-}
-
-pub fn get_active_uniform_block_name(program int, uniform_block_index int) string {
-	return C.glGetActiveUniformBlockName(program, uniform_block_index)
-}
-
-pub fn get_active_uniform_block_name(program int, uniform_block_index int, buf_size int) string {
-	return C.glGetActiveUniformBlockName(program, uniform_block_index, buf_size)
-}
-
+// TODO
 pub fn get_active_uniform_block_name(program int, uniform_block_index int, length []int, uniform_block_name voidptr) {
-	C.glGetActiveUniformBlockName(program, uniform_block_index, length, uniform_block_name)
-}
-
-pub fn get_active_uniform_block_name(program int, uniform_block_index int, length voidptr, uniform_block_name voidptr) {
-	C.glGetActiveUniformBlockName(program, uniform_block_index, length, uniform_block_name)
-}
-
-pub fn get_active_uniform_name(program int, uniform_index int) string {
-	return C.glGetActiveUniformName(program, uniform_index)
-}
-
-pub fn get_active_uniform_name(program int, uniform_index int, buf_size int) string {
-	return C.glGetActiveUniformName(program, uniform_index, buf_size)
-}
-
-pub fn get_active_uniform_name(program int, uniform_index int, length []int, uniform_name voidptr) {
-	C.glGetActiveUniformName(program, uniform_index, length, uniform_name)
-}
-
-pub fn get_active_uniform_name(program int, uniform_index int, length voidptr, uniform_name voidptr) {
-	C.glGetActiveUniformName(program, uniform_index, length, uniform_name)
-}
-
-pub fn get_active_uniformsi(program int, uniform_index int, pname int) int {
-	return C.glGetActiveUniformsi(program, uniform_index, pname)
+	C.glGetActiveUniformBlockName(program, uniform_block_index, length.len, length.data, uniform_block_name)
 }
 
 pub fn get_active_uniformsiv(program int, uniform_indices []int, pname int, params []int) {
-	C.glGetActiveUniformsiv(program, uniform_indices, pname, params)
+	C.glGetActiveUniformsiv(program, uniform_indices.len, uniform_indices.data, pname, params.data)
 }
 
-pub fn get_active_uniformsiv(program int, uniform_indices voidptr, pname int, params voidptr) {
-	C.glGetActiveUniformsiv(program, uniform_indices, pname, params)
+pub fn get_uniform_block_index(program u32, uniform_block_name string) u32 {
+	return C.glGetUniformBlockIndex(program, uniform_block_name.str)
 }
 
-pub fn get_uniform_block_index(program int, uniform_block_name byteptr) int {
-	return C.glGetUniformBlockIndex(program, uniform_block_name)
-}
-
-pub fn get_uniform_block_index(program int, uniform_block_name voidptr) int {
-	return C.glGetUniformBlockIndex(program, uniform_block_name)
-}
-
-pub fn get_uniform_indices(program int, uniform_name byteptr) int {
-	return C.glGetUniformIndices(program, uniform_name)
-}
-
-pub fn get_uniform_indices(program int, uniform_names *byteptr, uniform_indices voidptr) {
-	C.glGetUniformIndices(program, uniform_names, uniform_indices)
-}
-
-pub fn get_uniform_indices(program int, uniform_names *voidptr, uniform_indices []int) {
-	C.glGetUniformIndices(program, uniform_names, uniform_indices)
-}
-
-pub fn get_uniform_indices(program int, uniform_names *voidptr, uniform_indices voidptr) {
-	C.glGetUniformIndices(program, uniform_names, uniform_indices)
+// TODO
+pub fn get_uniform_indices(program u32, uniform_names []string) []u32 {
+	indices := [u32(0); uniform_names.len]
+	C.glGetUniformIndices(program, uniform_names.len, uniform_names.data, indices.data)
+	return indices
 }
 
 pub fn primitive_restart_index(index int) {

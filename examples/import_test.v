@@ -6,4 +6,5 @@ import vgl.opengl.gl15
 import vgl.opengl.gl20
 import vgl.opengl.gl21
 import vgl.opengl.gl30
+import vgl.opengl.gl31
 import vgl.glfw
