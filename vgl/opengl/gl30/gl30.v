@@ -2,6 +2,7 @@ module gl30
 
 #flag  -I @VROOT/thirdparty/glad
 #flag @VROOT/thirdparty/glad/glad.o
+
 #include <glad.h>
 
 import const (
@@ -260,12 +261,8 @@ pub fn bind_buffer_range(target int, index int, buffer int, offset i64, size i64
 	C.glBindBufferRange(target, index, buffer, offset, size)
 }
 
-pub fn bind_frag_data_location(program int, color_number int, name byteptr) {
-	C.glBindFragDataLocation(program, color_number, name)
-}
-
-pub fn bind_frag_data_location(program int, color_number int, name voidptr) {
-	C.glBindFragDataLocation(program, color_number, name)
+pub fn bind_frag_data_location(program u32, color_number u32, name string) {
+	C.glBindFragDataLocation(program, color_number, name.str)
 }
 
 pub fn bind_framebuffer(target int, framebuffer int) {
@@ -297,67 +294,31 @@ pub fn clear_bufferfi(buffer int, drawbuffer int, depth f32, stencil int) {
 }
 
 pub fn clear_bufferfv(buffer int, drawbuffer int, value []f32) {
-	C.glClearBufferfv(buffer, drawbuffer, value)
-}
-
-pub fn clear_bufferfv(buffer int, drawbuffer int, value voidptr) {
-	C.glClearBufferfv(buffer, drawbuffer, value)
+	C.glClearBufferfv(buffer, drawbuffer, value.data)
 }
 
 pub fn clear_bufferiv(buffer int, drawbuffer int, value []int) {
-	C.glClearBufferiv(buffer, drawbuffer, value)
+	C.glClearBufferiv(buffer, drawbuffer, value.data)
 }
 
-pub fn clear_bufferiv(buffer int, drawbuffer int, value voidptr) {
-	C.glClearBufferiv(buffer, drawbuffer, value)
-}
-
-pub fn clear_bufferuiv(buffer int, drawbuffer int, value []int) {
-	C.glClearBufferuiv(buffer, drawbuffer, value)
-}
-
-pub fn clear_bufferuiv(buffer int, drawbuffer int, value voidptr) {
-	C.glClearBufferuiv(buffer, drawbuffer, value)
+pub fn clear_bufferuiv(buffer int, drawbuffer int, value []u32) {
+	C.glClearBufferuiv(buffer, drawbuffer, value.data)
 }
 
 pub fn color_maski(buf int, r bool, g bool, b bool, a bool) {
 	C.glColorMaski(buf, r, g, b, a)
 }
 
-pub fn delete_framebuffers(framebuffer int) {
-	C.glDeleteFramebuffers(framebuffer)
+pub fn delete_framebuffers(framebuffers []u32) {
+	C.glDeleteFramebuffers(framebuffers.len, framebuffers.data)
 }
 
-pub fn delete_framebuffers(framebuffers []int) {
-	C.glDeleteFramebuffers(framebuffers)
+pub fn delete_renderbuffers(renderbuffers []u32) {
+	C.glDeleteRenderbuffers(renderbuffers.len, renderbuffers.data)
 }
 
-pub fn delete_framebuffers(framebuffers voidptr) {
-	C.glDeleteFramebuffers(framebuffers)
-}
-
-pub fn delete_renderbuffers(renderbuffer int) {
-	C.glDeleteRenderbuffers(renderbuffer)
-}
-
-pub fn delete_renderbuffers(renderbuffers []int) {
-	C.glDeleteRenderbuffers(renderbuffers)
-}
-
-pub fn delete_renderbuffers(renderbuffers voidptr) {
-	C.glDeleteRenderbuffers(renderbuffers)
-}
-
-pub fn delete_vertex_arrays(array int) {
-	C.glDeleteVertexArrays(array)
-}
-
-pub fn delete_vertex_arrays(arrays []int) {
-	C.glDeleteVertexArrays(arrays)
-}
-
-pub fn delete_vertex_arrays(arrays voidptr) {
-	C.glDeleteVertexArrays(arrays)
+pub fn delete_vertex_arrays(arrays []u32) {
+	C.glDeleteVertexArrays(arrays.len, arrays.data)
 }
 
 pub fn disablei(target int, index int) {
@@ -404,172 +365,73 @@ pub fn generate_mipmap(target int) {
 	C.glGenerateMipmap(target)
 }
 
-pub fn gen_framebuffers() int {
-	return C.glGenFramebuffers()
+pub fn gen_framebuffers(n int) []u32 {
+	ids := [u32(0); n]
+	C.glGenFramebuffers(n, ids.data)
+	return ids
 }
 
-pub fn gen_framebuffers(framebuffers []int) {
-	C.glGenFramebuffers(framebuffers)
+pub fn gen_renderbuffers(n int) []u32 {
+	buffers := [u32(0); n]
+	C.glGenRenderbuffers(n, buffers.data)
+	return buffers
 }
 
-pub fn gen_framebuffers(framebuffers voidptr) {
-	C.glGenFramebuffers(framebuffers)
+pub fn gen_vertex_arrays(n int) []u32 {
+	arrays := [u32(0); n]
+	C.glGenVertexArrays(n, arrays.data)
+	return arrays
 }
 
-pub fn gen_renderbuffers() int {
-	return C.glGenRenderbuffers()
+pub fn get_booleani_v(target int, index int, data []bool) {
+	C.glGetBooleani_v(target, index, data.data)
 }
 
-pub fn gen_renderbuffers(renderbuffers []int) {
-	C.glGenRenderbuffers(renderbuffers)
-}
-
-pub fn gen_renderbuffers(renderbuffers voidptr) {
-	C.glGenRenderbuffers(renderbuffers)
-}
-
-pub fn gen_vertex_arrays() int {
-	return C.glGenVertexArrays()
-}
-
-pub fn gen_vertex_arrays(arrays []int) {
-	C.glGenVertexArrays(arrays)
-}
-
-pub fn gen_vertex_arrays(arrays voidptr) {
-	C.glGenVertexArrays(arrays)
-}
-
-pub fn get_booleani(target int, index int) bool {
-	return C.glGetBooleani(target, index)
-}
-
-pub fn get_booleani_v(target int, index int, data voidptr) {
-	C.glGetBooleani_v(target, index, data)
-}
-
-pub fn get_frag_data_location(program int, name byteptr) int {
-	return C.glGetFragDataLocation(program, name)
-}
-
-pub fn get_frag_data_location(program int, name voidptr) int {
-	return C.glGetFragDataLocation(program, name)
-}
-
-pub fn get_framebuffer_attachment_parameteri(target int, attachment int, pname int) int {
-	return C.glGetFramebufferAttachmentParameteri(target, attachment, pname)
+pub fn get_frag_data_location(program u32, name string) int {
+	return C.glGetFragDataLocation(program, name.str)
 }
 
 pub fn get_framebuffer_attachment_parameteriv(target int, attachment int, pname int, params []int) {
-	C.glGetFramebufferAttachmentParameteriv(target, attachment, pname, params)
-}
-
-pub fn get_framebuffer_attachment_parameteriv(target int, attachment int, pname int, params voidptr) {
-	C.glGetFramebufferAttachmentParameteriv(target, attachment, pname, params)
-}
-
-pub fn get_integeri(target int, index int) int {
-	return C.glGetIntegeri(target, index)
+	C.glGetFramebufferAttachmentParameteriv(target, attachment, pname, params.data)
 }
 
 pub fn get_integeri_v(target int, index int, data []int) {
-	C.glGetIntegeri_v(target, index, data)
-}
-
-pub fn get_integeri_v(target int, index int, data voidptr) {
-	C.glGetIntegeri_v(target, index, data)
-}
-
-pub fn get_renderbuffer_parameteri(target int, pname int) int {
-	return C.glGetRenderbufferParameteri(target, pname)
+	C.glGetIntegeri_v(target, index, data.data)
 }
 
 pub fn get_renderbuffer_parameteriv(target int, pname int, params []int) {
-	C.glGetRenderbufferParameteriv(target, pname, params)
+	C.glGetRenderbufferParameteriv(target, pname, params.data)
 }
 
-pub fn get_renderbuffer_parameteriv(target int, pname int, params voidptr) {
-	C.glGetRenderbufferParameteriv(target, pname, params)
-}
-
-pub fn get_stringi(name int, index int) string {
-	return C.glGetStringi(name, index)
-}
-
-pub fn get_tex_parameter_ii(target int, pname int) int {
-	return C.glGetTexParameterIi(target, pname)
+// TODO
+pub fn get_stringi(name int, index int) []u8 {
+//	return C.glGetStringi(name, index)
+	return [u8(0); 1]
 }
 
 pub fn get_tex_parameter_iiv(target int, pname int, params []int) {
-	C.glGetTexParameterIiv(target, pname, params)
-}
-
-pub fn get_tex_parameter_iiv(target int, pname int, params voidptr) {
-	C.glGetTexParameterIiv(target, pname, params)
-}
-
-pub fn get_tex_parameter_iui(target int, pname int) int {
-	return C.glGetTexParameterIui(target, pname)
+	C.glGetTexParameterIiv(target, pname, params.data)
 }
 
 pub fn get_tex_parameter_iuiv(target int, pname int, params []int) {
-	C.glGetTexParameterIuiv(target, pname, params)
+	C.glGetTexParameterIuiv(target, pname, params.data)
 }
 
-pub fn get_tex_parameter_iuiv(target int, pname int, params voidptr) {
-	C.glGetTexParameterIuiv(target, pname, params)
-}
-
-pub fn get_transform_feedback_varying(program int, index int, length []int, size []int, type []int, name voidptr) {
-	C.glGetTransformFeedbackVarying(program, index, length, size, type, name)
-}
-
-pub fn get_transform_feedback_varying(program int, index int, buf_size int, size voidptr, type voidptr) string {
-	return C.glGetTransformFeedbackVarying(program, index, buf_size, size, type)
-}
-
-pub fn get_transform_feedback_varying(program int, index int, size voidptr, type voidptr) string {
-	return C.glGetTransformFeedbackVarying(program, index, size, type)
-}
-
-pub fn get_transform_feedback_varying(program int, index int, length voidptr, size voidptr, type voidptr, name voidptr) {
-	C.glGetTransformFeedbackVarying(program, index, length, size, type, name)
-}
-
-pub fn get_uniformui(program int, location int) int {
-	return C.glGetUniformui(program, location)
+// TODO
+pub fn get_transform_feedback_varying(program u32, index u32, length []int, size []int, typ []int, name string) {
+	C.glGetTransformFeedbackVarying(program, index, 0, length.data, size.data, typ.data, name.str)
 }
 
 pub fn get_uniformuiv(program int, location int, params []int) {
-	C.glGetUniformuiv(program, location, params)
-}
-
-pub fn get_uniformuiv(program int, location int, params voidptr) {
-	C.glGetUniformuiv(program, location, params)
-}
-
-pub fn get_vertex_attrib_ii(index int, pname int) int {
-	return C.glGetVertexAttribIi(index, pname)
+	C.glGetUniformuiv(program, location, params.data)
 }
 
 pub fn get_vertex_attrib_iiv(index int, pname int, params []int) {
-	C.glGetVertexAttribIiv(index, pname, params)
-}
-
-pub fn get_vertex_attrib_iiv(index int, pname int, params voidptr) {
-	C.glGetVertexAttribIiv(index, pname, params)
-}
-
-pub fn get_vertex_attrib_iui(index int, pname int) int {
-	return C.glGetVertexAttribIui(index, pname)
+	C.glGetVertexAttribIiv(index, pname, params.data)
 }
 
 pub fn get_vertex_attrib_iuiv(index int, pname int, params []int) {
-	C.glGetVertexAttribIuiv(index, pname, params)
-}
-
-pub fn get_vertex_attrib_iuiv(index int, pname int, params voidptr) {
-	C.glGetVertexAttribIuiv(index, pname, params)
+	C.glGetVertexAttribIuiv(index, pname, params.data)
 }
 
 pub fn is_enabledi(target int, index int) bool {
@@ -588,80 +450,42 @@ pub fn is_vertex_array(array int) bool {
 	return C.glIsVertexArray(array)
 }
 
+// TODO
 pub fn map_buffer_range(target int, offset i64, length i64, access int) voidptr {
 	return C.glMapBufferRange(target, offset, length, access)
-}
-
-pub fn map_buffer_range(target int, offset i64, length i64, access int, old_buffer voidptr) voidptr {
-	return C.glMapBufferRange(target, offset, length, access, old_buffer)
 }
 
 pub fn renderbuffer_storage(target int, internalformat int, width int, height int) {
 	C.glRenderbufferStorage(target, internalformat, width, height)
 }
 
-pub fn renderbuffer_storage_multisample(target int, samples int, internalformat int, width int, height int) {
-	C.glRenderbufferStorageMultisample(target, samples, internalformat, width, height)
-}
-
-pub fn tex_parameter_ii(target int, pname int, param int) {
-	C.glTexParameterIi(target, pname, param)
-}
-
 pub fn tex_parameter_iiv(target int, pname int, params []int) {
-	C.glTexParameterIiv(target, pname, params)
-}
-
-pub fn tex_parameter_iiv(target int, pname int, params voidptr) {
-	C.glTexParameterIiv(target, pname, params)
-}
-
-pub fn tex_parameter_iui(target int, pname int, param int) {
-	C.glTexParameterIui(target, pname, param)
+	C.glTexParameterIiv(target, pname, params.data)
 }
 
 pub fn tex_parameter_iuiv(target int, pname int, params []int) {
-	C.glTexParameterIuiv(target, pname, params)
+	C.glTexParameterIuiv(target, pname, params.data)
 }
 
-pub fn tex_parameter_iuiv(target int, pname int, params voidptr) {
-	C.glTexParameterIuiv(target, pname, params)
-}
-
-pub fn transform_feedback_varyings(program int, varyings *byteptr, buffer_mode int) {
-	C.glTransformFeedbackVaryings(program, varyings, buffer_mode)
-}
-
-pub fn transform_feedback_varyings(program int, varying byteptr, buffer_mode int) {
-	C.glTransformFeedbackVaryings(program, varying, buffer_mode)
-}
-
-pub fn transform_feedback_varyings(program int, varyings *voidptr, buffer_mode int) {
-	C.glTransformFeedbackVaryings(program, varyings, buffer_mode)
+// TODO
+pub fn transform_feedback_varyings(program u32, varyings []string, buffer_mode int) {
+	C.glTransformFeedbackVaryings(program, varyings.len, varyings.data, buffer_mode)
 }
 
 pub fn uniform1ui(location int, v0 int) {
 	C.glUniform1ui(location, v0)
 }
 
-pub fn uniform1uiv(location int, value []int) {
-	C.glUniform1uiv(location, value)
-}
-
-pub fn uniform1uiv(location int, value voidptr) {
-	C.glUniform1uiv(location, value)
+pub fn uniform1uiv(location int, value []u32) {
+	C.glUniform1uiv(location, value.len, value.data)
 }
 
 pub fn uniform2ui(location int, v0 int, v1 int) {
 	C.glUniform2ui(location, v0, v1)
 }
 
-pub fn uniform2uiv(location int, value []int) {
-	C.glUniform2uiv(location, value)
-}
-
-pub fn uniform2uiv(location int, value voidptr) {
-	C.glUniform2uiv(location, value)
+pub fn uniform2uiv(location int, value []u32) {
+	C.glUniform2uiv(location, value.len, value.data)
 }
 
 pub fn uniform3ui(location int, v0 int, v1 int, v2 int) {
@@ -669,23 +493,15 @@ pub fn uniform3ui(location int, v0 int, v1 int, v2 int) {
 }
 
 pub fn uniform3uiv(location int, value []int) {
-	C.glUniform3uiv(location, value)
-}
-
-pub fn uniform3uiv(location int, value voidptr) {
-	C.glUniform3uiv(location, value)
+	C.glUniform3uiv(location, value.len, value.data)
 }
 
 pub fn uniform4ui(location int, v0 int, v1 int, v2 int, v3 int) {
 	C.glUniform4ui(location, v0, v1, v2, v3)
 }
 
-pub fn uniform4uiv(location int, value []int) {
-	C.glUniform4uiv(location, value)
-}
-
-pub fn uniform4uiv(location int, value voidptr) {
-	C.glUniform4uiv(location, value)
+pub fn uniform4uiv(location int, value []u32) {
+	C.glUniform4uiv(location, value.len, value.data)
 }
 
 pub fn vertex_attrib_i1i(index int, x int) {
@@ -693,11 +509,7 @@ pub fn vertex_attrib_i1i(index int, x int) {
 }
 
 pub fn vertex_attrib_i1iv(index int, v []int) {
-	C.glVertexAttribI1iv(index, v)
-}
-
-pub fn vertex_attrib_i1iv(index int, v voidptr) {
-	C.glVertexAttribI1iv(index, v)
+	C.glVertexAttribI1iv(index, v.data)
 }
 
 pub fn vertex_attrib_i1ui(index int, x int) {
@@ -705,11 +517,7 @@ pub fn vertex_attrib_i1ui(index int, x int) {
 }
 
 pub fn vertex_attrib_i1uiv(index int, v []int) {
-	C.glVertexAttribI1uiv(index, v)
-}
-
-pub fn vertex_attrib_i1uiv(index int, v voidptr) {
-	C.glVertexAttribI1uiv(index, v)
+	C.glVertexAttribI1uiv(index, v.data)
 }
 
 pub fn vertex_attrib_i2i(index int, x int, y int) {
@@ -717,11 +525,7 @@ pub fn vertex_attrib_i2i(index int, x int, y int) {
 }
 
 pub fn vertex_attrib_i2iv(index int, v []int) {
-	C.glVertexAttribI2iv(index, v)
-}
-
-pub fn vertex_attrib_i2iv(index int, v voidptr) {
-	C.glVertexAttribI2iv(index, v)
+	C.glVertexAttribI2iv(index, v.data)
 }
 
 pub fn vertex_attrib_i2ui(index int, x int, y int) {
@@ -729,11 +533,7 @@ pub fn vertex_attrib_i2ui(index int, x int, y int) {
 }
 
 pub fn vertex_attrib_i2uiv(index int, v []int) {
-	C.glVertexAttribI2uiv(index, v)
-}
-
-pub fn vertex_attrib_i2uiv(index int, v voidptr) {
-	C.glVertexAttribI2uiv(index, v)
+	C.glVertexAttribI2uiv(index, v.data)
 }
 
 pub fn vertex_attrib_i3i(index int, x int, y int, z int) {
@@ -741,11 +541,7 @@ pub fn vertex_attrib_i3i(index int, x int, y int, z int) {
 }
 
 pub fn vertex_attrib_i3iv(index int, v []int) {
-	C.glVertexAttribI3iv(index, v)
-}
-
-pub fn vertex_attrib_i3iv(index int, v voidptr) {
-	C.glVertexAttribI3iv(index, v)
+	C.glVertexAttribI3iv(index, v.data)
 }
 
 pub fn vertex_attrib_i3ui(index int, x int, y int, z int) {
@@ -753,15 +549,11 @@ pub fn vertex_attrib_i3ui(index int, x int, y int, z int) {
 }
 
 pub fn vertex_attrib_i3uiv(index int, v []int) {
-	C.glVertexAttribI3uiv(index, v)
+	C.glVertexAttribI3uiv(index, v.data)
 }
 
-pub fn vertex_attrib_i3uiv(index int, v voidptr) {
-	C.glVertexAttribI3uiv(index, v)
-}
-
-pub fn vertex_attrib_i4bv(index int, v voidptr) {
-	C.glVertexAttribI4bv(index, v)
+pub fn vertex_attrib_i4bv(index int, v []i8) {
+	C.glVertexAttribI4bv(index, v.data)
 }
 
 pub fn vertex_attrib_i4i(index int, x int, y int, z int, w int) {
@@ -769,57 +561,30 @@ pub fn vertex_attrib_i4i(index int, x int, y int, z int, w int) {
 }
 
 pub fn vertex_attrib_i4iv(index int, v []int) {
-	C.glVertexAttribI4iv(index, v)
-}
-
-pub fn vertex_attrib_i4iv(index int, v voidptr) {
-	C.glVertexAttribI4iv(index, v)
+	C.glVertexAttribI4iv(index, v.data)
 }
 
 pub fn vertex_attrib_i4sv(index int, v []i16) {
-	C.glVertexAttribI4sv(index, v)
+	C.glVertexAttribI4sv(index, v.data)
 }
 
-pub fn vertex_attrib_i4sv(index int, v voidptr) {
-	C.glVertexAttribI4sv(index, v)
-}
-
-pub fn vertex_attrib_i4ubv(index int, v voidptr) {
-	C.glVertexAttribI4ubv(index, v)
+pub fn vertex_attrib_i4ubv(index int, v []u8) {
+	C.glVertexAttribI4ubv(index, v.data)
 }
 
 pub fn vertex_attrib_i4ui(index int, x int, y int, z int, w int) {
 	C.glVertexAttribI4ui(index, x, y, z, w)
 }
 
-pub fn vertex_attrib_i4uiv(index int, v []int) {
-	C.glVertexAttribI4uiv(index, v)
-}
-
-pub fn vertex_attrib_i4uiv(index int, v voidptr) {
-	C.glVertexAttribI4uiv(index, v)
+pub fn vertex_attrib_i4uiv(index int, v []u32) {
+	C.glVertexAttribI4uiv(index, v.data)
 }
 
 pub fn vertex_attrib_i4usv(index int, v []i16) {
-	C.glVertexAttribI4usv(index, v)
+	C.glVertexAttribI4usv(index, v.data)
 }
 
-pub fn vertex_attrib_i4usv(index int, v voidptr) {
-	C.glVertexAttribI4usv(index, v)
-}
-
-pub fn vertex_attrib_i_pointer(index int, size int, type int, stride int, pointer i64) {
-	C.glVertexAttribIPointer(index, size, type, stride, pointer)
-}
-
-pub fn vertex_attrib_i_pointer(index int, size int, type int, stride int, pointer voidptr) {
-	C.glVertexAttribIPointer(index, size, type, stride, pointer)
-}
-
-pub fn vertex_attrib_i_pointer(index int, size int, type int, stride int, pointer voidptr) {
-	C.glVertexAttribIPointer(index, size, type, stride, pointer)
-}
-
-pub fn vertex_attrib_i_pointer(index int, size int, type int, stride int, pointer voidptr) {
-	C.glVertexAttribIPointer(index, size, type, stride, pointer)
+// TODO
+pub fn vertex_attrib_i_pointer(index u32, size int, typ int, stride int, pointer voidptr) {
+	C.glVertexAttribIPointer(index, size, typ, stride, pointer)
 }
