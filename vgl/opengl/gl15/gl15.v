@@ -112,8 +112,9 @@ pub fn get_buffer_pointer(target int, pname int) i64 {
 	return C.glGetBufferPointer(target, pname)
 }
 
+// TODO
 pub fn get_buffer_pointerv(target int, pname int, params *voidptr) {
-	C.glGetBufferPointerv(target, pname, params.data)
+	C.glGetBufferPointerv(target, pname, params)
 }
 
 // TODO

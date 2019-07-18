@@ -171,7 +171,7 @@ pub fn get_program_info_log(program int, max_length int) string {
 	return ''
 }
 
-pub fn get_programiv(program int, panem int, params []int) {
+pub fn get_programiv(program int, pname int, params []int) {
 	C.glGetProgramiv(program, pname, params.data)
 }
 
