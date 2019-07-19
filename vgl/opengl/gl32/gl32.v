@@ -2,6 +2,7 @@ module gl32
 
 #flag  -I @VROOT/thirdparty/glad
 #flag @VROOT/thirdparty/glad/glad.o
+
 #include <glad.h>
 
 import const (
@@ -79,62 +80,17 @@ pub fn delete_sync(sync i64) {
 	C.glDeleteSync(sync)
 }
 
-pub fn draw_elements_base_vertex(mode int, count int, type int, indices i64, basevertex int) {
-	C.glDrawElementsBaseVertex(mode, count, type, indices, basevertex)
+// TODO
+pub fn draw_elements_base_vertex(mode int, count int typ int indices voidptr, basevertex int) {
+	C.glDrawElementsBaseVertex(mode, count, typ, indices, basevertex)
 }
 
-pub fn draw_elements_base_vertex(mode int, type int, indices voidptr, basevertex int) {
-	C.glDrawElementsBaseVertex(mode, type, indices, basevertex)
-}
-
-pub fn draw_elements_base_vertex(mode int, indices voidptr, basevertex int) {
-	C.glDrawElementsBaseVertex(mode, indices, basevertex)
-}
-
-pub fn draw_elements_base_vertex(mode int, indices voidptr, basevertex int) {
-	C.glDrawElementsBaseVertex(mode, indices, basevertex)
-}
-
-pub fn draw_elements_base_vertex(mode int, indices voidptr, basevertex int) {
-	C.glDrawElementsBaseVertex(mode, indices, basevertex)
-}
-
-pub fn draw_elements_instanced_base_vertex(mode int, count int, type int, indices i64, primcount int, basevertex int) {
-	C.glDrawElementsInstancedBaseVertex(mode, count, type, indices, primcount, basevertex)
-}
-
+// TODO
 pub fn draw_elements_instanced_base_vertex(mode int, type int, indices voidptr, primcount int, basevertex int) {
 	C.glDrawElementsInstancedBaseVertex(mode, type, indices, primcount, basevertex)
 }
 
-pub fn draw_elements_instanced_base_vertex(mode int, indices voidptr, primcount int, basevertex int) {
-	C.glDrawElementsInstancedBaseVertex(mode, indices, primcount, basevertex)
-}
-
-pub fn draw_elements_instanced_base_vertex(mode int, indices voidptr, primcount int, basevertex int) {
-	C.glDrawElementsInstancedBaseVertex(mode, indices, primcount, basevertex)
-}
-
-pub fn draw_elements_instanced_base_vertex(mode int, indices voidptr, primcount int, basevertex int) {
-	C.glDrawElementsInstancedBaseVertex(mode, indices, primcount, basevertex)
-}
-
-pub fn draw_range_elements_base_vertex(mode int, start int, end int, count int, type int, indices i64, basevertex int) {
-	C.glDrawRangeElementsBaseVertex(mode, start, end, count, type, indices, basevertex)
-}
-
-pub fn draw_range_elements_base_vertex(mode int, start int, end int, type int, indices voidptr, basevertex int) {
-	C.glDrawRangeElementsBaseVertex(mode, start, end, type, indices, basevertex)
-}
-
-pub fn draw_range_elements_base_vertex(mode int, start int, end int, indices voidptr, basevertex int) {
-	C.glDrawRangeElementsBaseVertex(mode, start, end, indices, basevertex)
-}
-
-pub fn draw_range_elements_base_vertex(mode int, start int, end int, indices voidptr, basevertex int) {
-	C.glDrawRangeElementsBaseVertex(mode, start, end, indices, basevertex)
-}
-
+// TODO
 pub fn draw_range_elements_base_vertex(mode int, start int, end int, indices voidptr, basevertex int) {
 	C.glDrawRangeElementsBaseVertex(mode, start, end, indices, basevertex)
 }
@@ -152,11 +108,7 @@ pub fn get_buffer_parameteri64(target int, pname int) i64 {
 }
 
 pub fn get_buffer_parameteri64v(target int, pname int, params []i64) {
-	C.glGetBufferParameteri64v(target, pname, params)
-}
-
-pub fn get_buffer_parameteri64v(target int, pname int, params voidptr) {
-	C.glGetBufferParameteri64v(target, pname, params)
+	C.glGetBufferParameteri64v(target, pname, params.data)
 }
 
 pub fn get_integer64(pname int) i64 {
@@ -168,19 +120,11 @@ pub fn get_integer64i(pname int, index int) i64 {
 }
 
 pub fn get_integer64i_v(pname int, index int, params []i64) {
-	C.glGetInteger64i_v(pname, index, params)
-}
-
-pub fn get_integer64i_v(pname int, index int, params voidptr) {
-	C.glGetInteger64i_v(pname, index, params)
+	C.glGetInteger64i_v(pname, index, params.data)
 }
 
 pub fn get_integer64v(pname int, params []i64) {
-	C.glGetInteger64v(pname, params)
-}
-
-pub fn get_integer64v(pname int, params voidptr) {
-	C.glGetInteger64v(pname, params)
+	C.glGetInteger64v(pname, params.data)
 }
 
 pub fn get_multisamplef(pname int, index int) f32 {
@@ -188,11 +132,7 @@ pub fn get_multisamplef(pname int, index int) f32 {
 }
 
 pub fn get_multisamplefv(pname int, index int, val []f32) {
-	C.glGetMultisamplefv(pname, index, val)
-}
-
-pub fn get_multisamplefv(pname int, index int, val voidptr) {
-	C.glGetMultisamplefv(pname, index, val)
+	C.glGetMultisamplefv(pname, index, val.data)
 }
 
 pub fn get_synci(sync i64, pname int, length voidptr) int {
@@ -200,23 +140,16 @@ pub fn get_synci(sync i64, pname int, length voidptr) int {
 }
 
 pub fn get_synciv(sync i64, pname int, length []int, values []int) {
-	C.glGetSynciv(sync, pname, length, values)
-}
-
-pub fn get_synciv(sync i64, pname int, length voidptr, values voidptr) {
-	C.glGetSynciv(sync, pname, length, values)
+	C.glGetSynciv(sync, pname, length, values.data)
 }
 
 pub fn is_sync(sync i64) bool {
 	return C.glIsSync(sync)
 }
 
+// TODO
 pub fn multi_draw_elements_base_vertex(mode int, count []int, type int, indices *voidptr, basevertex []int) {
-	C.glMultiDrawElementsBaseVertex(mode, count, type, indices, basevertex)
-}
-
-pub fn multi_draw_elements_base_vertex(mode int, count voidptr, type int, indices *voidptr, basevertex voidptr) {
-	C.glMultiDrawElementsBaseVertex(mode, count, type, indices, basevertex)
+	C.glMultiDrawElementsBaseVertex(mode, count.data, type, indices, basevertex)
 }
 
 pub fn provoking_vertex(mode int) {
