@@ -103,12 +103,13 @@ class Registry():
                             if 'group' in e.attrib:
                                 _type = e[0].text
                                 group = e.attrib['group']
-                            if 'len' in e.attrib:
+                            elif 'len' in e.attrib:
                                 _type = e[0].text + '*'
                                 _len = e.attrib['len']
+                            else:
+                                _type = e[0].text
                             c.parameters.append(Parameter(name, _type, group, _len))
                         self.commands.append(c)
-
 
 
 if __name__ == '__main__':
