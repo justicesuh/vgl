@@ -23,9 +23,22 @@ class Enum():
 
 
 class Command():
-    def __init__(self, name, ret):
+    def __init__(self, name='', ret='void', group=None):
         self.name = name
         self.ret = ret
+        self.group = group
+        self.parameters = []
+
+    def __repr__(self):
+        return self.name
+
+
+class Parameter():
+    def __init__(self, name, _type, group, _len):
+        self.name = name
+        self._type = _type
+        self.group = group
+        self._len = _len
 
     def __repr__(self):
         return self.name
@@ -72,10 +85,28 @@ class Registry():
             if element.tag == 'commands':
                 for command in element.getchildren():
                     for e in command.getchildren():
-                        c = Command('', 'void')
+                        c = Command()
                         if e.tag == 'proto':
-                            c.name = e[0].text
-                            c.ret = e.text.strip()
+                            if 'group' in e.attrib:
+                                c.group = e.attrib['group']
+                            if len(e) == 1:
+                                c.name = e[0].text
+                                c.ret = e.text.strip()
+                            else:
+                                c.name = e[1].text
+                                c.ret = e[0].text
+                        if e.tag == 'param':
+                            name = e[-1].text
+                            _type = None
+                            group = None
+                            _len = None
+                            if 'group' in e.attrib:
+                                _type = e[0].text
+                                group = e.attrib['group']
+                            if 'len' in e.attrib:
+                                _type = e[0].text + '*'
+                                _len = e.attrib['len']
+                            c.parameters.append(Parameter(name, _type, group, _len))
                         self.commands.append(c)
 
 
