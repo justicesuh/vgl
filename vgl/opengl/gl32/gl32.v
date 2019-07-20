@@ -81,18 +81,18 @@ pub fn delete_sync(sync i64) {
 }
 
 // TODO
-pub fn draw_elements_base_vertex(mode int, count int typ int indices voidptr, basevertex int) {
+pub fn draw_elements_base_vertex(mode int, count int, typ int, indices voidptr, basevertex int) {
 	C.glDrawElementsBaseVertex(mode, count, typ, indices, basevertex)
 }
 
 // TODO
-pub fn draw_elements_instanced_base_vertex(mode int, type int, indices voidptr, primcount int, basevertex int) {
-	C.glDrawElementsInstancedBaseVertex(mode, type, indices, primcount, basevertex)
+pub fn draw_elements_instanced_base_vertex(mode int, count int, typ int, indices voidptr, primcount int, basevertex int) {
+	C.glDrawElementsInstancedBaseVertex(mode, count, typ, indices, primcount, basevertex)
 }
 
 // TODO
-pub fn draw_range_elements_base_vertex(mode int, start int, end int, indices voidptr, basevertex int) {
-	C.glDrawRangeElementsBaseVertex(mode, start, end, indices, basevertex)
+pub fn draw_range_elements_base_vertex(mode int, start int, end int, count int, typ int, indices voidptr, basevertex int) {
+	C.glDrawRangeElementsBaseVertex(mode, start, end, count, typ, indices, basevertex)
 }
 
 pub fn fence_sync(condition int, flags int) i64 {
@@ -103,20 +103,8 @@ pub fn framebuffer_texture(target int, attachment int, texture int, level int) {
 	C.glFramebufferTexture(target, attachment, texture, level)
 }
 
-pub fn get_buffer_parameteri64(target int, pname int) i64 {
-	return C.glGetBufferParameteri64(target, pname)
-}
-
 pub fn get_buffer_parameteri64v(target int, pname int, params []i64) {
 	C.glGetBufferParameteri64v(target, pname, params.data)
-}
-
-pub fn get_integer64(pname int) i64 {
-	return C.glGetInteger64(pname)
-}
-
-pub fn get_integer64i(pname int, index int) i64 {
-	return C.glGetInteger64i(pname, index)
 }
 
 pub fn get_integer64i_v(pname int, index int, params []i64) {
@@ -127,20 +115,12 @@ pub fn get_integer64v(pname int, params []i64) {
 	C.glGetInteger64v(pname, params.data)
 }
 
-pub fn get_multisamplef(pname int, index int) f32 {
-	return C.glGetMultisamplef(pname, index)
-}
-
 pub fn get_multisamplefv(pname int, index int, val []f32) {
 	C.glGetMultisamplefv(pname, index, val.data)
 }
 
-pub fn get_synci(sync i64, pname int, length voidptr) int {
-	return C.glGetSynci(sync, pname, length)
-}
-
 pub fn get_synciv(sync i64, pname int, length []int, values []int) {
-	C.glGetSynciv(sync, pname, length, values.data)
+	C.glGetSynciv(sync, pname, values.len, length.data, values.data)
 }
 
 pub fn is_sync(sync i64) bool {
@@ -148,8 +128,8 @@ pub fn is_sync(sync i64) bool {
 }
 
 // TODO
-pub fn multi_draw_elements_base_vertex(mode int, count []int, type int, indices *voidptr, basevertex []int) {
-	C.glMultiDrawElementsBaseVertex(mode, count.data, type, indices, basevertex)
+pub fn multi_draw_elements_base_vertex(mode int, count []int, typ int, indices *voidptr, basevertex []int) {
+	C.glMultiDrawElementsBaseVertex(mode, count.data, typ, indices, count.len, basevertex.data)
 }
 
 pub fn provoking_vertex(mode int) {
