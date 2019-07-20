@@ -22,12 +22,22 @@ class Enum():
         return self.name
 
 
+class Command():
+    def __init__(self, name, ret):
+        self.name = name
+        self.ret = ret
+
+    def __repr__(self):
+        return self.name
+
+
 class Registry():
     def __init__(self, url):
         self.url = url
         self.filename = url.rsplit('/', 1)[-1]
         self.groups = []
         self.enums = []
+        self.commands = []
 
     def download(self):
         if os.path.exists(self.filename):
@@ -58,6 +68,16 @@ class Registry():
             if element.tag == 'enums':
                 for enum in element.getchildren():
                     self.enums.append(Enum(enum.attrib['name'], enum.attrib['value']))
+
+            if element.tag == 'commands':
+                for command in element.getchildren():
+                    for e in command.getchildren():
+                        c = Command('', 'void')
+                        if e.tag == 'proto':
+                            c.name = e[0].text
+                            c.ret = e.text.strip()
+                        self.commands.append(c)
+
 
 
 if __name__ == '__main__':
