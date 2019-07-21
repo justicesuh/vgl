@@ -187,7 +187,9 @@ class Registry():
                         if e.tag == 'enum':
                             feature.enums.append(e.attrib['name'])
                         if e.tag == 'command':
-                            feature.commands.append(e.attrib['name'])
+                            name = e.attrib['name']
+                            if name not in feature.commands:
+                                feature.commands.append(name)
                 self.features.append(feature)
 
 
@@ -235,8 +237,6 @@ class Registry():
                     if len(list(filter(lambda x: '*' in x, [p.type_ for p in command.parameters]))) > 0 or '*' in command.ret:
                         v.write('\n// TODO')
                     vname = self.snake_case(command.name)[3:]
-                    if vname.endswith('_d'):
-                        vname = vname[:-2] + 'd'
                     v.write('\npub fn {}('.format(vname))
 
                     vargs = []
