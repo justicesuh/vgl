@@ -62,6 +62,30 @@ class Registry():
         self.commands = []
         self.features = []
 
+        self.v_type_map = {
+            'GLbyte': 'i8',
+            'GLshort': 'i16',
+            'GLint': 'int',
+            'GLubyte': 'u8',
+            'GLushort': 'u16',
+            'GLuint': 'u32',
+            'GLfloat': 'f32',
+            'GLdouble': 'f64',
+            'GLbyte*': '[]i8',
+            'GLshort*': '[]i16',
+            'GLint*': '[]int',
+            'GLubyte*': '[]u8',
+            'GLushort*': '[]u16',
+            'GLuint*': '[]u32',
+            'GLfloat*': '[]f32',
+            'GLdouble*': '[]f64',
+            'GLenum': 'u32',
+            'GLsizei': 'int',
+            'GLbitfield': 'u32',
+            'GLboolean': 'bool',
+            'const void*': 'voidptr'
+        }
+
 
     def download(self):
         if os.path.exists(self.filename):
@@ -112,10 +136,16 @@ class Registry():
                             group = None
                             _len = None
                             if 'group' in e.attrib:
-                                _type = e[0].text
+                                if len(e) == 2:
+                                    _type = e[0].text
+                                else:
+                                    _type = 'const void*'
                                 group = e.attrib['group']
                             elif 'len' in e.attrib:
-                                _type = e[0].text + '*'
+                                if len(e) == 2:
+                                    _type = e[0].text + '*'
+                                else:
+                                    _type = 'const void*'
                                 _len = e.attrib['len']
                             else:
                                 _type = e[0].text
@@ -150,18 +180,19 @@ class Registry():
             vpath = '{}/{}.v'.format(_dir, version_str)
             with open(vpath, 'w') as v:
                 v.write('module {}\n\n'.format(version_str))
-
                 v.write('import const (\n')
                 for enum in feature.enums:
                     v.write('\t{}\n'.format(enum))
                 v.write(')\n')
-
                 for command_str in feature.commands:
                     command = list(filter(lambda x: x.name == command_str, self.commands))[0]
                     v.write('\npub fn {}('.format(command.name))
                     vargs = []
                     for parameter in command.parameters:
-                        vargs.append('{} {}'.format(parameter._type, parameter.name))
+                        if parameter._type not in self.v_type_map:
+                            print(command)
+                            raise Exception('{} type map not found'.format(parameter._type))
+                        vargs.append('{} {}'.format(parameter.name, self.v_type_map[parameter._type]))
                     v.write('{}) '.format(', '.join(vargs)))
                     if command.ret == 'void':
                         v.write('{\n')
