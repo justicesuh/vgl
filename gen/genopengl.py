@@ -95,8 +95,8 @@ class Registry():
 
             if element.tag == 'commands':
                 for command in element.getchildren():
+                    c = Command()
                     for e in command.getchildren():
-                        c = Command()
                         if e.tag == 'proto':
                             if 'group' in e.attrib:
                                 c.group = e.attrib['group']
@@ -158,7 +158,11 @@ class Registry():
 
                 for command_str in feature.commands:
                     command = list(filter(lambda x: x.name == command_str, self.commands))[0]
-                    v.write('\npub fn {} '.format(command.name))
+                    v.write('\npub fn {}('.format(command.name))
+                    vargs = []
+                    for parameter in command.parameters:
+                        vargs.append('{} {}'.format(parameter._type, parameter.name))
+                    v.write('{}) '.format(', '.join(vargs)))
                     if command.ret == 'void':
                         v.write('{\n')
                     else:
