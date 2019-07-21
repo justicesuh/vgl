@@ -230,7 +230,9 @@ class Registry():
                     v.write('\t{}\n'.format(enum))
                 v.write(')\n')
                 
-                v.write('\npub fn init_glad() int {\n\treturn C.gladLoadGL()\n}\n')
+                if version_str == 'gl10':
+                    v.write('\npub fn init_glad() int {\n\treturn C.gladLoadGL()\n}\n')
+    
                 for command_str in feature.commands:
                     command = list(filter(lambda x: x.name == command_str, self.commands))[0]
 
