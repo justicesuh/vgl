@@ -1,4 +1,5 @@
 import os
+import re
 
 import requests
 from lxml import etree
@@ -61,6 +62,8 @@ class Registry():
         self.enums = []
         self.commands = []
         self.features = []
+
+        self.expression = re.compile('((?<=[a-z0-9])[A-Z]|(?!^)[A-Z](?=[a-z]))')
 
         self.v_type_map = {
             'GLbyte': 'i8',
@@ -187,7 +190,8 @@ class Registry():
                 v.write(')\n')
                 for command_str in feature.commands:
                     command = list(filter(lambda x: x.name == command_str, self.commands))[0]
-                    v.write('\npub fn {}('.format(command.name))
+                    vname = self.snake_case(command.name)[3:]
+                    v.write('\npub fn {}('.format(vname))
                     vargs = []
                     for parameter in command.parameters:
                         if parameter._type not in self.v_type_map:
@@ -202,6 +206,10 @@ class Registry():
                             raise Exception('{} type map not found'.format(command.ret))
                         v.write('{} {{\n'.format(self.v_type_map[command.ret]))
                     v.write('}\n')
+
+
+    def snake_case(self, name):
+        return self.expression.sub(r'_\1', name).lower()
 
 
 if __name__ == '__main__':
