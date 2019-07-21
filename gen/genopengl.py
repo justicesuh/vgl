@@ -200,10 +200,15 @@ class Registry():
                 for enum in feature.enums:
                     v.write('\t{}\n'.format(enum))
                 v.write(')\n')
+
                 for command_str in feature.commands:
                     command = list(filter(lambda x: x.name == command_str, self.commands))[0]
+
+                    if len(list(filter(lambda x: '*' in x, [p._type for p in command.parameters]))) > 0 or '*' in command.ret:
+                        v.write('\n// TODO')
                     vname = self.snake_case(command.name)[3:]
                     v.write('\npub fn {}('.format(vname))
+
                     vargs = []
                     for parameter in command.parameters:
                         if parameter._type not in self.v_type_map:
@@ -211,12 +216,15 @@ class Registry():
                             raise Exception('{} type map not found'.format(parameter._type))
                         vargs.append('{} {}'.format(parameter.name, self.v_type_map[parameter._type]))
                     v.write('{}) '.format(', '.join(vargs)))
+
                     if command.ret == 'void':
                         v.write('{\n')
                     else:
                         if command.ret not in self.v_type_map:
                             raise Exception('{} type map not found'.format(command.ret))
                         v.write('{} {{\n'.format(self.v_type_map[command.ret]))
+
+
                     v.write('}\n')
 
 
