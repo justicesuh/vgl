@@ -200,13 +200,14 @@ class Registry():
             with open(vpath, 'w') as v:
                 v.write('module {}\n\n'.format(version_str))
                 v.write('#flag  -I @VROOT/thirdparty/glad\n')
-                v.write('#flag @VROOT/thirdparty/glad/glad.o\n')
+                v.write('#flag @VROOT/thirdparty/glad/glad.o\n\n')
                 v.write('#include <glad.h>\n')
                 v.write('import const (\n')
                 for enum in feature.enums:
                     v.write('\t{}\n'.format(enum))
                 v.write(')\n')
-
+                
+                v.write('\npub fn init_glad() int {\n\treturn C.gladLoadGL()\n}\n')
                 for command_str in feature.commands:
                     command = list(filter(lambda x: x.name == command_str, self.commands))[0]
 
