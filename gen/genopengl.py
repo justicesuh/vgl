@@ -239,7 +239,9 @@ class Registry():
                     cargs = []
                     for parameter in command.parameters:
                         arg = parameter.name
-                        if '*' in parameter.type_ and parameter.type_ != 'const void*':
+                        if parameter.type_ == 'GLchar*':
+                            arg += '.str'
+                        elif '*' in parameter.type_ and parameter.type_ != 'const void*':
                             arg += '.data'
                         cargs.append(arg)
                     v.write('{})\n'.format(', '.join(cargs)))
