@@ -167,14 +167,26 @@ class Registry():
                 self.features.append(feature)
 
 
-    def generate(self):
+    def generate(self, major=None, minor=None):
         versions = list(map(lambda x: x.version, self.features))
         if self.version not in versions:
             raise Exception('OpenGL {} does not exist'.format(self.version))
 
         for feature in self.features:
-            if feature.version > self.version:
-                break
+            if major is None and minor is None:
+                if feature.version > self.version:
+                    break
+            elif major is None:
+                raise Exception('minor version cannot be set without major version')
+            elif minor is None:
+                bottom = float(major)
+                top = float(major + 1)
+                if feature.version < bottom or feature.version >= top:
+                    continue
+            else:
+                ver = float('{}.{}'.format(major, minor))
+                if feature.version != ver:
+                    continue
 
             version_str = 'gl{}'.format(str(feature.version).replace('.', ''))
             _dir = '../vgl/opengl/{}'.format(version_str)
