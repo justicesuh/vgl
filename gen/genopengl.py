@@ -265,7 +265,7 @@ class Registry():
                         type_ = parameter.type_
                         if self.v_type_map[type_] == 'string':
                             arg += '.str'
-                        elif '*' in type_ and 'voidptr' not in self.v_type_map[type_]:
+                        elif '[]' in self.v_type_map[type_] and 'voidptr' not in self.v_type_map[type_]:
                             arg += '.data'
                         cargs.append(arg)
                     v.write('{})\n'.format(', '.join(cargs)))
