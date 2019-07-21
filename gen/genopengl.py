@@ -228,10 +228,10 @@ class Registry():
                     cargs = []
                     for parameter in command.parameters:
                         arg = parameter.name
-                        if '*' in parameter._type:
+                        if '*' in parameter._type and parameter._type != 'const void*':
                             arg += '.data'
                         cargs.append(arg)
-                    v.write('{})'.format(', '.join(cargs)))
+                    v.write('{})\n'.format(', '.join(cargs)))
                     v.write('}\n')
 
 
