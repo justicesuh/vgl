@@ -156,6 +156,15 @@ class Registry():
                     v.write('\t{}\n'.format(enum))
                 v.write(')\n')
 
+                for command_str in feature.commands:
+                    command = list(filter(lambda x: x.name == command_str, self.commands))[0]
+                    v.write('\npub fn {} '.format(command.name))
+                    if command.ret == 'void':
+                        v.write('{\n')
+                    else:
+                        v.write('{} {{\n'.format(command.ret))
+                    v.write('}\n')
+
 
 if __name__ == '__main__':
     url = 'https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/master/xml/gl.xml' 
