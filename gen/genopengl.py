@@ -199,6 +199,9 @@ class Registry():
             vpath = '{}/{}.v'.format(_dir, version_str)
             with open(vpath, 'w') as v:
                 v.write('module {}\n\n'.format(version_str))
+                v.write('#flag  -I @VROOT/thirdparty/glad\n')
+                v.write('#flag @VROOT/thirdparty/glad/glad.o\n')
+                v.write('#include <glad.h>\n')
                 v.write('import const (\n')
                 for enum in feature.enums:
                     v.write('\t{}\n'.format(enum))
