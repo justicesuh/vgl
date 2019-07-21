@@ -83,7 +83,8 @@ class Registry():
             'GLsizei': 'int',
             'GLbitfield': 'u32',
             'GLboolean': 'bool',
-            'const void*': 'voidptr'
+            'const void*': 'voidptr',
+            'GLchar*': 'string'
         }
 
 
@@ -197,7 +198,9 @@ class Registry():
                     if command.ret == 'void':
                         v.write('{\n')
                     else:
-                        v.write('{} {{\n'.format(command.ret))
+                        if command.ret not in self.v_type_map:
+                            raise Exception('{} type map not found'.format(command.ret))
+                        v.write('{} {{\n'.format(self.v_type_map[command.ret]))
                     v.write('}\n')
 
 
