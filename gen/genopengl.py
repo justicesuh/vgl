@@ -44,6 +44,13 @@ class Parameter():
         return self.name
 
 
+class Feature():
+    def __init__(self, name):
+        self.name = name
+        self.enums = []
+        self.commands = []
+
+
 class Registry():
     def __init__(self, url):
         self.url = url
@@ -51,6 +58,7 @@ class Registry():
         self.groups = []
         self.enums = []
         self.commands = []
+        self.features = []
 
     def download(self):
         if os.path.exists(self.filename):
@@ -110,6 +118,15 @@ class Registry():
                                 _type = e[0].text
                             c.parameters.append(Parameter(name, _type, group, _len))
                         self.commands.append(c)
+
+            if element.tag == 'feature' and element.attrib['api'] == 'gl':
+                feature = Feature(element.attrib['name'])
+                for require in element.getchildren():
+                    for e in require.getchildren():
+                        if e.tag == 'enum':
+                            feature.enums.append(e.attrib['name'])
+                        if e.tag == 'command':
+                            feature.commands.append(e.attrib['name'])
 
 
 if __name__ == '__main__':
