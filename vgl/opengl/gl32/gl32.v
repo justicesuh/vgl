@@ -1,4 +1,4 @@
-module gl10
+module gl32
 
 #flag  -I @VROOT/thirdparty/glad
 #flag @VROOT/thirdparty/glad/glad.o
@@ -6,179 +6,70 @@ module gl10
 #include <glad.h>
 
 import const (
-	GL_DEPTH_BUFFER_BIT
-	GL_STENCIL_BUFFER_BIT
-	GL_COLOR_BUFFER_BIT
-	GL_FALSE
-	GL_TRUE
-	GL_POINTS
-	GL_LINES
-	GL_LINE_LOOP
-	GL_LINE_STRIP
-	GL_TRIANGLES
-	GL_TRIANGLE_STRIP
-	GL_TRIANGLE_FAN
-	GL_QUADS
-	GL_NEVER
-	GL_LESS
-	GL_EQUAL
-	GL_LEQUAL
-	GL_GREATER
-	GL_NOTEQUAL
-	GL_GEQUAL
-	GL_ALWAYS
-	GL_ZERO
-	GL_ONE
-	GL_SRC_COLOR
-	GL_ONE_MINUS_SRC_COLOR
-	GL_SRC_ALPHA
-	GL_ONE_MINUS_SRC_ALPHA
-	GL_DST_ALPHA
-	GL_ONE_MINUS_DST_ALPHA
-	GL_DST_COLOR
-	GL_ONE_MINUS_DST_COLOR
-	GL_SRC_ALPHA_SATURATE
-	GL_NONE
-	GL_FRONT_LEFT
-	GL_FRONT_RIGHT
-	GL_BACK_LEFT
-	GL_BACK_RIGHT
-	GL_FRONT
-	GL_BACK
-	GL_LEFT
-	GL_RIGHT
-	GL_FRONT_AND_BACK
-	GL_NO_ERROR
-	GL_INVALID_ENUM
-	GL_INVALID_VALUE
-	GL_INVALID_OPERATION
-	GL_OUT_OF_MEMORY
-	GL_CW
-	GL_CCW
-	GL_POINT_SIZE
-	GL_POINT_SIZE_RANGE
-	GL_POINT_SIZE_GRANULARITY
-	GL_LINE_SMOOTH
-	GL_LINE_WIDTH
-	GL_LINE_WIDTH_RANGE
-	GL_LINE_WIDTH_GRANULARITY
-	GL_POLYGON_MODE
-	GL_POLYGON_SMOOTH
-	GL_CULL_FACE
-	GL_CULL_FACE_MODE
-	GL_FRONT_FACE
-	GL_DEPTH_RANGE
-	GL_DEPTH_TEST
-	GL_DEPTH_WRITEMASK
-	GL_DEPTH_CLEAR_VALUE
-	GL_DEPTH_FUNC
-	GL_STENCIL_TEST
-	GL_STENCIL_CLEAR_VALUE
-	GL_STENCIL_FUNC
-	GL_STENCIL_VALUE_MASK
-	GL_STENCIL_FAIL
-	GL_STENCIL_PASS_DEPTH_FAIL
-	GL_STENCIL_PASS_DEPTH_PASS
-	GL_STENCIL_REF
-	GL_STENCIL_WRITEMASK
-	GL_VIEWPORT
-	GL_DITHER
-	GL_BLEND_DST
-	GL_BLEND_SRC
-	GL_BLEND
-	GL_LOGIC_OP_MODE
-	GL_DRAW_BUFFER
-	GL_READ_BUFFER
-	GL_SCISSOR_BOX
-	GL_SCISSOR_TEST
-	GL_COLOR_CLEAR_VALUE
-	GL_COLOR_WRITEMASK
-	GL_DOUBLEBUFFER
-	GL_STEREO
-	GL_LINE_SMOOTH_HINT
-	GL_POLYGON_SMOOTH_HINT
-	GL_UNPACK_SWAP_BYTES
-	GL_UNPACK_LSB_FIRST
-	GL_UNPACK_ROW_LENGTH
-	GL_UNPACK_SKIP_ROWS
-	GL_UNPACK_SKIP_PIXELS
-	GL_UNPACK_ALIGNMENT
-	GL_PACK_SWAP_BYTES
-	GL_PACK_LSB_FIRST
-	GL_PACK_ROW_LENGTH
-	GL_PACK_SKIP_ROWS
-	GL_PACK_SKIP_PIXELS
-	GL_PACK_ALIGNMENT
-	GL_MAX_TEXTURE_SIZE
-	GL_MAX_VIEWPORT_DIMS
-	GL_SUBPIXEL_BITS
-	GL_TEXTURE_1D
-	GL_TEXTURE_2D
-	GL_TEXTURE_WIDTH
-	GL_TEXTURE_HEIGHT
-	GL_TEXTURE_BORDER_COLOR
-	GL_DONT_CARE
-	GL_FASTEST
-	GL_NICEST
-	GL_BYTE
-	GL_UNSIGNED_BYTE
-	GL_SHORT
-	GL_UNSIGNED_SHORT
-	GL_INT
-	GL_UNSIGNED_INT
-	GL_FLOAT
-	GL_STACK_OVERFLOW
-	GL_STACK_UNDERFLOW
-	GL_CLEAR
-	GL_AND
-	GL_AND_REVERSE
-	GL_COPY
-	GL_AND_INVERTED
-	GL_NOOP
-	GL_XOR
-	GL_OR
-	GL_NOR
-	GL_EQUIV
-	GL_INVERT
-	GL_OR_REVERSE
-	GL_COPY_INVERTED
-	GL_OR_INVERTED
-	GL_NAND
-	GL_SET
-	GL_TEXTURE
-	GL_COLOR
-	GL_DEPTH
-	GL_STENCIL
-	GL_STENCIL_INDEX
-	GL_DEPTH_COMPONENT
-	GL_RED
-	GL_GREEN
-	GL_BLUE
-	GL_ALPHA
-	GL_RGB
-	GL_RGBA
-	GL_POINT
-	GL_LINE
-	GL_FILL
-	GL_KEEP
-	GL_REPLACE
-	GL_INCR
-	GL_DECR
-	GL_VENDOR
-	GL_RENDERER
-	GL_VERSION
-	GL_EXTENSIONS
-	GL_NEAREST
-	GL_LINEAR
-	GL_NEAREST_MIPMAP_NEAREST
-	GL_LINEAR_MIPMAP_NEAREST
-	GL_NEAREST_MIPMAP_LINEAR
-	GL_LINEAR_MIPMAP_LINEAR
-	GL_TEXTURE_MAG_FILTER
-	GL_TEXTURE_MIN_FILTER
-	GL_TEXTURE_WRAP_S
-	GL_TEXTURE_WRAP_T
-	GL_REPEAT
+	GL_CONTEXT_CORE_PROFILE_BIT
+	GL_CONTEXT_COMPATIBILITY_PROFILE_BIT
+	GL_LINES_ADJACENCY
+	GL_LINE_STRIP_ADJACENCY
+	GL_TRIANGLES_ADJACENCY
+	GL_TRIANGLE_STRIP_ADJACENCY
+	GL_PROGRAM_POINT_SIZE
+	GL_MAX_GEOMETRY_TEXTURE_IMAGE_UNITS
+	GL_FRAMEBUFFER_ATTACHMENT_LAYERED
+	GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS
+	GL_GEOMETRY_SHADER
+	GL_GEOMETRY_VERTICES_OUT
+	GL_GEOMETRY_INPUT_TYPE
+	GL_GEOMETRY_OUTPUT_TYPE
+	GL_MAX_GEOMETRY_UNIFORM_COMPONENTS
+	GL_MAX_GEOMETRY_OUTPUT_VERTICES
+	GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS
+	GL_MAX_VERTEX_OUTPUT_COMPONENTS
+	GL_MAX_GEOMETRY_INPUT_COMPONENTS
+	GL_MAX_GEOMETRY_OUTPUT_COMPONENTS
+	GL_MAX_FRAGMENT_INPUT_COMPONENTS
+	GL_CONTEXT_PROFILE_MASK
+	GL_DEPTH_CLAMP
+	GL_QUADS_FOLLOW_PROVOKING_VERTEX_CONVENTION
+	GL_FIRST_VERTEX_CONVENTION
+	GL_LAST_VERTEX_CONVENTION
+	GL_PROVOKING_VERTEX
+	GL_TEXTURE_CUBE_MAP_SEAMLESS
+	GL_MAX_SERVER_WAIT_TIMEOUT
+	GL_OBJECT_TYPE
+	GL_SYNC_CONDITION
+	GL_SYNC_STATUS
+	GL_SYNC_FLAGS
+	GL_SYNC_FENCE
+	GL_SYNC_GPU_COMMANDS_COMPLETE
+	GL_UNSIGNALED
+	GL_SIGNALED
+	GL_ALREADY_SIGNALED
+	GL_TIMEOUT_EXPIRED
+	GL_CONDITION_SATISFIED
+	GL_WAIT_FAILED
+	GL_TIMEOUT_IGNORED
+	GL_SYNC_FLUSH_COMMANDS_BIT
+	GL_SAMPLE_POSITION
+	GL_SAMPLE_MASK
+	GL_SAMPLE_MASK_VALUE
+	GL_MAX_SAMPLE_MASK_WORDS
+	GL_TEXTURE_2D_MULTISAMPLE
+	GL_PROXY_TEXTURE_2D_MULTISAMPLE
+	GL_TEXTURE_2D_MULTISAMPLE_ARRAY
+	GL_PROXY_TEXTURE_2D_MULTISAMPLE_ARRAY
+	GL_TEXTURE_BINDING_2D_MULTISAMPLE
+	GL_TEXTURE_BINDING_2D_MULTISAMPLE_ARRAY
+	GL_TEXTURE_SAMPLES
+	GL_TEXTURE_FIXED_SAMPLE_LOCATIONS
+	GL_SAMPLER_2D_MULTISAMPLE
+	GL_INT_SAMPLER_2D_MULTISAMPLE
+	GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE
+	GL_SAMPLER_2D_MULTISAMPLE_ARRAY
+	GL_INT_SAMPLER_2D_MULTISAMPLE_ARRAY
+	GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY
+	GL_MAX_COLOR_TEXTURE_SAMPLES
+	GL_MAX_DEPTH_TEXTURE_SAMPLES
+	GL_MAX_INTEGER_SAMPLES
 	GL_CURRENT_BIT
 	GL_POINT_BIT
 	GL_LINE_BIT
@@ -197,13 +88,19 @@ import const (
 	GL_TEXTURE_BIT
 	GL_SCISSOR_BIT
 	GL_ALL_ATTRIB_BITS
+	GL_CLIENT_PIXEL_STORE_BIT
+	GL_CLIENT_VERTEX_ARRAY_BIT
+	GL_CLIENT_ALL_ATTRIB_BITS
 	GL_QUAD_STRIP
+	GL_QUADS
 	GL_POLYGON
 	GL_ACCUM
 	GL_LOAD
 	GL_RETURN
 	GL_MULT
 	GL_ADD
+	GL_STACK_OVERFLOW
+	GL_STACK_UNDERFLOW
 	GL_AUX0
 	GL_AUX1
 	GL_AUX2
@@ -236,6 +133,14 @@ import const (
 	GL_PIXEL_MAP_G_TO_G
 	GL_PIXEL_MAP_B_TO_B
 	GL_PIXEL_MAP_A_TO_A
+	GL_VERTEX_ARRAY_POINTER
+	GL_NORMAL_ARRAY_POINTER
+	GL_COLOR_ARRAY_POINTER
+	GL_INDEX_ARRAY_POINTER
+	GL_TEXTURE_COORD_ARRAY_POINTER
+	GL_EDGE_FLAG_ARRAY_POINTER
+	GL_FEEDBACK_BUFFER_POINTER
+	GL_SELECTION_BUFFER_POINTER
 	GL_CURRENT_COLOR
 	GL_CURRENT_INDEX
 	GL_CURRENT_NORMAL
@@ -281,9 +186,11 @@ import const (
 	GL_PROJECTION_MATRIX
 	GL_TEXTURE_MATRIX
 	GL_ATTRIB_STACK_DEPTH
+	GL_CLIENT_ATTRIB_STACK_DEPTH
 	GL_ALPHA_TEST
 	GL_ALPHA_TEST_FUNC
 	GL_ALPHA_TEST_REF
+	GL_INDEX_LOGIC_OP
 	GL_LOGIC_OP
 	GL_AUX_BUFFERS
 	GL_INDEX_CLEAR_VALUE
@@ -333,6 +240,7 @@ import const (
 	GL_MAX_NAME_STACK_DEPTH
 	GL_MAX_PROJECTION_STACK_DEPTH
 	GL_MAX_TEXTURE_STACK_DEPTH
+	GL_MAX_CLIENT_ATTRIB_STACK_DEPTH
 	GL_INDEX_BITS
 	GL_RED_BITS
 	GL_GREEN_BITS
@@ -368,8 +276,35 @@ import const (
 	GL_MAP1_GRID_SEGMENTS
 	GL_MAP2_GRID_DOMAIN
 	GL_MAP2_GRID_SEGMENTS
+	GL_FEEDBACK_BUFFER_SIZE
+	GL_FEEDBACK_BUFFER_TYPE
+	GL_SELECTION_BUFFER_SIZE
+	GL_VERTEX_ARRAY
+	GL_NORMAL_ARRAY
+	GL_COLOR_ARRAY
+	GL_INDEX_ARRAY
+	GL_TEXTURE_COORD_ARRAY
+	GL_EDGE_FLAG_ARRAY
+	GL_VERTEX_ARRAY_SIZE
+	GL_VERTEX_ARRAY_TYPE
+	GL_VERTEX_ARRAY_STRIDE
+	GL_NORMAL_ARRAY_TYPE
+	GL_NORMAL_ARRAY_STRIDE
+	GL_COLOR_ARRAY_SIZE
+	GL_COLOR_ARRAY_TYPE
+	GL_COLOR_ARRAY_STRIDE
+	GL_INDEX_ARRAY_TYPE
+	GL_INDEX_ARRAY_STRIDE
+	GL_TEXTURE_COORD_ARRAY_SIZE
+	GL_TEXTURE_COORD_ARRAY_TYPE
+	GL_TEXTURE_COORD_ARRAY_STRIDE
+	GL_EDGE_FLAG_ARRAY_STRIDE
 	GL_TEXTURE_COMPONENTS
 	GL_TEXTURE_BORDER
+	GL_TEXTURE_LUMINANCE_SIZE
+	GL_TEXTURE_INTENSITY_SIZE
+	GL_TEXTURE_PRIORITY
+	GL_TEXTURE_RESIDENT
 	GL_AMBIENT
 	GL_DIFFUSE
 	GL_SPECULAR
@@ -416,6 +351,39 @@ import const (
 	GL_OBJECT_PLANE
 	GL_EYE_PLANE
 	GL_CLAMP
+	GL_ALPHA4
+	GL_ALPHA8
+	GL_ALPHA12
+	GL_ALPHA16
+	GL_LUMINANCE4
+	GL_LUMINANCE8
+	GL_LUMINANCE12
+	GL_LUMINANCE16
+	GL_LUMINANCE4_ALPHA4
+	GL_LUMINANCE6_ALPHA2
+	GL_LUMINANCE8_ALPHA8
+	GL_LUMINANCE12_ALPHA4
+	GL_LUMINANCE12_ALPHA12
+	GL_LUMINANCE16_ALPHA16
+	GL_INTENSITY
+	GL_INTENSITY4
+	GL_INTENSITY8
+	GL_INTENSITY12
+	GL_INTENSITY16
+	GL_V2F
+	GL_V3F
+	GL_C4UB_V2F
+	GL_C4UB_V3F
+	GL_C3F_V3F
+	GL_N3F_V3F
+	GL_C4F_N3F_V3F
+	GL_T2F_V3F
+	GL_T4F_V4F
+	GL_T2F_C4UB_V3F
+	GL_T2F_C3F_V3F
+	GL_T2F_N3F_V3F
+	GL_T2F_C4F_N3F_V3F
+	GL_T4F_C4F_N3F_V4F
 	GL_CLIP_PLANE0
 	GL_CLIP_PLANE1
 	GL_CLIP_PLANE2
@@ -430,216 +398,199 @@ import const (
 	GL_LIGHT5
 	GL_LIGHT6
 	GL_LIGHT7
+	GL_RESCALE_NORMAL
+	GL_LIGHT_MODEL_COLOR_CONTROL
+	GL_SINGLE_COLOR
+	GL_SEPARATE_SPECULAR_COLOR
+	GL_ALIASED_POINT_SIZE_RANGE
+	GL_CLIENT_ACTIVE_TEXTURE
+	GL_MAX_TEXTURE_UNITS
+	GL_TRANSPOSE_MODELVIEW_MATRIX
+	GL_TRANSPOSE_PROJECTION_MATRIX
+	GL_TRANSPOSE_TEXTURE_MATRIX
+	GL_TRANSPOSE_COLOR_MATRIX
+	GL_MULTISAMPLE_BIT
+	GL_NORMAL_MAP
+	GL_REFLECTION_MAP
+	GL_COMPRESSED_ALPHA
+	GL_COMPRESSED_LUMINANCE
+	GL_COMPRESSED_LUMINANCE_ALPHA
+	GL_COMPRESSED_INTENSITY
+	GL_COMBINE
+	GL_COMBINE_RGB
+	GL_COMBINE_ALPHA
+	GL_SOURCE0_RGB
+	GL_SOURCE1_RGB
+	GL_SOURCE2_RGB
+	GL_SOURCE0_ALPHA
+	GL_SOURCE1_ALPHA
+	GL_SOURCE2_ALPHA
+	GL_OPERAND0_RGB
+	GL_OPERAND1_RGB
+	GL_OPERAND2_RGB
+	GL_OPERAND0_ALPHA
+	GL_OPERAND1_ALPHA
+	GL_OPERAND2_ALPHA
+	GL_RGB_SCALE
+	GL_ADD_SIGNED
+	GL_INTERPOLATE
+	GL_SUBTRACT
+	GL_CONSTANT
+	GL_PRIMARY_COLOR
+	GL_PREVIOUS
+	GL_DOT3_RGB
+	GL_DOT3_RGBA
+	GL_POINT_SIZE_MIN
+	GL_POINT_SIZE_MAX
+	GL_POINT_DISTANCE_ATTENUATION
+	GL_GENERATE_MIPMAP
+	GL_GENERATE_MIPMAP_HINT
+	GL_FOG_COORDINATE_SOURCE
+	GL_FOG_COORDINATE
+	GL_FRAGMENT_DEPTH
+	GL_CURRENT_FOG_COORDINATE
+	GL_FOG_COORDINATE_ARRAY_TYPE
+	GL_FOG_COORDINATE_ARRAY_STRIDE
+	GL_FOG_COORDINATE_ARRAY_POINTER
+	GL_FOG_COORDINATE_ARRAY
+	GL_COLOR_SUM
+	GL_CURRENT_SECONDARY_COLOR
+	GL_SECONDARY_COLOR_ARRAY_SIZE
+	GL_SECONDARY_COLOR_ARRAY_TYPE
+	GL_SECONDARY_COLOR_ARRAY_STRIDE
+	GL_SECONDARY_COLOR_ARRAY_POINTER
+	GL_SECONDARY_COLOR_ARRAY
+	GL_TEXTURE_FILTER_CONTROL
+	GL_DEPTH_TEXTURE_MODE
+	GL_COMPARE_R_TO_TEXTURE
+	GL_VERTEX_ARRAY_BUFFER_BINDING
+	GL_NORMAL_ARRAY_BUFFER_BINDING
+	GL_COLOR_ARRAY_BUFFER_BINDING
+	GL_INDEX_ARRAY_BUFFER_BINDING
+	GL_TEXTURE_COORD_ARRAY_BUFFER_BINDING
+	GL_EDGE_FLAG_ARRAY_BUFFER_BINDING
+	GL_SECONDARY_COLOR_ARRAY_BUFFER_BINDING
+	GL_FOG_COORDINATE_ARRAY_BUFFER_BINDING
+	GL_WEIGHT_ARRAY_BUFFER_BINDING
+	GL_FOG_COORD_SRC
+	GL_FOG_COORD
+	GL_CURRENT_FOG_COORD
+	GL_FOG_COORD_ARRAY_TYPE
+	GL_FOG_COORD_ARRAY_STRIDE
+	GL_FOG_COORD_ARRAY_POINTER
+	GL_FOG_COORD_ARRAY
+	GL_FOG_COORD_ARRAY_BUFFER_BINDING
+	GL_SRC0_RGB
+	GL_SRC1_RGB
+	GL_SRC2_RGB
+	GL_SRC0_ALPHA
+	GL_SRC2_ALPHA
+	GL_VERTEX_PROGRAM_TWO_SIDE
+	GL_POINT_SPRITE
+	GL_COORD_REPLACE
+	GL_MAX_TEXTURE_COORDS
+	GL_CURRENT_RASTER_SECONDARY_COLOR
+	GL_SLUMINANCE_ALPHA
+	GL_SLUMINANCE8_ALPHA8
+	GL_SLUMINANCE
+	GL_SLUMINANCE8
+	GL_COMPRESSED_SLUMINANCE
+	GL_COMPRESSED_SLUMINANCE_ALPHA
+	GL_CLAMP_VERTEX_COLOR
+	GL_CLAMP_FRAGMENT_COLOR
+	GL_ALPHA_INTEGER
+	GL_INDEX
+	GL_TEXTURE_LUMINANCE_TYPE
+	GL_TEXTURE_INTENSITY_TYPE
 )
 
 pub fn init_glad() int {
 	return C.gladLoadGL()
 }
 
-pub fn cull_face(mode u32) {
-	C.glCullFace(mode)
-}
-
-pub fn front_face(mode u32) {
-	C.glFrontFace(mode)
-}
-
-pub fn hint(target u32, mode u32) {
-	C.glHint(target, mode)
-}
-
-pub fn line_width(width f32) {
-	C.glLineWidth(width)
-}
-
-pub fn point_size(size f32) {
-	C.glPointSize(size)
-}
-
-pub fn polygon_mode(face u32, mode u32) {
-	C.glPolygonMode(face, mode)
-}
-
-pub fn scissor(x int, y int, width int, height int) {
-	C.glScissor(x, y, width, height)
-}
-
-pub fn tex_parameterf(target u32, pname u32, param f32) {
-	C.glTexParameterf(target, pname, param)
+// TODO
+pub fn draw_elements_base_vertex(mode u32, count int, type_ u32, indices voidptr, basevertex int) {
+	C.glDrawElementsBaseVertex(mode, count, type_, indices, basevertex)
 }
 
 // TODO
-pub fn tex_parameterfv(target u32, pname u32, params []f32) {
-	C.glTexParameterfv(target, pname, params.data)
-}
-
-pub fn tex_parameteri(target u32, pname u32, param int) {
-	C.glTexParameteri(target, pname, param)
+pub fn draw_range_elements_base_vertex(mode u32, start u32, end u32, count int, type_ u32, indices voidptr, basevertex int) {
+	C.glDrawRangeElementsBaseVertex(mode, start, end, count, type_, indices, basevertex)
 }
 
 // TODO
-pub fn tex_parameteriv(target u32, pname u32, params []int) {
-	C.glTexParameteriv(target, pname, params.data)
+pub fn draw_elements_instanced_base_vertex(mode u32, count int, type_ u32, indices voidptr, instancecount int, basevertex int) {
+	C.glDrawElementsInstancedBaseVertex(mode, count, type_, indices, instancecount, basevertex)
 }
 
 // TODO
-pub fn tex_image1_d(target u32, level int, internalformat int, width int, border int, format u32, type_ u32, pixels voidptr) {
-	C.glTexImage1D(target, level, internalformat, width, border, format, type_, pixels)
+pub fn multi_draw_elements_base_vertex(mode u32, count []int, type_ u32, indices voidptr, drawcount int, basevertex []int) {
+	C.glMultiDrawElementsBaseVertex(mode, count.data, type_, indices, drawcount, basevertex.data)
+}
+
+pub fn provoking_vertex(mode u32) {
+	C.glProvokingVertex(mode)
+}
+
+pub fn fence_sync(condition u32, flags u32) voidptr {
+	return C.glFenceSync(condition, flags)
+}
+
+pub fn is_sync(sync voidptr) bool {
+	return C.glIsSync(sync)
+}
+
+pub fn delete_sync(sync voidptr) {
+	C.glDeleteSync(sync)
+}
+
+pub fn client_wait_sync(sync voidptr, flags u32, timeout u64) u32 {
+	return C.glClientWaitSync(sync, flags, timeout)
+}
+
+pub fn wait_sync(sync voidptr, flags u32, timeout u64) {
+	C.glWaitSync(sync, flags, timeout)
 }
 
 // TODO
-pub fn tex_image2_d(target u32, level int, internalformat int, width int, height int, border int, format u32, type_ u32, pixels voidptr) {
-	C.glTexImage2D(target, level, internalformat, width, height, border, format, type_, pixels)
-}
-
-pub fn draw_buffer(buf u32) {
-	C.glDrawBuffer(buf)
-}
-
-pub fn clear(mask u32) {
-	C.glClear(mask)
-}
-
-pub fn clear_color(red f32, green f32, blue f32, alpha f32) {
-	C.glClearColor(red, green, blue, alpha)
-}
-
-pub fn clear_stencil(s int) {
-	C.glClearStencil(s)
-}
-
-pub fn clear_depth(depth f64) {
-	C.glClearDepth(depth)
-}
-
-pub fn stencil_mask(mask u32) {
-	C.glStencilMask(mask)
-}
-
-pub fn color_mask(red bool, green bool, blue bool, alpha bool) {
-	C.glColorMask(red, green, blue, alpha)
-}
-
-pub fn depth_mask(flag bool) {
-	C.glDepthMask(flag)
-}
-
-pub fn disable(cap u32) {
-	C.glDisable(cap)
-}
-
-pub fn enable(cap u32) {
-	C.glEnable(cap)
-}
-
-pub fn finish() {
-	C.glFinish()
-}
-
-pub fn flush() {
-	C.glFlush()
-}
-
-pub fn blend_func(sfactor u32, dfactor u32) {
-	C.glBlendFunc(sfactor, dfactor)
-}
-
-pub fn logic_op(opcode u32) {
-	C.glLogicOp(opcode)
-}
-
-pub fn stencil_func(func u32, ref int, mask u32) {
-	C.glStencilFunc(func, ref, mask)
-}
-
-pub fn stencil_op(fail u32, zfail u32, zpass u32) {
-	C.glStencilOp(fail, zfail, zpass)
-}
-
-pub fn depth_func(func u32) {
-	C.glDepthFunc(func)
-}
-
-pub fn pixel_storef(pname u32, param f32) {
-	C.glPixelStoref(pname, param)
-}
-
-pub fn pixel_storei(pname u32, param int) {
-	C.glPixelStorei(pname, param)
-}
-
-pub fn read_buffer(src u32) {
-	C.glReadBuffer(src)
+pub fn get_integer64v(pname u32, data []i64) {
+	C.glGetInteger64v(pname, data.data)
 }
 
 // TODO
-pub fn read_pixels(x int, y int, width int, height int, format u32, type_ u32, pixels voidptr) {
-	C.glReadPixels(x, y, width, height, format, type_, pixels)
+pub fn get_synciv(sync voidptr, pname u32, bufSize int, length []int, values []int) {
+	C.glGetSynciv(sync, pname, bufSize, length.data, values.data)
 }
 
 // TODO
-pub fn get_booleanv(pname u32, data []bool) {
-	C.glGetBooleanv(pname, data.data)
+pub fn get_integer64i_v(target u32, index u32, data []i64) {
+	C.glGetInteger64i_v(target, index, data.data)
 }
 
 // TODO
-pub fn get_doublev(pname u32, data []f64) {
-	C.glGetDoublev(pname, data.data)
+pub fn get_buffer_parameteri64v(target u32, pname u32, params []i64) {
+	C.glGetBufferParameteri64v(target, pname, params.data)
 }
 
-pub fn get_error() u32 {
-	return C.glGetError()
+pub fn framebuffer_texture(target u32, attachment u32, texture u32, level int) {
+	C.glFramebufferTexture(target, attachment, texture, level)
 }
 
-// TODO
-pub fn get_floatv(pname u32, data []f32) {
-	C.glGetFloatv(pname, data.data)
+pub fn tex_image2_d_multisample(target u32, samples int, internalformat u32, width int, height int, fixedsamplelocations bool) {
+	C.glTexImage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations)
 }
 
-// TODO
-pub fn get_integerv(pname u32, data []int) {
-	C.glGetIntegerv(pname, data.data)
-}
-
-pub fn get_string(name u32) u8 {
-	return C.glGetString(name)
+pub fn tex_image3_d_multisample(target u32, samples int, internalformat u32, width int, height int, depth int, fixedsamplelocations bool) {
+	C.glTexImage3DMultisample(target, samples, internalformat, width, height, depth, fixedsamplelocations)
 }
 
 // TODO
-pub fn get_tex_image(target u32, level int, format u32, type_ u32, pixels voidptr) {
-	C.glGetTexImage(target, level, format, type_, pixels)
+pub fn get_multisamplefv(pname u32, index u32, val []f32) {
+	C.glGetMultisamplefv(pname, index, val.data)
 }
 
-// TODO
-pub fn get_tex_parameterfv(target u32, pname u32, params []f32) {
-	C.glGetTexParameterfv(target, pname, params.data)
-}
-
-// TODO
-pub fn get_tex_parameteriv(target u32, pname u32, params []int) {
-	C.glGetTexParameteriv(target, pname, params.data)
-}
-
-// TODO
-pub fn get_tex_level_parameterfv(target u32, level int, pname u32, params []f32) {
-	C.glGetTexLevelParameterfv(target, level, pname, params.data)
-}
-
-// TODO
-pub fn get_tex_level_parameteriv(target u32, level int, pname u32, params []int) {
-	C.glGetTexLevelParameteriv(target, level, pname, params.data)
-}
-
-pub fn is_enabled(cap u32) bool {
-	return C.glIsEnabled(cap)
-}
-
-pub fn depth_range(n f64, f f64) {
-	C.glDepthRange(n, f)
-}
-
-pub fn viewport(x int, y int, width int, height int) {
-	C.glViewport(x, y, width, height)
+pub fn sample_maski(maskNumber u32, mask u32) {
+	C.glSampleMaski(maskNumber, mask)
 }
 
 pub fn new_list(list u32, mode u32) {
@@ -1794,4 +1745,423 @@ pub fn translated(x f64, y f64, z f64) {
 
 pub fn translatef(x f32, y f32, z f32) {
 	C.glTranslatef(x, y, z)
+}
+
+pub fn array_element(i int) {
+	C.glArrayElement(i)
+}
+
+// TODO
+pub fn color_pointer(size int, type_ u32, stride int, pointer voidptr) {
+	C.glColorPointer(size, type_, stride, pointer)
+}
+
+pub fn disable_client_state(array u32) {
+	C.glDisableClientState(array)
+}
+
+// TODO
+pub fn edge_flag_pointer(stride int, pointer voidptr) {
+	C.glEdgeFlagPointer(stride, pointer)
+}
+
+pub fn enable_client_state(array u32) {
+	C.glEnableClientState(array)
+}
+
+// TODO
+pub fn index_pointer(type_ u32, stride int, pointer voidptr) {
+	C.glIndexPointer(type_, stride, pointer)
+}
+
+// TODO
+pub fn get_pointerv(pname u32, params voidptr) {
+	C.glGetPointerv(pname, params)
+}
+
+// TODO
+pub fn interleaved_arrays(format u32, stride int, pointer voidptr) {
+	C.glInterleavedArrays(format, stride, pointer)
+}
+
+// TODO
+pub fn normal_pointer(type_ u32, stride int, pointer voidptr) {
+	C.glNormalPointer(type_, stride, pointer)
+}
+
+// TODO
+pub fn tex_coord_pointer(size int, type_ u32, stride int, pointer voidptr) {
+	C.glTexCoordPointer(size, type_, stride, pointer)
+}
+
+// TODO
+pub fn vertex_pointer(size int, type_ u32, stride int, pointer voidptr) {
+	C.glVertexPointer(size, type_, stride, pointer)
+}
+
+// TODO
+pub fn are_textures_resident(n int, textures []u32, residences []bool) bool {
+	return C.glAreTexturesResident(n, textures.data, residences.data)
+}
+
+// TODO
+pub fn prioritize_textures(n int, textures []u32, priorities []f32) {
+	C.glPrioritizeTextures(n, textures.data, priorities.data)
+}
+
+pub fn indexub(c u8) {
+	C.glIndexub(c)
+}
+
+// TODO
+pub fn indexubv(c []u8) {
+	C.glIndexubv(c.data)
+}
+
+pub fn pop_client_attrib() {
+	C.glPopClientAttrib()
+}
+
+pub fn push_client_attrib(mask u32) {
+	C.glPushClientAttrib(mask)
+}
+
+pub fn client_active_texture(texture u32) {
+	C.glClientActiveTexture(texture)
+}
+
+pub fn multi_tex_coord1d(target u32, s f64) {
+	C.glMultiTexCoord1d(target, s)
+}
+
+// TODO
+pub fn multi_tex_coord1dv(target u32, v []f64) {
+	C.glMultiTexCoord1dv(target, v.data)
+}
+
+pub fn multi_tex_coord1f(target u32, s f32) {
+	C.glMultiTexCoord1f(target, s)
+}
+
+// TODO
+pub fn multi_tex_coord1fv(target u32, v []f32) {
+	C.glMultiTexCoord1fv(target, v.data)
+}
+
+pub fn multi_tex_coord1i(target u32, s int) {
+	C.glMultiTexCoord1i(target, s)
+}
+
+// TODO
+pub fn multi_tex_coord1iv(target u32, v []int) {
+	C.glMultiTexCoord1iv(target, v.data)
+}
+
+pub fn multi_tex_coord1s(target u32, s i16) {
+	C.glMultiTexCoord1s(target, s)
+}
+
+// TODO
+pub fn multi_tex_coord1sv(target u32, v []i16) {
+	C.glMultiTexCoord1sv(target, v.data)
+}
+
+pub fn multi_tex_coord2d(target u32, s f64, t f64) {
+	C.glMultiTexCoord2d(target, s, t)
+}
+
+// TODO
+pub fn multi_tex_coord2dv(target u32, v []f64) {
+	C.glMultiTexCoord2dv(target, v.data)
+}
+
+pub fn multi_tex_coord2f(target u32, s f32, t f32) {
+	C.glMultiTexCoord2f(target, s, t)
+}
+
+// TODO
+pub fn multi_tex_coord2fv(target u32, v []f32) {
+	C.glMultiTexCoord2fv(target, v.data)
+}
+
+pub fn multi_tex_coord2i(target u32, s int, t int) {
+	C.glMultiTexCoord2i(target, s, t)
+}
+
+// TODO
+pub fn multi_tex_coord2iv(target u32, v []int) {
+	C.glMultiTexCoord2iv(target, v.data)
+}
+
+pub fn multi_tex_coord2s(target u32, s i16, t i16) {
+	C.glMultiTexCoord2s(target, s, t)
+}
+
+// TODO
+pub fn multi_tex_coord2sv(target u32, v []i16) {
+	C.glMultiTexCoord2sv(target, v.data)
+}
+
+pub fn multi_tex_coord3d(target u32, s f64, t f64, r f64) {
+	C.glMultiTexCoord3d(target, s, t, r)
+}
+
+// TODO
+pub fn multi_tex_coord3dv(target u32, v []f64) {
+	C.glMultiTexCoord3dv(target, v.data)
+}
+
+pub fn multi_tex_coord3f(target u32, s f32, t f32, r f32) {
+	C.glMultiTexCoord3f(target, s, t, r)
+}
+
+// TODO
+pub fn multi_tex_coord3fv(target u32, v []f32) {
+	C.glMultiTexCoord3fv(target, v.data)
+}
+
+pub fn multi_tex_coord3i(target u32, s int, t int, r int) {
+	C.glMultiTexCoord3i(target, s, t, r)
+}
+
+// TODO
+pub fn multi_tex_coord3iv(target u32, v []int) {
+	C.glMultiTexCoord3iv(target, v.data)
+}
+
+pub fn multi_tex_coord3s(target u32, s i16, t i16, r i16) {
+	C.glMultiTexCoord3s(target, s, t, r)
+}
+
+// TODO
+pub fn multi_tex_coord3sv(target u32, v []i16) {
+	C.glMultiTexCoord3sv(target, v.data)
+}
+
+pub fn multi_tex_coord4d(target u32, s f64, t f64, r f64, q f64) {
+	C.glMultiTexCoord4d(target, s, t, r, q)
+}
+
+// TODO
+pub fn multi_tex_coord4dv(target u32, v []f64) {
+	C.glMultiTexCoord4dv(target, v.data)
+}
+
+pub fn multi_tex_coord4f(target u32, s f32, t f32, r f32, q f32) {
+	C.glMultiTexCoord4f(target, s, t, r, q)
+}
+
+// TODO
+pub fn multi_tex_coord4fv(target u32, v []f32) {
+	C.glMultiTexCoord4fv(target, v.data)
+}
+
+pub fn multi_tex_coord4i(target u32, s int, t int, r int, q int) {
+	C.glMultiTexCoord4i(target, s, t, r, q)
+}
+
+// TODO
+pub fn multi_tex_coord4iv(target u32, v []int) {
+	C.glMultiTexCoord4iv(target, v.data)
+}
+
+pub fn multi_tex_coord4s(target u32, s i16, t i16, r i16, q i16) {
+	C.glMultiTexCoord4s(target, s, t, r, q)
+}
+
+// TODO
+pub fn multi_tex_coord4sv(target u32, v []i16) {
+	C.glMultiTexCoord4sv(target, v.data)
+}
+
+// TODO
+pub fn load_transpose_matrixf(m []f32) {
+	C.glLoadTransposeMatrixf(m.data)
+}
+
+// TODO
+pub fn load_transpose_matrixd(m []f64) {
+	C.glLoadTransposeMatrixd(m.data)
+}
+
+// TODO
+pub fn mult_transpose_matrixf(m []f32) {
+	C.glMultTransposeMatrixf(m.data)
+}
+
+// TODO
+pub fn mult_transpose_matrixd(m []f64) {
+	C.glMultTransposeMatrixd(m.data)
+}
+
+pub fn fog_coordf(coord f32) {
+	C.glFogCoordf(coord)
+}
+
+// TODO
+pub fn fog_coordfv(coord []f32) {
+	C.glFogCoordfv(coord.data)
+}
+
+pub fn fog_coordd(coord f64) {
+	C.glFogCoordd(coord)
+}
+
+// TODO
+pub fn fog_coorddv(coord []f64) {
+	C.glFogCoorddv(coord.data)
+}
+
+// TODO
+pub fn fog_coord_pointer(type_ u32, stride int, pointer voidptr) {
+	C.glFogCoordPointer(type_, stride, pointer)
+}
+
+pub fn secondary_color3b(red i8, green i8, blue i8) {
+	C.glSecondaryColor3b(red, green, blue)
+}
+
+// TODO
+pub fn secondary_color3bv(v []i8) {
+	C.glSecondaryColor3bv(v.data)
+}
+
+pub fn secondary_color3d(red f64, green f64, blue f64) {
+	C.glSecondaryColor3d(red, green, blue)
+}
+
+// TODO
+pub fn secondary_color3dv(v []f64) {
+	C.glSecondaryColor3dv(v.data)
+}
+
+pub fn secondary_color3f(red f32, green f32, blue f32) {
+	C.glSecondaryColor3f(red, green, blue)
+}
+
+// TODO
+pub fn secondary_color3fv(v []f32) {
+	C.glSecondaryColor3fv(v.data)
+}
+
+pub fn secondary_color3i(red int, green int, blue int) {
+	C.glSecondaryColor3i(red, green, blue)
+}
+
+// TODO
+pub fn secondary_color3iv(v []int) {
+	C.glSecondaryColor3iv(v.data)
+}
+
+pub fn secondary_color3s(red i16, green i16, blue i16) {
+	C.glSecondaryColor3s(red, green, blue)
+}
+
+// TODO
+pub fn secondary_color3sv(v []i16) {
+	C.glSecondaryColor3sv(v.data)
+}
+
+pub fn secondary_color3ub(red u8, green u8, blue u8) {
+	C.glSecondaryColor3ub(red, green, blue)
+}
+
+// TODO
+pub fn secondary_color3ubv(v []u8) {
+	C.glSecondaryColor3ubv(v.data)
+}
+
+pub fn secondary_color3ui(red u32, green u32, blue u32) {
+	C.glSecondaryColor3ui(red, green, blue)
+}
+
+// TODO
+pub fn secondary_color3uiv(v []u32) {
+	C.glSecondaryColor3uiv(v.data)
+}
+
+pub fn secondary_color3us(red u16, green u16, blue u16) {
+	C.glSecondaryColor3us(red, green, blue)
+}
+
+// TODO
+pub fn secondary_color3usv(v []u16) {
+	C.glSecondaryColor3usv(v.data)
+}
+
+// TODO
+pub fn secondary_color_pointer(size int, type_ u32, stride int, pointer voidptr) {
+	C.glSecondaryColorPointer(size, type_, stride, pointer)
+}
+
+pub fn window_pos2d(x f64, y f64) {
+	C.glWindowPos2d(x, y)
+}
+
+// TODO
+pub fn window_pos2dv(v []f64) {
+	C.glWindowPos2dv(v.data)
+}
+
+pub fn window_pos2f(x f32, y f32) {
+	C.glWindowPos2f(x, y)
+}
+
+// TODO
+pub fn window_pos2fv(v []f32) {
+	C.glWindowPos2fv(v.data)
+}
+
+pub fn window_pos2i(x int, y int) {
+	C.glWindowPos2i(x, y)
+}
+
+// TODO
+pub fn window_pos2iv(v []int) {
+	C.glWindowPos2iv(v.data)
+}
+
+pub fn window_pos2s(x i16, y i16) {
+	C.glWindowPos2s(x, y)
+}
+
+// TODO
+pub fn window_pos2sv(v []i16) {
+	C.glWindowPos2sv(v.data)
+}
+
+pub fn window_pos3d(x f64, y f64, z f64) {
+	C.glWindowPos3d(x, y, z)
+}
+
+// TODO
+pub fn window_pos3dv(v []f64) {
+	C.glWindowPos3dv(v.data)
+}
+
+pub fn window_pos3f(x f32, y f32, z f32) {
+	C.glWindowPos3f(x, y, z)
+}
+
+// TODO
+pub fn window_pos3fv(v []f32) {
+	C.glWindowPos3fv(v.data)
+}
+
+pub fn window_pos3i(x int, y int, z int) {
+	C.glWindowPos3i(x, y, z)
+}
+
+// TODO
+pub fn window_pos3iv(v []int) {
+	C.glWindowPos3iv(v.data)
+}
+
+pub fn window_pos3s(x i16, y i16, z i16) {
+	C.glWindowPos3s(x, y, z)
+}
+
+// TODO
+pub fn window_pos3sv(v []i16) {
+	C.glWindowPos3sv(v.data)
 }

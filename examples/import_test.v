@@ -1,3 +1,4 @@
+import vgl.opengl.gl10
 import vgl.opengl.gl11
 import vgl.opengl.gl12
 import vgl.opengl.gl13
@@ -9,4 +10,11 @@ import vgl.opengl.gl30
 import vgl.opengl.gl31
 import vgl.opengl.gl32
 import vgl.opengl.gl33
+import vgl.opengl.gl40
+import vgl.opengl.gl41
+import vgl.opengl.gl42
+import vgl.opengl.gl43
+import vgl.opengl.gl44
+import vgl.opengl.gl45
+import vgl.opengl.gl46
 import vgl.glfw

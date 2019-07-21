@@ -1,0 +1,177 @@
+module gl42
+
+#flag  -I @VROOT/thirdparty/glad
+#flag @VROOT/thirdparty/glad/glad.o
+
+#include <glad.h>
+
+import const (
+	GL_COPY_READ_BUFFER_BINDING
+	GL_COPY_WRITE_BUFFER_BINDING
+	GL_TRANSFORM_FEEDBACK_ACTIVE
+	GL_TRANSFORM_FEEDBACK_PAUSED
+	GL_UNPACK_COMPRESSED_BLOCK_WIDTH
+	GL_UNPACK_COMPRESSED_BLOCK_HEIGHT
+	GL_UNPACK_COMPRESSED_BLOCK_DEPTH
+	GL_UNPACK_COMPRESSED_BLOCK_SIZE
+	GL_PACK_COMPRESSED_BLOCK_WIDTH
+	GL_PACK_COMPRESSED_BLOCK_HEIGHT
+	GL_PACK_COMPRESSED_BLOCK_DEPTH
+	GL_PACK_COMPRESSED_BLOCK_SIZE
+	GL_NUM_SAMPLE_COUNTS
+	GL_MIN_MAP_BUFFER_ALIGNMENT
+	GL_ATOMIC_COUNTER_BUFFER
+	GL_ATOMIC_COUNTER_BUFFER_BINDING
+	GL_ATOMIC_COUNTER_BUFFER_START
+	GL_ATOMIC_COUNTER_BUFFER_SIZE
+	GL_ATOMIC_COUNTER_BUFFER_DATA_SIZE
+	GL_ATOMIC_COUNTER_BUFFER_ACTIVE_ATOMIC_COUNTERS
+	GL_ATOMIC_COUNTER_BUFFER_ACTIVE_ATOMIC_COUNTER_INDICES
+	GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_VERTEX_SHADER
+	GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TESS_CONTROL_SHADER
+	GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TESS_EVALUATION_SHADER
+	GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_GEOMETRY_SHADER
+	GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_FRAGMENT_SHADER
+	GL_MAX_VERTEX_ATOMIC_COUNTER_BUFFERS
+	GL_MAX_TESS_CONTROL_ATOMIC_COUNTER_BUFFERS
+	GL_MAX_TESS_EVALUATION_ATOMIC_COUNTER_BUFFERS
+	GL_MAX_GEOMETRY_ATOMIC_COUNTER_BUFFERS
+	GL_MAX_FRAGMENT_ATOMIC_COUNTER_BUFFERS
+	GL_MAX_COMBINED_ATOMIC_COUNTER_BUFFERS
+	GL_MAX_VERTEX_ATOMIC_COUNTERS
+	GL_MAX_TESS_CONTROL_ATOMIC_COUNTERS
+	GL_MAX_TESS_EVALUATION_ATOMIC_COUNTERS
+	GL_MAX_GEOMETRY_ATOMIC_COUNTERS
+	GL_MAX_FRAGMENT_ATOMIC_COUNTERS
+	GL_MAX_COMBINED_ATOMIC_COUNTERS
+	GL_MAX_ATOMIC_COUNTER_BUFFER_SIZE
+	GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS
+	GL_ACTIVE_ATOMIC_COUNTER_BUFFERS
+	GL_UNIFORM_ATOMIC_COUNTER_BUFFER_INDEX
+	GL_UNSIGNED_INT_ATOMIC_COUNTER
+	GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT
+	GL_ELEMENT_ARRAY_BARRIER_BIT
+	GL_UNIFORM_BARRIER_BIT
+	GL_TEXTURE_FETCH_BARRIER_BIT
+	GL_SHADER_IMAGE_ACCESS_BARRIER_BIT
+	GL_COMMAND_BARRIER_BIT
+	GL_PIXEL_BUFFER_BARRIER_BIT
+	GL_TEXTURE_UPDATE_BARRIER_BIT
+	GL_BUFFER_UPDATE_BARRIER_BIT
+	GL_FRAMEBUFFER_BARRIER_BIT
+	GL_TRANSFORM_FEEDBACK_BARRIER_BIT
+	GL_ATOMIC_COUNTER_BARRIER_BIT
+	GL_ALL_BARRIER_BITS
+	GL_MAX_IMAGE_UNITS
+	GL_MAX_COMBINED_IMAGE_UNITS_AND_FRAGMENT_OUTPUTS
+	GL_IMAGE_BINDING_NAME
+	GL_IMAGE_BINDING_LEVEL
+	GL_IMAGE_BINDING_LAYERED
+	GL_IMAGE_BINDING_LAYER
+	GL_IMAGE_BINDING_ACCESS
+	GL_IMAGE_1D
+	GL_IMAGE_2D
+	GL_IMAGE_3D
+	GL_IMAGE_2D_RECT
+	GL_IMAGE_CUBE
+	GL_IMAGE_BUFFER
+	GL_IMAGE_1D_ARRAY
+	GL_IMAGE_2D_ARRAY
+	GL_IMAGE_CUBE_MAP_ARRAY
+	GL_IMAGE_2D_MULTISAMPLE
+	GL_IMAGE_2D_MULTISAMPLE_ARRAY
+	GL_INT_IMAGE_1D
+	GL_INT_IMAGE_2D
+	GL_INT_IMAGE_3D
+	GL_INT_IMAGE_2D_RECT
+	GL_INT_IMAGE_CUBE
+	GL_INT_IMAGE_BUFFER
+	GL_INT_IMAGE_1D_ARRAY
+	GL_INT_IMAGE_2D_ARRAY
+	GL_INT_IMAGE_CUBE_MAP_ARRAY
+	GL_INT_IMAGE_2D_MULTISAMPLE
+	GL_INT_IMAGE_2D_MULTISAMPLE_ARRAY
+	GL_UNSIGNED_INT_IMAGE_1D
+	GL_UNSIGNED_INT_IMAGE_2D
+	GL_UNSIGNED_INT_IMAGE_3D
+	GL_UNSIGNED_INT_IMAGE_2D_RECT
+	GL_UNSIGNED_INT_IMAGE_CUBE
+	GL_UNSIGNED_INT_IMAGE_BUFFER
+	GL_UNSIGNED_INT_IMAGE_1D_ARRAY
+	GL_UNSIGNED_INT_IMAGE_2D_ARRAY
+	GL_UNSIGNED_INT_IMAGE_CUBE_MAP_ARRAY
+	GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE
+	GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY
+	GL_MAX_IMAGE_SAMPLES
+	GL_IMAGE_BINDING_FORMAT
+	GL_IMAGE_FORMAT_COMPATIBILITY_TYPE
+	GL_IMAGE_FORMAT_COMPATIBILITY_BY_SIZE
+	GL_IMAGE_FORMAT_COMPATIBILITY_BY_CLASS
+	GL_MAX_VERTEX_IMAGE_UNIFORMS
+	GL_MAX_TESS_CONTROL_IMAGE_UNIFORMS
+	GL_MAX_TESS_EVALUATION_IMAGE_UNIFORMS
+	GL_MAX_GEOMETRY_IMAGE_UNIFORMS
+	GL_MAX_FRAGMENT_IMAGE_UNIFORMS
+	GL_MAX_COMBINED_IMAGE_UNIFORMS
+	GL_COMPRESSED_RGBA_BPTC_UNORM
+	GL_COMPRESSED_SRGB_ALPHA_BPTC_UNORM
+	GL_COMPRESSED_RGB_BPTC_SIGNED_FLOAT
+	GL_COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT
+	GL_TEXTURE_IMMUTABLE_FORMAT
+)
+
+pub fn init_glad() int {
+	return C.gladLoadGL()
+}
+
+pub fn draw_arrays_instanced_base_instance(mode u32, first int, count int, instancecount int, baseinstance u32) {
+	C.glDrawArraysInstancedBaseInstance(mode, first, count, instancecount, baseinstance)
+}
+
+// TODO
+pub fn draw_elements_instanced_base_instance(mode u32, count int, type_ u32, indices voidptr, instancecount int, baseinstance u32) {
+	C.glDrawElementsInstancedBaseInstance(mode, count, type_, indices, instancecount, baseinstance)
+}
+
+// TODO
+pub fn draw_elements_instanced_base_vertex_base_instance(mode u32, count int, type_ u32, indices voidptr, instancecount int, basevertex int, baseinstance u32) {
+	C.glDrawElementsInstancedBaseVertexBaseInstance(mode, count, type_, indices, instancecount, basevertex, baseinstance)
+}
+
+// TODO
+pub fn get_internalformativ(target u32, internalformat u32, pname u32, bufSize int, params []int) {
+	C.glGetInternalformativ(target, internalformat, pname, bufSize, params.data)
+}
+
+// TODO
+pub fn get_active_atomic_counter_bufferiv(program u32, bufferIndex u32, pname u32, params []int) {
+	C.glGetActiveAtomicCounterBufferiv(program, bufferIndex, pname, params.data)
+}
+
+pub fn bind_image_texture(unit u32, texture u32, level int, layered bool, layer int, access u32, format u32) {
+	C.glBindImageTexture(unit, texture, level, layered, layer, access, format)
+}
+
+pub fn memory_barrier(barriers u32) {
+	C.glMemoryBarrier(barriers)
+}
+
+pub fn tex_storage1_d(target u32, levels int, internalformat u32, width int) {
+	C.glTexStorage1D(target, levels, internalformat, width)
+}
+
+pub fn tex_storage2_d(target u32, levels int, internalformat u32, width int, height int) {
+	C.glTexStorage2D(target, levels, internalformat, width, height)
+}
+
+pub fn tex_storage3_d(target u32, levels int, internalformat u32, width int, height int, depth int) {
+	C.glTexStorage3D(target, levels, internalformat, width, height, depth)
+}
+
+pub fn draw_transform_feedback_instanced(mode u32, id u32, instancecount int) {
+	C.glDrawTransformFeedbackInstanced(mode, id, instancecount)
+}
+
+pub fn draw_transform_feedback_stream_instanced(mode u32, id u32, stream u32, instancecount int) {
+	C.glDrawTransformFeedbackStreamInstanced(mode, id, stream, instancecount)
+}

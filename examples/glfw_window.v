@@ -1,4 +1,4 @@
-import vgl.opengl.gl11
+import vgl.opengl.gl10
 import vgl.glfw
 
 fn key_down(window i64, key, code, action, mods int) {
@@ -22,15 +22,15 @@ fn main() {
 
 	glfw.make_context_current(window)
 
-	gl11.init_glad()
+	gl10.init_glad()
 
 	for {
 		if glfw.window_should_close(window) {
 			break
 		}
 
-		gl11.clear_color(1, 0, 0, 0)
-		gl11.clear(GL_COLOR_BUFFER_BIT)
+		gl10.clear_color(1, 0, 0, 0)
+		gl10.clear(u32(GL_COLOR_BUFFER_BIT))
 
 		glfw.swap_buffers(window)
 		glfw.poll_events()
