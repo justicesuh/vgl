@@ -68,6 +68,7 @@ class Registry():
 
         self.v_type_map = {
             'GLbyte': 'i8',
+            'GLchar': 'i8',
             'GLshort': 'i16',
             'GLint': 'int',
             'GLubyte': 'u8',
@@ -79,17 +80,33 @@ class Registry():
             'GLsizei': 'int',
             'GLbitfield': 'u32',
             'GLboolean': 'bool',
+            'GLsync': 'voidptr',
             'GLbyte*': '[]i8',
             'GLshort*': '[]i16',
             'GLint*': '[]int',
+            'GLintptr': '[]int',
             'GLubyte*': '[]u8',
             'GLushort*': '[]u16',
             'GLuint*': '[]u32',
             'GLfloat*': '[]f32',
             'GLdouble*': '[]f64',
+            'GLenum*': '[]u32',
+            'GLsizei*': '[]int',
+            'GLsizeiptr': '[]int',
             'GLboolean*': '[]bool',
+            'GLchar*': 'string',
+            'void *': 'voidptr',
             'const void*': 'voidptr',
-            'GLchar*': 'string'
+            'const void *': 'voidptr',
+            'void **': '*voidptr',
+            'GLDEBUGPROC': 'voidptr',
+            'ptr': 'voidptr',
+            'GLintptr*': '*voidptr',
+            'GLsizeiptr*': '*voidptr',
+            'GLint64': 'i64',
+            'GLuint64': 'u64',
+            'GLint64*': '[]i64',
+            'GLuint64*': '[]u64',
         }
 
 
@@ -154,7 +171,10 @@ class Registry():
                                     type_ = 'const void*'
                                 len_ = e.attrib['len']
                             else:
-                                type_ = e[0].text
+                                if len(e) == 2:
+                                    type_ = e[0].text
+                                else:
+                                    type_ = e.text
                             if name == 'type':
                                 name = 'type_'
                             c.parameters.append(Parameter(name, type_, group, len_))
@@ -202,7 +222,7 @@ class Registry():
                 v.write('module {}\n\n'.format(version_str))
                 v.write('#flag  -I @VROOT/thirdparty/glad\n')
                 v.write('#flag @VROOT/thirdparty/glad/glad.o\n\n')
-                v.write('#include <glad.h>\n')
+                v.write('#include <glad.h>\n\n')
                 v.write('import const (\n')
                 for enum in feature.enums:
                     v.write('\t{}\n'.format(enum))
@@ -215,13 +235,14 @@ class Registry():
                     if len(list(filter(lambda x: '*' in x, [p.type_ for p in command.parameters]))) > 0 or '*' in command.ret:
                         v.write('\n// TODO')
                     vname = self.snake_case(command.name)[3:]
+                    if vname.endswith('_d'):
+                        vname = vname[:-2] + 'd'
                     v.write('\npub fn {}('.format(vname))
 
                     vargs = []
                     for parameter in command.parameters:
                         if parameter.type_ not in self.v_type_map:
-                            print(command)
-                            raise Exception('{} type map not found'.format(parameter.type_))
+                            raise Exception('{} type map not found for {}'.format(parameter.type_, command.name))
                         vargs.append('{} {}'.format(parameter.name, self.v_type_map[parameter.type_]))
                     v.write('{}) '.format(', '.join(vargs)))
 
@@ -229,7 +250,7 @@ class Registry():
                         v.write('{\n')
                     else:
                         if command.ret not in self.v_type_map:
-                            raise Exception('{} type map not found'.format(command.ret))
+                            raise Exception('{} type map not found for {}'.format(command.ret, command.name))
                         v.write('{} {{\n'.format(self.v_type_map[command.ret]))
 
                     v.write('\t')
@@ -254,7 +275,7 @@ class Registry():
 
 if __name__ == '__main__':
     url = 'https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/master/xml/gl.xml' 
-    registry = Registry(url, 1, 0)
+    registry = Registry(url, 4, 6)
     registry.download()
     registry.parse()
     if len(sys.argv) == 1:
