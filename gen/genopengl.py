@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 
 import requests
 from lxml import etree
@@ -254,4 +255,8 @@ if __name__ == '__main__':
     registry = Registry(url, 1, 0)
     registry.download()
     registry.parse()
-    registry.generate()
+    if len(sys.argv) == 1:
+        registry.generate()
+    else:
+        major, minor = [c for c in sys.argv[1][2:]]
+        registry.generate(major, minor)
