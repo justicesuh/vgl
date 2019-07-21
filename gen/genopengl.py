@@ -260,9 +260,10 @@ class Registry():
                     cargs = []
                     for parameter in command.parameters:
                         arg = parameter.name
-                        if parameter.type_ == 'GLchar*':
+                        type_ = parameter.type_
+                        if self.v_type_map[type_] == 'string':
                             arg += '.str'
-                        elif '*' in parameter.type_ and parameter.type_ != 'const void*':
+                        elif '*' in type_ and 'voidptr' not in self.v_type_map[type_]:
                             arg += '.data'
                         cargs.append(arg)
                     v.write('{})\n'.format(', '.join(cargs)))
