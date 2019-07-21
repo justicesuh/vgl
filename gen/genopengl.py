@@ -35,11 +35,11 @@ class Command():
 
 
 class Parameter():
-    def __init__(self, name, _type, group, _len):
+    def __init__(self, name, type_, group, len_):
         self.name = name
-        self._type = _type
+        self.type_ = type_
         self.group = group
-        self._len = _len
+        self.len_ = len_
 
     def __repr__(self):
         return self.name
@@ -136,24 +136,26 @@ class Registry():
                                 c.ret = e[0].text
                         if e.tag == 'param':
                             name = e[-1].text
-                            _type = None
+                            type_ = None
                             group = None
-                            _len = None
+                            len_ = None
                             if 'group' in e.attrib:
                                 if len(e) == 2:
-                                    _type = e[0].text
+                                    type_ = e[0].text
                                 else:
-                                    _type = 'const void*'
+                                    type_ = 'const void*'
                                 group = e.attrib['group']
                             elif 'len' in e.attrib:
                                 if len(e) == 2:
-                                    _type = e[0].text + '*'
+                                    type_ = e[0].text + '*'
                                 else:
-                                    _type = 'const void*'
-                                _len = e.attrib['len']
+                                    type_ = 'const void*'
+                                len_ = e.attrib['len']
                             else:
-                                _type = e[0].text
-                            c.parameters.append(Parameter(name, _type, group, _len))
+                                type_ = e[0].text
+                            if name == 'type':
+                                name = 'type_'
+                            c.parameters.append(Parameter(name, type_, group, len_))
                         self.commands.append(c)
 
             if element.tag == 'feature' and element.attrib['api'] == 'gl':
@@ -204,17 +206,17 @@ class Registry():
                 for command_str in feature.commands:
                     command = list(filter(lambda x: x.name == command_str, self.commands))[0]
 
-                    if len(list(filter(lambda x: '*' in x, [p._type for p in command.parameters]))) > 0 or '*' in command.ret:
+                    if len(list(filter(lambda x: '*' in x, [p.type_ for p in command.parameters]))) > 0 or '*' in command.ret:
                         v.write('\n// TODO')
                     vname = self.snake_case(command.name)[3:]
                     v.write('\npub fn {}('.format(vname))
 
                     vargs = []
                     for parameter in command.parameters:
-                        if parameter._type not in self.v_type_map:
+                        if parameter.type_ not in self.v_type_map:
                             print(command)
-                            raise Exception('{} type map not found'.format(parameter._type))
-                        vargs.append('{} {}'.format(parameter.name, self.v_type_map[parameter._type]))
+                            raise Exception('{} type map not found'.format(parameter.type_))
+                        vargs.append('{} {}'.format(parameter.name, self.v_type_map[parameter.type_]))
                     v.write('{}) '.format(', '.join(vargs)))
 
                     if command.ret == 'void':
@@ -228,7 +230,7 @@ class Registry():
                     cargs = []
                     for parameter in command.parameters:
                         arg = parameter.name
-                        if '*' in parameter._type and parameter._type != 'const void*':
+                        if '*' in parameter.type_ and parameter.type_ != 'const void*':
                             arg += '.data'
                         cargs.append(arg)
                     v.write('{})\n'.format(', '.join(cargs)))
