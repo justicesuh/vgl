@@ -47,18 +47,21 @@ class Parameter():
 class Feature():
     def __init__(self, name):
         self.name = name
+        self.version = float(name[-3:].replace('_', '.'))
         self.enums = []
         self.commands = []
 
 
 class Registry():
-    def __init__(self, url):
+    def __init__(self, url, major, minor):
         self.url = url
         self.filename = url.rsplit('/', 1)[-1]
+        self.version = float('{}.{}'.format(major, minor))
         self.groups = []
         self.enums = []
         self.commands = []
         self.features = []
+
 
     def download(self):
         if os.path.exists(self.filename):
@@ -127,9 +130,36 @@ class Registry():
                             feature.enums.append(e.attrib['name'])
                         if e.tag == 'command':
                             feature.commands.append(e.attrib['name'])
+                self.features.append(feature)
+
+
+    def generate(self):
+        versions = list(map(lambda x: x.version, self.features))
+        if self.version not in versions:
+            raise Exception('OpenGL {} does not exist'.format(self.version))
+
+        for feature in self.features:
+            if feature.version > self.version:
+                break
+
+            version_str = 'gl{}'.format(str(feature.version).replace('.', ''))
+            _dir = '../vgl/opengl/{}'.format(version_str)
+            if not os.path.exists(_dir):
+                os.makedirs(_dir)
+
+            vpath = '{}/{}.v'.format(_dir, version_str)
+            with open(vpath, 'w') as v:
+                v.write('module {}\n\n'.format(version_str))
+
+                v.write('import const (\n')
+                for enum in feature.enums:
+                    v.write('\t{}\n'.format(enum))
+                v.write(')\n')
 
 
 if __name__ == '__main__':
-    registry = Registry('https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/master/xml/gl.xml')
+    url = 'https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/master/xml/gl.xml' 
+    registry = Registry(url, 1, 0)
     registry.download()
     registry.parse()
+    registry.generate()
