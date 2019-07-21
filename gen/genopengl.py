@@ -226,7 +226,10 @@ class Registry():
                             raise Exception('{} type map not found'.format(command.ret))
                         v.write('{} {{\n'.format(self.v_type_map[command.ret]))
 
-                    v.write('\tC.{}('.format(command.name))
+                    v.write('\t')
+                    if command.ret != 'void':
+                        v.write('return ')
+                    v.write('C.{}('.format(command.name))
                     cargs = []
                     for parameter in command.parameters:
                         arg = parameter.name
