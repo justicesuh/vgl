@@ -74,6 +74,10 @@ class Registry():
             'GLuint': 'u32',
             'GLfloat': 'f32',
             'GLdouble': 'f64',
+            'GLenum': 'u32',
+            'GLsizei': 'int',
+            'GLbitfield': 'u32',
+            'GLboolean': 'bool',
             'GLbyte*': '[]i8',
             'GLshort*': '[]i16',
             'GLint*': '[]int',
@@ -82,10 +86,7 @@ class Registry():
             'GLuint*': '[]u32',
             'GLfloat*': '[]f32',
             'GLdouble*': '[]f64',
-            'GLenum': 'u32',
-            'GLsizei': 'int',
-            'GLbitfield': 'u32',
-            'GLboolean': 'bool',
+            'GLboolean*': '[]bool',
             'const void*': 'voidptr',
             'GLchar*': 'string'
         }
@@ -145,7 +146,7 @@ class Registry():
                                 else:
                                     type_ = 'const void*'
                                 group = e.attrib['group']
-                            elif 'len' in e.attrib:
+                            if 'len' in e.attrib:
                                 if len(e) == 2:
                                     type_ = e[0].text + '*'
                                 else:
