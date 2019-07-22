@@ -602,7 +602,7 @@ pub fn get_integerv(pname u32, data []int) {
 }
 
 // TODO
-pub fn get_string(name u32) []u8 {
+pub fn get_string(name u32) voidptr {
 	return C.glGetString(name)
 }
 

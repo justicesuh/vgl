@@ -507,7 +507,7 @@ pub fn clear_bufferfi(buffer u32, drawbuffer int, depth f32, stencil int) {
 }
 
 // TODO
-pub fn get_stringi(name u32, index u32) []u8 {
+pub fn get_stringi(name u32, index u32) voidptr {
 	return C.glGetStringi(name, index)
 }
 

@@ -145,6 +145,8 @@ class Registry():
                     for e in command.getchildren():
                         if e.tag == 'proto':
                             c.ret, c.name = ''.join(list(e.itertext())).replace('const', '').replace(' *', '* ').strip().split(' ')
+                            if '*' in c.ret:
+                                c.ret = 'void*'
                         if e.tag == 'param':
                             type_, name = ''.join(list(e.itertext())).replace('const', '').replace(' **', '** ').replace(' *', '* ').strip().rsplit(' ', 1)
                             group = e.attrib.get('group', None)
