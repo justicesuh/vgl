@@ -58,10 +58,6 @@ import const (
 	GL_SRC2_ALPHA
 )
 
-pub fn init_glad() int {
-	return C.gladLoadGL()
-}
-
 // TODO
 pub fn gen_queries(n int, ids []u32) {
 	C.glGenQueries(n, ids.data)
@@ -119,17 +115,17 @@ pub fn is_buffer(buffer u32) bool {
 
 // TODO
 pub fn buffer_data(target u32, size []int, data voidptr, usage u32) {
-	C.glBufferData(target, size, data, usage)
+	C.glBufferData(target, size.data, data, usage)
 }
 
 // TODO
 pub fn buffer_sub_data(target u32, offset []int, size []int, data voidptr) {
-	C.glBufferSubData(target, offset, size, data)
+	C.glBufferSubData(target, offset.data, size.data, data)
 }
 
 // TODO
 pub fn get_buffer_sub_data(target u32, offset []int, size []int, data voidptr) {
-	C.glGetBufferSubData(target, offset, size, data)
+	C.glGetBufferSubData(target, offset.data, size.data, data)
 }
 
 // TODO
@@ -147,6 +143,6 @@ pub fn get_buffer_parameteriv(target u32, pname u32, params []int) {
 }
 
 // TODO
-pub fn get_buffer_pointerv(target u32, pname u32, params voidptr) {
+pub fn get_buffer_pointerv(target u32, pname u32, params *voidptr) {
 	C.glGetBufferPointerv(target, pname, params)
 }

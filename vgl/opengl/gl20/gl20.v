@@ -92,10 +92,6 @@ import const (
 	GL_MAX_TEXTURE_COORDS
 )
 
-pub fn init_glad() int {
-	return C.gladLoadGL()
-}
-
 pub fn blend_equation_separate(modeRGB u32, modeAlpha u32) {
 	C.glBlendEquationSeparate(modeRGB, modeAlpha)
 }
@@ -121,8 +117,9 @@ pub fn attach_shader(program u32, shader u32) {
 	C.glAttachShader(program, shader)
 }
 
-pub fn bind_attrib_location(program u32, index u32, name i8) {
-	C.glBindAttribLocation(program, index, name)
+// TODO
+pub fn bind_attrib_location(program u32, index u32, name string) {
+	C.glBindAttribLocation(program, index, name.str)
 }
 
 pub fn compile_shader(shader u32) {
@@ -172,8 +169,9 @@ pub fn get_attached_shaders(program u32, maxCount int, count []int, shaders []u3
 	C.glGetAttachedShaders(program, maxCount, count.data, shaders.data)
 }
 
-pub fn get_attrib_location(program u32, name i8) int {
-	return C.glGetAttribLocation(program, name)
+// TODO
+pub fn get_attrib_location(program u32, name string) int {
+	return C.glGetAttribLocation(program, name.str)
 }
 
 // TODO
@@ -201,8 +199,9 @@ pub fn get_shader_source(shader u32, bufSize int, length []int, source string) {
 	C.glGetShaderSource(shader, bufSize, length.data, source.str)
 }
 
-pub fn get_uniform_location(program u32, name i8) int {
-	return C.glGetUniformLocation(program, name)
+// TODO
+pub fn get_uniform_location(program u32, name string) int {
+	return C.glGetUniformLocation(program, name.str)
 }
 
 // TODO
@@ -231,7 +230,7 @@ pub fn get_vertex_attribiv(index u32, pname u32, params []int) {
 }
 
 // TODO
-pub fn get_vertex_attrib_pointerv(index u32, pname u32, pointer voidptr) {
+pub fn get_vertex_attrib_pointerv(index u32, pname u32, pointer *voidptr) {
 	C.glGetVertexAttribPointerv(index, pname, pointer)
 }
 
@@ -248,8 +247,8 @@ pub fn link_program(program u32) {
 }
 
 // TODO
-pub fn shader_source(shader u32, count int, string string, length []int) {
-	C.glShaderSource(shader, count, string.str, length.data)
+pub fn shader_source(shader u32, count int, string voidptr, length []int) {
+	C.glShaderSource(shader, count, string, length.data)
 }
 
 pub fn use_program(program u32) {

@@ -33,13 +33,9 @@ import const (
 	GL_UNSIGNED_INT_10F_11F_11F_REV
 )
 
-pub fn init_glad() int {
-	return C.gladLoadGL()
-}
-
 // TODO
 pub fn buffer_storage(target u32, size []int, data voidptr, flags u32) {
-	C.glBufferStorage(target, size, data, flags)
+	C.glBufferStorage(target, size.data, data, flags)
 }
 
 // TODO

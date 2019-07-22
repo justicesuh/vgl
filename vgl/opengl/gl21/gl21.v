@@ -31,10 +31,6 @@ import const (
 	GL_COMPRESSED_SLUMINANCE_ALPHA
 )
 
-pub fn init_glad() int {
-	return C.gladLoadGL()
-}
-
 // TODO
 pub fn uniform_matrix2x3fv(location int, count int, transpose bool, value []f32) {
 	C.glUniformMatrix2x3fv(location, count, transpose, value.data)

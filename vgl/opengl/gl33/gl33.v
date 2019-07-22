@@ -24,16 +24,14 @@ import const (
 	GL_INT_2_10_10_10_REV
 )
 
-pub fn init_glad() int {
-	return C.gladLoadGL()
+// TODO
+pub fn bind_frag_data_location_indexed(program u32, colorNumber u32, index u32, name string) {
+	C.glBindFragDataLocationIndexed(program, colorNumber, index, name.str)
 }
 
-pub fn bind_frag_data_location_indexed(program u32, colorNumber u32, index u32, name i8) {
-	C.glBindFragDataLocationIndexed(program, colorNumber, index, name)
-}
-
-pub fn get_frag_data_index(program u32, name i8) int {
-	return C.glGetFragDataIndex(program, name)
+// TODO
+pub fn get_frag_data_index(program u32, name string) int {
+	return C.glGetFragDataIndex(program, name.str)
 }
 
 // TODO

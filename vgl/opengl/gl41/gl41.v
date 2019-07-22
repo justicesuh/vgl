@@ -43,10 +43,6 @@ import const (
 	GL_UNDEFINED_VERTEX
 )
 
-pub fn init_glad() int {
-	return C.gladLoadGL()
-}
-
 pub fn release_shader_compiler() {
 	C.glReleaseShaderCompiler()
 }
@@ -92,8 +88,8 @@ pub fn active_shader_program(pipeline u32, program u32) {
 }
 
 // TODO
-pub fn create_shader_programv(type_ u32, count int, strings string) u32 {
-	return C.glCreateShaderProgramv(type_, count, strings.str)
+pub fn create_shader_programv(type_ u32, count int, strings voidptr) u32 {
+	return C.glCreateShaderProgramv(type_, count, strings)
 }
 
 pub fn bind_program_pipeline(pipeline u32) {

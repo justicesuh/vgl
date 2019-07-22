@@ -49,10 +49,6 @@ import const (
 	GL_ALIASED_POINT_SIZE_RANGE
 )
 
-pub fn init_glad() int {
-	return C.gladLoadGL()
-}
-
 // TODO
 pub fn draw_range_elements(mode u32, start u32, end u32, count int, type_ u32, indices voidptr) {
 	C.glDrawRangeElements(mode, start, end, count, type_, indices)

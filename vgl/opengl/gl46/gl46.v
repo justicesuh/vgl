@@ -34,22 +34,19 @@ import const (
 	GL_TRANSFORM_FEEDBACK_STREAM_OVERFLOW
 )
 
-pub fn init_glad() int {
-	return C.gladLoadGL()
-}
-
-pub fn specialize_shader(shader u32, pEntryPoint i8, numSpecializationConstants u32, pConstantIndex u32, pConstantValue u32) {
-	C.glSpecializeShader(shader, pEntryPoint, numSpecializationConstants, pConstantIndex, pConstantValue)
+// TODO
+pub fn specialize_shader(shader u32, pEntryPoint string, numSpecializationConstants u32, pConstantIndex []u32, pConstantValue []u32) {
+	C.glSpecializeShader(shader, pEntryPoint.str, numSpecializationConstants, pConstantIndex.data, pConstantValue.data)
 }
 
 // TODO
 pub fn multi_draw_arrays_indirect_count(mode u32, indirect voidptr, drawcount []int, maxdrawcount int, stride int) {
-	C.glMultiDrawArraysIndirectCount(mode, indirect, drawcount, maxdrawcount, stride)
+	C.glMultiDrawArraysIndirectCount(mode, indirect, drawcount.data, maxdrawcount, stride)
 }
 
 // TODO
 pub fn multi_draw_elements_indirect_count(mode u32, type_ u32, indirect voidptr, drawcount []int, maxdrawcount int, stride int) {
-	C.glMultiDrawElementsIndirectCount(mode, type_, indirect, drawcount, maxdrawcount, stride)
+	C.glMultiDrawElementsIndirectCount(mode, type_, indirect, drawcount.data, maxdrawcount, stride)
 }
 
 pub fn polygon_offset_clamp(factor f32, units f32, clamp f32) {

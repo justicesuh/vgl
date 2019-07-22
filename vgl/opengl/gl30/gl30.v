@@ -245,10 +245,6 @@ import const (
 	GL_ALPHA_INTEGER
 )
 
-pub fn init_glad() int {
-	return C.gladLoadGL()
-}
-
 pub fn color_maski(index u32, r bool, g bool, b bool, a bool) {
 	C.glColorMaski(index, r, g, b, a)
 }
@@ -284,7 +280,7 @@ pub fn end_transform_feedback() {
 }
 
 pub fn bind_buffer_range(target u32, index u32, buffer u32, offset []int, size []int) {
-	C.glBindBufferRange(target, index, buffer, offset, size)
+	C.glBindBufferRange(target, index, buffer, offset.data, size.data)
 }
 
 pub fn bind_buffer_base(target u32, index u32, buffer u32) {
@@ -292,8 +288,8 @@ pub fn bind_buffer_base(target u32, index u32, buffer u32) {
 }
 
 // TODO
-pub fn transform_feedback_varyings(program u32, count int, varyings string, bufferMode u32) {
-	C.glTransformFeedbackVaryings(program, count, varyings.str, bufferMode)
+pub fn transform_feedback_varyings(program u32, count int, varyings voidptr, bufferMode u32) {
+	C.glTransformFeedbackVaryings(program, count, varyings, bufferMode)
 }
 
 // TODO
@@ -510,7 +506,8 @@ pub fn clear_bufferfi(buffer u32, drawbuffer int, depth f32, stencil int) {
 	C.glClearBufferfi(buffer, drawbuffer, depth, stencil)
 }
 
-pub fn get_stringi(name u32, index u32) u8 {
+// TODO
+pub fn get_stringi(name u32, index u32) []u8 {
 	return C.glGetStringi(name, index)
 }
 
@@ -602,11 +599,11 @@ pub fn framebuffer_texture_layer(target u32, attachment u32, texture u32, level 
 
 // TODO
 pub fn map_buffer_range(target u32, offset []int, length []int, access u32) voidptr {
-	return C.glMapBufferRange(target, offset, length, access)
+	return C.glMapBufferRange(target, offset.data, length.data, access)
 }
 
 pub fn flush_mapped_buffer_range(target u32, offset []int, length []int) {
-	C.glFlushMappedBufferRange(target, offset, length)
+	C.glFlushMappedBufferRange(target, offset.data, length.data)
 }
 
 pub fn bind_vertex_array(array u32) {

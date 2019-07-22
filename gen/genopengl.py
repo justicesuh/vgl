@@ -95,10 +95,9 @@ class Registry():
             'GLsizeiptr': '[]int',
             'GLboolean*': '[]bool',
             'GLchar*': 'string',
-            'void *': 'voidptr',
-            'const void*': 'voidptr',
-            'const void *': 'voidptr',
-            'void **': '*voidptr',
+            'GLchar**': 'voidptr',
+            'void*': 'voidptr',
+            'void**': '*voidptr',
             'GLDEBUGPROC': 'voidptr',
             'ptr': 'voidptr',
             'GLintptr*': '*voidptr',
@@ -145,36 +144,11 @@ class Registry():
                     c = Command()
                     for e in command.getchildren():
                         if e.tag == 'proto':
-                            if 'group' in e.attrib:
-                                c.group = e.attrib['group']
-                            if len(e) == 1:
-                                c.name = e[0].text
-                                c.ret = e.text.strip()
-                            else:
-                                c.name = e[1].text
-                                c.ret = e[0].text
+                            c.ret, c.name = ''.join(list(e.itertext())).replace('const', '').replace(' *', '* ').strip().split(' ')
                         if e.tag == 'param':
-                            name = e[-1].text
-                            type_ = None
-                            group = None
-                            len_ = None
-                            if 'group' in e.attrib:
-                                if len(e) == 2:
-                                    type_ = e[0].text
-                                else:
-                                    type_ = 'const void*'
-                                group = e.attrib['group']
-                            if 'len' in e.attrib:
-                                if len(e) == 2:
-                                    type_ = e[0].text + '*'
-                                else:
-                                    type_ = 'const void*'
-                                len_ = e.attrib['len']
-                            else:
-                                if len(e) == 2:
-                                    type_ = e[0].text
-                                else:
-                                    type_ = e.text
+                            type_, name = ''.join(list(e.itertext())).replace('const', '').replace(' **', '** ').replace(' *', '* ').strip().rsplit(' ', 1)
+                            group = e.attrib.get('group', None)
+                            len_ = e.attrib.get('len', None)
                             if name == 'type':
                                 name = 'type_'
                             c.parameters.append(Parameter(name, type_, group, len_))

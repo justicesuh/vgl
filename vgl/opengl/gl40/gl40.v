@@ -87,10 +87,6 @@ import const (
 	GL_MAX_VERTEX_STREAMS
 )
 
-pub fn init_glad() int {
-	return C.gladLoadGL()
-}
-
 pub fn min_sample_shading(value f32) {
 	C.glMinSampleShading(value)
 }
@@ -207,12 +203,14 @@ pub fn get_uniformdv(program u32, location int, params []f64) {
 	C.glGetUniformdv(program, location, params.data)
 }
 
-pub fn get_subroutine_uniform_location(program u32, shadertype u32, name i8) int {
-	return C.glGetSubroutineUniformLocation(program, shadertype, name)
+// TODO
+pub fn get_subroutine_uniform_location(program u32, shadertype u32, name string) int {
+	return C.glGetSubroutineUniformLocation(program, shadertype, name.str)
 }
 
-pub fn get_subroutine_index(program u32, shadertype u32, name i8) u32 {
-	return C.glGetSubroutineIndex(program, shadertype, name)
+// TODO
+pub fn get_subroutine_index(program u32, shadertype u32, name string) u32 {
+	return C.glGetSubroutineIndex(program, shadertype, name.str)
 }
 
 // TODO

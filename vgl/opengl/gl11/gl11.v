@@ -112,10 +112,6 @@ import const (
 	GL_T4F_C4F_N3F_V4F
 )
 
-pub fn init_glad() int {
-	return C.gladLoadGL()
-}
-
 pub fn draw_arrays(mode u32, first int, count int) {
 	C.glDrawArrays(mode, first, count)
 }
@@ -126,7 +122,7 @@ pub fn draw_elements(mode u32, count int, type_ u32, indices voidptr) {
 }
 
 // TODO
-pub fn get_pointerv(pname u32, params voidptr) {
+pub fn get_pointerv(pname u32, params *voidptr) {
 	C.glGetPointerv(pname, params)
 }
 

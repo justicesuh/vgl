@@ -120,10 +120,6 @@ import const (
 	GL_TEXTURE_IMMUTABLE_FORMAT
 )
 
-pub fn init_glad() int {
-	return C.gladLoadGL()
-}
-
 pub fn draw_arrays_instanced_base_instance(mode u32, first int, count int, instancecount int, baseinstance u32) {
 	C.glDrawArraysInstancedBaseInstance(mode, first, count, instancecount, baseinstance)
 }

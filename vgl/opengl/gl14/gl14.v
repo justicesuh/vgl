@@ -58,10 +58,6 @@ import const (
 	GL_MAX
 )
 
-pub fn init_glad() int {
-	return C.gladLoadGL()
-}
-
 pub fn blend_func_separate(sfactorRGB u32, dfactorRGB u32, sfactorAlpha u32, dfactorAlpha u32) {
 	C.glBlendFuncSeparate(sfactorRGB, dfactorRGB, sfactorAlpha, dfactorAlpha)
 }
@@ -72,7 +68,7 @@ pub fn multi_draw_arrays(mode u32, first []int, count []int, drawcount int) {
 }
 
 // TODO
-pub fn multi_draw_elements(mode u32, count []int, type_ u32, indices voidptr, drawcount int) {
+pub fn multi_draw_elements(mode u32, count []int, type_ u32, indices *voidptr, drawcount int) {
 	C.glMultiDrawElements(mode, count.data, type_, indices, drawcount)
 }
 

@@ -270,10 +270,6 @@ import const (
 	GL_STACK_OVERFLOW
 )
 
-pub fn init_glad() int {
-	return C.gladLoadGL()
-}
-
 // TODO
 pub fn clear_buffer_data(target u32, internalformat u32, format u32, type_ u32, data voidptr) {
 	C.glClearBufferData(target, internalformat, format, type_, data)
@@ -281,7 +277,7 @@ pub fn clear_buffer_data(target u32, internalformat u32, format u32, type_ u32, 
 
 // TODO
 pub fn clear_buffer_sub_data(target u32, internalformat u32, offset []int, size []int, format u32, type_ u32, data voidptr) {
-	C.glClearBufferSubData(target, internalformat, offset, size, format, type_, data)
+	C.glClearBufferSubData(target, internalformat, offset.data, size.data, format, type_, data)
 }
 
 pub fn dispatch_compute(num_groups_x u32, num_groups_y u32, num_groups_z u32) {
@@ -289,7 +285,7 @@ pub fn dispatch_compute(num_groups_x u32, num_groups_y u32, num_groups_z u32) {
 }
 
 pub fn dispatch_compute_indirect(indirect []int) {
-	C.glDispatchComputeIndirect(indirect)
+	C.glDispatchComputeIndirect(indirect.data)
 }
 
 pub fn copy_image_sub_data(srcName u32, srcTarget u32, srcLevel int, srcX int, srcY int, srcZ int, dstName u32, dstTarget u32, dstLevel int, dstX int, dstY int, dstZ int, srcWidth int, srcHeight int, srcDepth int) {
@@ -319,7 +315,7 @@ pub fn invalidate_tex_image(texture u32, level int) {
 }
 
 pub fn invalidate_buffer_sub_data(buffer u32, offset []int, length []int) {
-	C.glInvalidateBufferSubData(buffer, offset, length)
+	C.glInvalidateBufferSubData(buffer, offset.data, length.data)
 }
 
 pub fn invalidate_buffer_data(buffer u32) {
@@ -381,7 +377,7 @@ pub fn shader_storage_block_binding(program u32, storageBlockIndex u32, storageB
 }
 
 pub fn tex_buffer_range(target u32, internalformat u32, buffer u32, offset []int, size []int) {
-	C.glTexBufferRange(target, internalformat, buffer, offset, size)
+	C.glTexBufferRange(target, internalformat, buffer, offset.data, size.data)
 }
 
 pub fn tex_storage2_d_multisample(target u32, samples int, internalformat u32, width int, height int, fixedsamplelocations bool) {
@@ -397,7 +393,7 @@ pub fn texture_view(texture u32, target u32, origtexture u32, internalformat u32
 }
 
 pub fn bind_vertex_buffer(bindingindex u32, buffer u32, offset []int, stride int) {
-	C.glBindVertexBuffer(bindingindex, buffer, offset, stride)
+	C.glBindVertexBuffer(bindingindex, buffer, offset.data, stride)
 }
 
 pub fn vertex_attrib_format(attribindex u32, size int, type_ u32, normalized bool, relativeoffset u32) {
@@ -470,6 +466,6 @@ pub fn get_object_ptr_label(ptr voidptr, bufSize int, length []int, label string
 }
 
 // TODO
-pub fn get_pointerv(pname u32, params voidptr) {
+pub fn get_pointerv(pname u32, params *voidptr) {
 	C.glGetPointerv(pname, params)
 }

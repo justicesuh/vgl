@@ -47,10 +47,6 @@ import const (
 	GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH
 )
 
-pub fn init_glad() int {
-	return C.gladLoadGL()
-}
-
 pub fn clip_control(origin u32, depth u32) {
 	C.glClipControl(origin, depth)
 }
@@ -65,19 +61,22 @@ pub fn transform_feedback_buffer_base(xfb u32, index u32, buffer u32) {
 }
 
 pub fn transform_feedback_buffer_range(xfb u32, index u32, buffer u32, offset []int, size []int) {
-	C.glTransformFeedbackBufferRange(xfb, index, buffer, offset, size)
+	C.glTransformFeedbackBufferRange(xfb, index, buffer, offset.data, size.data)
 }
 
-pub fn get_transform_feedbackiv(xfb u32, pname u32, param int) {
-	C.glGetTransformFeedbackiv(xfb, pname, param)
+// TODO
+pub fn get_transform_feedbackiv(xfb u32, pname u32, param []int) {
+	C.glGetTransformFeedbackiv(xfb, pname, param.data)
 }
 
-pub fn get_transform_feedbacki_v(xfb u32, pname u32, index u32, param int) {
-	C.glGetTransformFeedbacki_v(xfb, pname, index, param)
+// TODO
+pub fn get_transform_feedbacki_v(xfb u32, pname u32, index u32, param []int) {
+	C.glGetTransformFeedbacki_v(xfb, pname, index, param.data)
 }
 
-pub fn get_transform_feedbacki64_v(xfb u32, pname u32, index u32, param i64) {
-	C.glGetTransformFeedbacki64_v(xfb, pname, index, param)
+// TODO
+pub fn get_transform_feedbacki64_v(xfb u32, pname u32, index u32, param []i64) {
+	C.glGetTransformFeedbacki64_v(xfb, pname, index, param.data)
 }
 
 // TODO
@@ -87,21 +86,21 @@ pub fn create_buffers(n int, buffers []u32) {
 
 // TODO
 pub fn named_buffer_storage(buffer u32, size []int, data voidptr, flags u32) {
-	C.glNamedBufferStorage(buffer, size, data, flags)
+	C.glNamedBufferStorage(buffer, size.data, data, flags)
 }
 
 // TODO
 pub fn named_buffer_data(buffer u32, size []int, data voidptr, usage u32) {
-	C.glNamedBufferData(buffer, size, data, usage)
+	C.glNamedBufferData(buffer, size.data, data, usage)
 }
 
 // TODO
 pub fn named_buffer_sub_data(buffer u32, offset []int, size []int, data voidptr) {
-	C.glNamedBufferSubData(buffer, offset, size, data)
+	C.glNamedBufferSubData(buffer, offset.data, size.data, data)
 }
 
 pub fn copy_named_buffer_sub_data(readBuffer u32, writeBuffer u32, readOffset []int, writeOffset []int, size []int) {
-	C.glCopyNamedBufferSubData(readBuffer, writeBuffer, readOffset, writeOffset, size)
+	C.glCopyNamedBufferSubData(readBuffer, writeBuffer, readOffset.data, writeOffset.data, size.data)
 }
 
 // TODO
@@ -111,7 +110,7 @@ pub fn clear_named_buffer_data(buffer u32, internalformat u32, format u32, type_
 
 // TODO
 pub fn clear_named_buffer_sub_data(buffer u32, internalformat u32, offset []int, size []int, format u32, type_ u32, data voidptr) {
-	C.glClearNamedBufferSubData(buffer, internalformat, offset, size, format, type_, data)
+	C.glClearNamedBufferSubData(buffer, internalformat, offset.data, size.data, format, type_, data)
 }
 
 // TODO
@@ -121,7 +120,7 @@ pub fn map_named_buffer(buffer u32, access u32) voidptr {
 
 // TODO
 pub fn map_named_buffer_range(buffer u32, offset []int, length []int, access u32) voidptr {
-	return C.glMapNamedBufferRange(buffer, offset, length, access)
+	return C.glMapNamedBufferRange(buffer, offset.data, length.data, access)
 }
 
 pub fn unmap_named_buffer(buffer u32) bool {
@@ -129,15 +128,17 @@ pub fn unmap_named_buffer(buffer u32) bool {
 }
 
 pub fn flush_mapped_named_buffer_range(buffer u32, offset []int, length []int) {
-	C.glFlushMappedNamedBufferRange(buffer, offset, length)
+	C.glFlushMappedNamedBufferRange(buffer, offset.data, length.data)
 }
 
-pub fn get_named_buffer_parameteriv(buffer u32, pname u32, params int) {
-	C.glGetNamedBufferParameteriv(buffer, pname, params)
+// TODO
+pub fn get_named_buffer_parameteriv(buffer u32, pname u32, params []int) {
+	C.glGetNamedBufferParameteriv(buffer, pname, params.data)
 }
 
-pub fn get_named_buffer_parameteri64v(buffer u32, pname u32, params i64) {
-	C.glGetNamedBufferParameteri64v(buffer, pname, params)
+// TODO
+pub fn get_named_buffer_parameteri64v(buffer u32, pname u32, params []i64) {
+	C.glGetNamedBufferParameteri64v(buffer, pname, params.data)
 }
 
 // TODO
@@ -147,7 +148,7 @@ pub fn get_named_buffer_pointerv(buffer u32, pname u32, params *voidptr) {
 
 // TODO
 pub fn get_named_buffer_sub_data(buffer u32, offset []int, size []int, data voidptr) {
-	C.glGetNamedBufferSubData(buffer, offset, size, data)
+	C.glGetNamedBufferSubData(buffer, offset.data, size.data, data)
 }
 
 // TODO
@@ -175,32 +176,38 @@ pub fn named_framebuffer_draw_buffer(framebuffer u32, buf u32) {
 	C.glNamedFramebufferDrawBuffer(framebuffer, buf)
 }
 
-pub fn named_framebuffer_draw_buffers(framebuffer u32, n int, bufs u32) {
-	C.glNamedFramebufferDrawBuffers(framebuffer, n, bufs)
+// TODO
+pub fn named_framebuffer_draw_buffers(framebuffer u32, n int, bufs []u32) {
+	C.glNamedFramebufferDrawBuffers(framebuffer, n, bufs.data)
 }
 
 pub fn named_framebuffer_read_buffer(framebuffer u32, src u32) {
 	C.glNamedFramebufferReadBuffer(framebuffer, src)
 }
 
-pub fn invalidate_named_framebuffer_data(framebuffer u32, numAttachments int, attachments u32) {
-	C.glInvalidateNamedFramebufferData(framebuffer, numAttachments, attachments)
+// TODO
+pub fn invalidate_named_framebuffer_data(framebuffer u32, numAttachments int, attachments []u32) {
+	C.glInvalidateNamedFramebufferData(framebuffer, numAttachments, attachments.data)
 }
 
-pub fn invalidate_named_framebuffer_sub_data(framebuffer u32, numAttachments int, attachments u32, x int, y int, width int, height int) {
-	C.glInvalidateNamedFramebufferSubData(framebuffer, numAttachments, attachments, x, y, width, height)
+// TODO
+pub fn invalidate_named_framebuffer_sub_data(framebuffer u32, numAttachments int, attachments []u32, x int, y int, width int, height int) {
+	C.glInvalidateNamedFramebufferSubData(framebuffer, numAttachments, attachments.data, x, y, width, height)
 }
 
-pub fn clear_named_framebufferiv(framebuffer u32, buffer u32, drawbuffer int, value int) {
-	C.glClearNamedFramebufferiv(framebuffer, buffer, drawbuffer, value)
+// TODO
+pub fn clear_named_framebufferiv(framebuffer u32, buffer u32, drawbuffer int, value []int) {
+	C.glClearNamedFramebufferiv(framebuffer, buffer, drawbuffer, value.data)
 }
 
-pub fn clear_named_framebufferuiv(framebuffer u32, buffer u32, drawbuffer int, value u32) {
-	C.glClearNamedFramebufferuiv(framebuffer, buffer, drawbuffer, value)
+// TODO
+pub fn clear_named_framebufferuiv(framebuffer u32, buffer u32, drawbuffer int, value []u32) {
+	C.glClearNamedFramebufferuiv(framebuffer, buffer, drawbuffer, value.data)
 }
 
-pub fn clear_named_framebufferfv(framebuffer u32, buffer u32, drawbuffer int, value f32) {
-	C.glClearNamedFramebufferfv(framebuffer, buffer, drawbuffer, value)
+// TODO
+pub fn clear_named_framebufferfv(framebuffer u32, buffer u32, drawbuffer int, value []f32) {
+	C.glClearNamedFramebufferfv(framebuffer, buffer, drawbuffer, value.data)
 }
 
 pub fn clear_named_framebufferfi(framebuffer u32, buffer u32, drawbuffer int, depth f32, stencil int) {
@@ -215,12 +222,14 @@ pub fn check_named_framebuffer_status(framebuffer u32, target u32) u32 {
 	return C.glCheckNamedFramebufferStatus(framebuffer, target)
 }
 
-pub fn get_named_framebuffer_parameteriv(framebuffer u32, pname u32, param int) {
-	C.glGetNamedFramebufferParameteriv(framebuffer, pname, param)
+// TODO
+pub fn get_named_framebuffer_parameteriv(framebuffer u32, pname u32, param []int) {
+	C.glGetNamedFramebufferParameteriv(framebuffer, pname, param.data)
 }
 
-pub fn get_named_framebuffer_attachment_parameteriv(framebuffer u32, attachment u32, pname u32, params int) {
-	C.glGetNamedFramebufferAttachmentParameteriv(framebuffer, attachment, pname, params)
+// TODO
+pub fn get_named_framebuffer_attachment_parameteriv(framebuffer u32, attachment u32, pname u32, params []int) {
+	C.glGetNamedFramebufferAttachmentParameteriv(framebuffer, attachment, pname, params.data)
 }
 
 // TODO
@@ -236,8 +245,9 @@ pub fn named_renderbuffer_storage_multisample(renderbuffer u32, samples int, int
 	C.glNamedRenderbufferStorageMultisample(renderbuffer, samples, internalformat, width, height)
 }
 
-pub fn get_named_renderbuffer_parameteriv(renderbuffer u32, pname u32, params int) {
-	C.glGetNamedRenderbufferParameteriv(renderbuffer, pname, params)
+// TODO
+pub fn get_named_renderbuffer_parameteriv(renderbuffer u32, pname u32, params []int) {
+	C.glGetNamedRenderbufferParameteriv(renderbuffer, pname, params.data)
 }
 
 // TODO
@@ -250,7 +260,7 @@ pub fn texture_buffer(texture u32, internalformat u32, buffer u32) {
 }
 
 pub fn texture_buffer_range(texture u32, internalformat u32, buffer u32, offset []int, size []int) {
-	C.glTextureBufferRange(texture, internalformat, buffer, offset, size)
+	C.glTextureBufferRange(texture, internalformat, buffer, offset.data, size.data)
 }
 
 pub fn texture_storage1_d(texture u32, levels int, internalformat u32, width int) {
@@ -319,24 +329,28 @@ pub fn texture_parameterf(texture u32, pname u32, param f32) {
 	C.glTextureParameterf(texture, pname, param)
 }
 
-pub fn texture_parameterfv(texture u32, pname u32, param f32) {
-	C.glTextureParameterfv(texture, pname, param)
+// TODO
+pub fn texture_parameterfv(texture u32, pname u32, param []f32) {
+	C.glTextureParameterfv(texture, pname, param.data)
 }
 
 pub fn texture_parameteri(texture u32, pname u32, param int) {
 	C.glTextureParameteri(texture, pname, param)
 }
 
-pub fn texture_parameter_iiv(texture u32, pname u32, params int) {
-	C.glTextureParameterIiv(texture, pname, params)
+// TODO
+pub fn texture_parameter_iiv(texture u32, pname u32, params []int) {
+	C.glTextureParameterIiv(texture, pname, params.data)
 }
 
-pub fn texture_parameter_iuiv(texture u32, pname u32, params u32) {
-	C.glTextureParameterIuiv(texture, pname, params)
+// TODO
+pub fn texture_parameter_iuiv(texture u32, pname u32, params []u32) {
+	C.glTextureParameterIuiv(texture, pname, params.data)
 }
 
-pub fn texture_parameteriv(texture u32, pname u32, param int) {
-	C.glTextureParameteriv(texture, pname, param)
+// TODO
+pub fn texture_parameteriv(texture u32, pname u32, param []int) {
+	C.glTextureParameteriv(texture, pname, param.data)
 }
 
 pub fn generate_texture_mipmap(texture u32) {
@@ -357,28 +371,34 @@ pub fn get_compressed_texture_image(texture u32, level int, bufSize int, pixels 
 	C.glGetCompressedTextureImage(texture, level, bufSize, pixels)
 }
 
-pub fn get_texture_level_parameterfv(texture u32, level int, pname u32, params f32) {
-	C.glGetTextureLevelParameterfv(texture, level, pname, params)
+// TODO
+pub fn get_texture_level_parameterfv(texture u32, level int, pname u32, params []f32) {
+	C.glGetTextureLevelParameterfv(texture, level, pname, params.data)
 }
 
-pub fn get_texture_level_parameteriv(texture u32, level int, pname u32, params int) {
-	C.glGetTextureLevelParameteriv(texture, level, pname, params)
+// TODO
+pub fn get_texture_level_parameteriv(texture u32, level int, pname u32, params []int) {
+	C.glGetTextureLevelParameteriv(texture, level, pname, params.data)
 }
 
-pub fn get_texture_parameterfv(texture u32, pname u32, params f32) {
-	C.glGetTextureParameterfv(texture, pname, params)
+// TODO
+pub fn get_texture_parameterfv(texture u32, pname u32, params []f32) {
+	C.glGetTextureParameterfv(texture, pname, params.data)
 }
 
-pub fn get_texture_parameter_iiv(texture u32, pname u32, params int) {
-	C.glGetTextureParameterIiv(texture, pname, params)
+// TODO
+pub fn get_texture_parameter_iiv(texture u32, pname u32, params []int) {
+	C.glGetTextureParameterIiv(texture, pname, params.data)
 }
 
-pub fn get_texture_parameter_iuiv(texture u32, pname u32, params u32) {
-	C.glGetTextureParameterIuiv(texture, pname, params)
+// TODO
+pub fn get_texture_parameter_iuiv(texture u32, pname u32, params []u32) {
+	C.glGetTextureParameterIuiv(texture, pname, params.data)
 }
 
-pub fn get_texture_parameteriv(texture u32, pname u32, params int) {
-	C.glGetTextureParameteriv(texture, pname, params)
+// TODO
+pub fn get_texture_parameteriv(texture u32, pname u32, params []int) {
+	C.glGetTextureParameteriv(texture, pname, params.data)
 }
 
 // TODO
@@ -399,11 +419,12 @@ pub fn vertex_array_element_buffer(vaobj u32, buffer u32) {
 }
 
 pub fn vertex_array_vertex_buffer(vaobj u32, bindingindex u32, buffer u32, offset []int, stride int) {
-	C.glVertexArrayVertexBuffer(vaobj, bindingindex, buffer, offset, stride)
+	C.glVertexArrayVertexBuffer(vaobj, bindingindex, buffer, offset.data, stride)
 }
 
-pub fn vertex_array_vertex_buffers(vaobj u32, first u32, count int, buffers u32, offsets []int, strides int) {
-	C.glVertexArrayVertexBuffers(vaobj, first, count, buffers, offsets, strides)
+// TODO
+pub fn vertex_array_vertex_buffers(vaobj u32, first u32, count int, buffers []u32, offsets *voidptr, strides []int) {
+	C.glVertexArrayVertexBuffers(vaobj, first, count, buffers.data, offsets, strides.data)
 }
 
 pub fn vertex_array_attrib_binding(vaobj u32, attribindex u32, bindingindex u32) {
@@ -426,16 +447,19 @@ pub fn vertex_array_binding_divisor(vaobj u32, bindingindex u32, divisor u32) {
 	C.glVertexArrayBindingDivisor(vaobj, bindingindex, divisor)
 }
 
-pub fn get_vertex_arrayiv(vaobj u32, pname u32, param int) {
-	C.glGetVertexArrayiv(vaobj, pname, param)
+// TODO
+pub fn get_vertex_arrayiv(vaobj u32, pname u32, param []int) {
+	C.glGetVertexArrayiv(vaobj, pname, param.data)
 }
 
-pub fn get_vertex_array_indexediv(vaobj u32, index u32, pname u32, param int) {
-	C.glGetVertexArrayIndexediv(vaobj, index, pname, param)
+// TODO
+pub fn get_vertex_array_indexediv(vaobj u32, index u32, pname u32, param []int) {
+	C.glGetVertexArrayIndexediv(vaobj, index, pname, param.data)
 }
 
-pub fn get_vertex_array_indexed64iv(vaobj u32, index u32, pname u32, param i64) {
-	C.glGetVertexArrayIndexed64iv(vaobj, index, pname, param)
+// TODO
+pub fn get_vertex_array_indexed64iv(vaobj u32, index u32, pname u32, param []i64) {
+	C.glGetVertexArrayIndexed64iv(vaobj, index, pname, param.data)
 }
 
 // TODO
@@ -454,19 +478,19 @@ pub fn create_queries(target u32, n int, ids []u32) {
 }
 
 pub fn get_query_buffer_objecti64v(id u32, buffer u32, pname u32, offset []int) {
-	C.glGetQueryBufferObjecti64v(id, buffer, pname, offset)
+	C.glGetQueryBufferObjecti64v(id, buffer, pname, offset.data)
 }
 
 pub fn get_query_buffer_objectiv(id u32, buffer u32, pname u32, offset []int) {
-	C.glGetQueryBufferObjectiv(id, buffer, pname, offset)
+	C.glGetQueryBufferObjectiv(id, buffer, pname, offset.data)
 }
 
 pub fn get_query_buffer_objectui64v(id u32, buffer u32, pname u32, offset []int) {
-	C.glGetQueryBufferObjectui64v(id, buffer, pname, offset)
+	C.glGetQueryBufferObjectui64v(id, buffer, pname, offset.data)
 }
 
 pub fn get_query_buffer_objectuiv(id u32, buffer u32, pname u32, offset []int) {
-	C.glGetQueryBufferObjectuiv(id, buffer, pname, offset)
+	C.glGetQueryBufferObjectuiv(id, buffer, pname, offset.data)
 }
 
 pub fn memory_barrier_by_region(barriers u32) {
@@ -522,32 +546,39 @@ pub fn readn_pixels(x int, y int, width int, height int, format u32, type_ u32, 
 	C.glReadnPixels(x, y, width, height, format, type_, bufSize, data)
 }
 
-pub fn getn_mapdv(target u32, query u32, bufSize int, v f64) {
-	C.glGetnMapdv(target, query, bufSize, v)
+// TODO
+pub fn getn_mapdv(target u32, query u32, bufSize int, v []f64) {
+	C.glGetnMapdv(target, query, bufSize, v.data)
 }
 
-pub fn getn_mapfv(target u32, query u32, bufSize int, v f32) {
-	C.glGetnMapfv(target, query, bufSize, v)
+// TODO
+pub fn getn_mapfv(target u32, query u32, bufSize int, v []f32) {
+	C.glGetnMapfv(target, query, bufSize, v.data)
 }
 
-pub fn getn_mapiv(target u32, query u32, bufSize int, v int) {
-	C.glGetnMapiv(target, query, bufSize, v)
+// TODO
+pub fn getn_mapiv(target u32, query u32, bufSize int, v []int) {
+	C.glGetnMapiv(target, query, bufSize, v.data)
 }
 
-pub fn getn_pixel_mapfv(map u32, bufSize int, values f32) {
-	C.glGetnPixelMapfv(map, bufSize, values)
+// TODO
+pub fn getn_pixel_mapfv(map u32, bufSize int, values []f32) {
+	C.glGetnPixelMapfv(map, bufSize, values.data)
 }
 
-pub fn getn_pixel_mapuiv(map u32, bufSize int, values u32) {
-	C.glGetnPixelMapuiv(map, bufSize, values)
+// TODO
+pub fn getn_pixel_mapuiv(map u32, bufSize int, values []u32) {
+	C.glGetnPixelMapuiv(map, bufSize, values.data)
 }
 
-pub fn getn_pixel_mapusv(map u32, bufSize int, values u16) {
-	C.glGetnPixelMapusv(map, bufSize, values)
+// TODO
+pub fn getn_pixel_mapusv(map u32, bufSize int, values []u16) {
+	C.glGetnPixelMapusv(map, bufSize, values.data)
 }
 
-pub fn getn_polygon_stipple(bufSize int, pattern u8) {
-	C.glGetnPolygonStipple(bufSize, pattern)
+// TODO
+pub fn getn_polygon_stipple(bufSize int, pattern []u8) {
+	C.glGetnPolygonStipple(bufSize, pattern.data)
 }
 
 // TODO

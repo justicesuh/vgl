@@ -69,10 +69,6 @@ import const (
 	GL_INVALID_INDEX
 )
 
-pub fn init_glad() int {
-	return C.gladLoadGL()
-}
-
 pub fn draw_arrays_instanced(mode u32, first int, count int, instancecount int) {
 	C.glDrawArraysInstanced(mode, first, count, instancecount)
 }
@@ -91,12 +87,12 @@ pub fn primitive_restart_index(index u32) {
 }
 
 pub fn copy_buffer_sub_data(readTarget u32, writeTarget u32, readOffset []int, writeOffset []int, size []int) {
-	C.glCopyBufferSubData(readTarget, writeTarget, readOffset, writeOffset, size)
+	C.glCopyBufferSubData(readTarget, writeTarget, readOffset.data, writeOffset.data, size.data)
 }
 
 // TODO
-pub fn get_uniform_indices(program u32, uniformCount int, uniformNames string, uniformIndices []u32) {
-	C.glGetUniformIndices(program, uniformCount, uniformNames.str, uniformIndices.data)
+pub fn get_uniform_indices(program u32, uniformCount int, uniformNames voidptr, uniformIndices []u32) {
+	C.glGetUniformIndices(program, uniformCount, uniformNames, uniformIndices.data)
 }
 
 // TODO
@@ -129,7 +125,7 @@ pub fn uniform_block_binding(program u32, uniformBlockIndex u32, uniformBlockBin
 }
 
 pub fn bind_buffer_range(target u32, index u32, buffer u32, offset []int, size []int) {
-	C.glBindBufferRange(target, index, buffer, offset, size)
+	C.glBindBufferRange(target, index, buffer, offset.data, size.data)
 }
 
 pub fn bind_buffer_base(target u32, index u32, buffer u32) {

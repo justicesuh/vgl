@@ -104,10 +104,6 @@ import const (
 	GL_DOT3_RGBA
 )
 
-pub fn init_glad() int {
-	return C.gladLoadGL()
-}
-
 pub fn active_texture(texture u32) {
 	C.glActiveTexture(texture)
 }

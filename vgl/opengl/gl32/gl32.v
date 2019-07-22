@@ -504,10 +504,6 @@ import const (
 	GL_TEXTURE_INTENSITY_TYPE
 )
 
-pub fn init_glad() int {
-	return C.gladLoadGL()
-}
-
 // TODO
 pub fn draw_elements_base_vertex(mode u32, count int, type_ u32, indices voidptr, basevertex int) {
 	C.glDrawElementsBaseVertex(mode, count, type_, indices, basevertex)
@@ -524,7 +520,7 @@ pub fn draw_elements_instanced_base_vertex(mode u32, count int, type_ u32, indic
 }
 
 // TODO
-pub fn multi_draw_elements_base_vertex(mode u32, count []int, type_ u32, indices voidptr, drawcount int, basevertex []int) {
+pub fn multi_draw_elements_base_vertex(mode u32, count []int, type_ u32, indices *voidptr, drawcount int, basevertex []int) {
 	C.glMultiDrawElementsBaseVertex(mode, count.data, type_, indices, drawcount, basevertex.data)
 }
 
@@ -1775,7 +1771,7 @@ pub fn index_pointer(type_ u32, stride int, pointer voidptr) {
 }
 
 // TODO
-pub fn get_pointerv(pname u32, params voidptr) {
+pub fn get_pointerv(pname u32, params *voidptr) {
 	C.glGetPointerv(pname, params)
 }
 

@@ -601,7 +601,8 @@ pub fn get_integerv(pname u32, data []int) {
 	C.glGetIntegerv(pname, data.data)
 }
 
-pub fn get_string(name u32) u8 {
+// TODO
+pub fn get_string(name u32) []u8 {
 	return C.glGetString(name)
 }
 
