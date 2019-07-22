@@ -1,3 +1,3 @@
-# vgl
+# VGL - V Game Library
 
-Provides low-level access to the OpenGL and GLFW APIs.
+VGL provides low-level access to the OpenGL and GLFW libraries.
