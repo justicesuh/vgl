@@ -17,26 +17,26 @@ fn main() {
 
 	window := glfw.create_window(600, 400, 'GLFW Window', 0, 0)
 
-	glfw.set_key_callback(window, key_down)
-	glfw.show_window(window)
+	glfw.set_key_callback(window.handle, key_down)
+	window.show()
 
-	glfw.make_context_current(window)
+	window.make_context_current()
 
 	gl10.init_glad()
 
 	for {
-		if glfw.window_should_close(window) {
+		if window.should_close() {
 			break
 		}
 
 		gl10.clear_color(1, 0, 0, 0)
 		gl10.clear(u32(GL_COLOR_BUFFER_BIT))
 
-		glfw.swap_buffers(window)
+		window.swap_buffers()
 		glfw.poll_events()
 	}
 
-	glfw.destroy_window(window)
+	window.destroy()
 
 	glfw.terminate()
 }
